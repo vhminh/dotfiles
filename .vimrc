@@ -3,7 +3,6 @@
 " Fira Mono font
 "
 "
-
 set nocompatible
 
 " Vim plug
@@ -20,11 +19,13 @@ Plug 'jiangmiao/auto-pairs'
 " Plug 'dense-analysis/ale'
 Plug 'preservim/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'joshdick/onedark.vim'
 Plug 'preservim/tagbar'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 filetype plugin indent on
@@ -108,18 +109,20 @@ nnoremap <C-b> :Buffers<CR>
 nnoremap <C-f> :Files<CR>
 
 " Other
-set showmatch        " Dont know what this is
-set autoread         " Auto reload file from disk after running command
-set autowrite        " Auto save file
-set ignorecase       " Ignore case when search
-set smartcase        " Smart case when search
-set hlsearch         " Highlight search results
-set incsearch        " Jump to search result as we type
-set mouse=a          " Enable mouse
-set noexpandtab      " Don't expand tab to spaces
-set shiftwidth=4     " Shiftwidth indent with >>
-set tabstop=4        " Tab size when render
-set scrolloff=5      " Scroll offset
-set number           " Enable number
-set relativenumber   " Enable relative number
+set showmatch                   " Dont know what this is
+set backspace=indent,eol,start  " Backspace
+set smartindent
+set autoread                    " Auto reload file from disk after running command
+set autowrite                   " Auto save file
+set ignorecase                  " Ignore case when search
+set smartcase                   " Smart case when search
+set hlsearch                    " Highlight search results
+set incsearch                   " Jump to search result as we type
+set mouse=a                     " Enable mouse
+set noexpandtab                 " Don't expand tab to spaces
+set shiftwidth=4                " Shiftwidth indent with >>
+set tabstop=4                   " Tab size when render
+set scrolloff=5                 " Scroll offset
+set number                      " Enable number
+set relativenumber              " Enable relative number
 
