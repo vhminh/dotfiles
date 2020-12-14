@@ -1,0 +1,10 @@
+syntax on
+
+" Render whitespace characters
+"set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
+set listchars=tab:>·,trail:~
+set list
+
+if has("gui_running")
+	set guifont=Fira\ Mono\ Medium\ 12
+endif
