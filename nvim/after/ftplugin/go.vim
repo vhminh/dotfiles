@@ -1,9 +1,6 @@
-" Jump to definition and jump back
-nnoremap <buffer> gd :GoDef<CR>
-nnoremap <buffer> <C-]> :GoDef<CR>
+" Jump to definition with mouse
 nnoremap <buffer> <C-LeftMouse> <LeftMouse>:GoDef<CR>
 nnoremap <buffer> g<LeftMouse> <LeftMouse>:GoDef<CR>
-nnoremap <buffer> gb :GoDefPop<CR>
 
 " Shortcut to run
 nnoremap <buffer> <F5> :GoRun<CR>

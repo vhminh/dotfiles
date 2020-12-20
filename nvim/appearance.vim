@@ -6,5 +6,5 @@ set listchars=tab:>·,trail:~
 set list
 
 if has("gui_running")
-	set guifont=Fira\ Mono\ Medium\ 12
+	set guifont=Fira\ Mono\ Nerd\ Font\ Medium\ 12
 endif

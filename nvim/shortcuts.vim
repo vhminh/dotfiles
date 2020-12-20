@@ -1,7 +1,12 @@
 nnoremap <C-c> :nohlsearch<CR><CR>
 
-" Set leader key
+" Map Ctrl-C to ESC
+" since I remap Capslock to Ctrl
+" and C-c is easier to reach than C-[
+map <C-c> <ESC>
+map! <C-c> <ESC>
 
+" Set leader key
 let mapleader=" "
 
 " Move between panes

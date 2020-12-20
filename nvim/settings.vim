@@ -9,6 +9,7 @@ set splitbelow
 set splitright
 
 " Other
+set encoding=utf8
 set showcmd                     " Show when pressing leader key
 set clipboard=unnamedplus       " Copy from and paste to clipboard
 set showmatch                   " Dont know what this is
