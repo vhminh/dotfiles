@@ -83,9 +83,11 @@ if ${use_color} ; then
 else
 	if [[ ${EUID} == 0 ]] ; then
 		# show root@ when we don't have colors
-		PS1='\u@\h \W \$ '
+		#PS1='\u@\h \W \$ '
+		PS1='me@\h \W \$ '
 	else
-		PS1='\u@\h \w \$ '
+		#PS1='\u@\h \w \$ '
+		PS1='me@\h \w \$ '
 	fi
 fi
 
@@ -147,5 +149,9 @@ set -o vi
 ## Custom aliases
 if [ -f ~/.bash_aliases ]; then
 	. ~/.bash_aliases
+fi
+
+if [ -f ~/shortcuts.sh ]; then
+	. ~/shortcuts.sh
 fi
 
