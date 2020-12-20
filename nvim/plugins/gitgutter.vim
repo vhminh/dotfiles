@@ -1,0 +1,2 @@
+autocmd BufWritePost * GitGutter
+

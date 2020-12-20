@@ -6,6 +6,13 @@ nnoremap <C-c> :nohlsearch<CR><CR>
 map <C-c> <ESC>
 map! <C-c> <ESC>
 
+" Fix Y behavior to yank to the end of the line
+nmap Y y$
+
+" Keep the visual after indenting block in visual mode
+vmap < <gv
+vmap > >gv
+
 " Set leader key
 let mapleader=" "
 
