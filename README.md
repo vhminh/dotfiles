@@ -1,5 +1,5 @@
 # dotfiles
-My dotfiles for X window server, bash, neovim
+My dotfiles for `X` window server, `bash`, `neovim`, `alacritty`
 
 ## Configs
 - Xorg
@@ -13,6 +13,7 @@ My dotfiles for X window server, bash, neovim
 	- coc completion
 - Bash aliases
 	- Use `exa` instead of `ls`
+- Alacritty
 
 ## Dependencies
 ### For (neo)vim
@@ -21,3 +22,5 @@ My dotfiles for X window server, bash, neovim
 - ripgrep (for fzf)
 ### For bash alias
 - exa
+### For Alacritty
+- Fira Mono nerd font
