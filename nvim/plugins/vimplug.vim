@@ -31,7 +31,6 @@ if need_to_install_plugins == 1
 	q
 endif
 
-source $HOME/.config/nvim/plugins/onedark.vim
 source $HOME/.config/nvim/plugins/lightline.vim
 source $HOME/.config/nvim/plugins/nerdtree.vim
 source $HOME/.config/nvim/plugins/nerdtree-git.vim

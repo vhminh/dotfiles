@@ -5,6 +5,10 @@ syntax on
 set listchars=tab:>·,trail:~
 set list
 
+" GUI font
 if has("gui_running")
 	set guifont=Fira\ Mono\ Nerd\ Font\ Medium\ 12
 endif
+
+" Theme
+colorscheme onedark
