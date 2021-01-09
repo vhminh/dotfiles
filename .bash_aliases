@@ -1,10 +1,10 @@
 export EDITOR=nvim
 alias sudo='sudo '
 alias l='ls'
-alias la='exa -la -s type'
+alias la='exa -a -s type'
 alias ll='exa -llh -s type'
 alias lla='exa -llah -s type'
-alias lai='exa -la -s type --icons'
+alias lai='exa -a -s type --icons'
 alias lli='exa -llh -s type --icons'
 alias llai='exa -llah -s type --icons'
 alias tree='exa -T'
