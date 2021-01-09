@@ -10,5 +10,3 @@ if has("gui_running")
 	set guifont=Fira\ Mono\ Nerd\ Font\ Medium\ 12
 endif
 
-" Theme
-colorscheme onedark
