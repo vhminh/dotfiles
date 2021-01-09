@@ -1,4 +1,5 @@
-nnoremap <C-c> :nohlsearch<CR><CR>
+nnoremap <C-c> :nohlsearch<CR>
+nnoremap <ESC> :nohlsearch<CR>
 
 " Map Ctrl-C to ESC
 " since I remap Capslock to Ctrl
@@ -25,6 +26,15 @@ tnoremap <C-h> <C-w>h
 tnoremap <C-j> <C-w>j
 tnoremap <C-k> <C-w>k
 tnoremap <C-l> <C-w>l
+
+nnoremap <M-h> <C-w>h
+nnoremap <M-j> <C-w>j
+nnoremap <M-k> <C-w>k
+nnoremap <M-l> <C-w>l
+tnoremap <M-h> <C-w>h
+tnoremap <M-j> <C-w>j
+tnoremap <M-k> <C-w>k
+tnoremap <M-l> <C-w>l
 
 " Navigate with rendered line instead of logical line
 nnoremap k gk
