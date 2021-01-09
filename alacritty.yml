@@ -515,7 +515,7 @@ working_directory: None
 font:
   normal:
     family: Fira Mono Nerd Font
-    style: Regular
+    style: Medium
 
   bold:
     family: Fira Mono Nerd Font
