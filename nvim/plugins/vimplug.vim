@@ -39,4 +39,5 @@ source $HOME/.config/nvim/plugins/nerdtree-git.vim
 source $HOME/.config/nvim/plugins/gitgutter.vim
 source $HOME/.config/nvim/plugins/tagbar.vim
 source $HOME/.config/nvim/plugins/fzf.vim
+source $HOME/.config/nvim/plugins/vim-go.vim
 
