@@ -18,9 +18,16 @@ Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+if has('nvim-0.5')
+	" Use built-in nvim lsp
+	Plug 'neovim/nvim-lspconfig'
+	Plug 'nvim-lua/completion-nvim'
+else
+	" Use Coc for older versions
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+endif
 Plug 'tpope/vim-commentary'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
 " Install plugins
@@ -31,7 +38,15 @@ if need_to_install_plugins == 1
 	q
 endif
 
-source $HOME/.config/nvim/plugins/coc.vim
+if has('nvim-0.5')
+	" Source lsp settings
+	source $HOME/.config/nvim/plugins/lsp.vim
+	source $HOME/.config/nvim/plugins/completion.vim
+else
+	" Source Coc settings
+	source $HOME/.config/nvim/plugins/coc.vim
+	source $HOME/.config/nvim/plugins/vim-go.vim
+endif
 source $HOME/.config/nvim/plugins/onedark.vim
 source $HOME/.config/nvim/plugins/lightline.vim
 source $HOME/.config/nvim/plugins/nerdtree.vim
@@ -39,5 +54,4 @@ source $HOME/.config/nvim/plugins/nerdtree-git.vim
 source $HOME/.config/nvim/plugins/gitgutter.vim
 source $HOME/.config/nvim/plugins/tagbar.vim
 source $HOME/.config/nvim/plugins/fzf.vim
-source $HOME/.config/nvim/plugins/vim-go.vim
 
