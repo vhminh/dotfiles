@@ -22,7 +22,6 @@ if has('nvim-0.5')
 	" Use built-in nvim lsp
 	Plug 'neovim/nvim-lspconfig'
 	Plug 'nvim-lua/completion-nvim'
-	Plug 'nvim-lua/diagnostic-nvim'
 else
 	" Use Coc for older versions
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
