@@ -24,7 +24,9 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
   -- <space>ga for code action
-  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', '<space>ca', '<cmd>lua print(vim.inspect(vim.lsp.buf.code_action()))<CR>', opts)
+  -- mouse mapping
+  buf_set_keymap('n', '<C-LeftMouse>', '<LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>', opts)
 
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
