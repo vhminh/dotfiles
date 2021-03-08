@@ -13,6 +13,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary'
+Plug 'wellle/context.vim'
 if has('nvim-0.5')
 	source $HOME/.config/nvim/plugins/vimplug-nvim.vim
 else
