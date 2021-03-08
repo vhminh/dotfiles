@@ -53,8 +53,9 @@ local get_os_logo = function()
 			icon = ''
 		elseif os == 'Darwin' then
 			icon = ''
+		elseif os == 'FreeBSD' then
+			icon = ''
 		else
-			-- TODO: BSD
 			icon = ''
 		end
 	end
