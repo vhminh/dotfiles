@@ -1,7 +1,13 @@
 let need_to_install_plugins = 0
-if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-    silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+if has('nvim')
+	let vimplug_path = '~/.local/share/nvim/site/autoload/plug.vim'
+else
+	let vimplug_path = '~/.vim/autoload/plug.vim'
+endif
+
+if empty(glob(vimplug_path))
+	silent execute '!curl -fLo ' . vimplug_path . ' --create-dirs '
+		\ . 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 	"autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 	let need_to_install_plugins = 1
 endif
