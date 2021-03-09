@@ -67,12 +67,14 @@ local condition = require('galaxyline.condition')
 local gls = gl.section
 gl.short_line_list = {'NvimTree','vista','dbui'}
 
+local os_logo = get_os_logo()
+
 gls.left[1] = {
 	ViMode = {
 		provider = function()
 			local mode = vim.fn.mode()
 			vim.api.nvim_command('hi GalaxyViMode guifg='..colors.bg..' guibg='..get_mode_color(mode))
-			return '  '..get_os_logo()..' '..get_mode_text(mode)..' '
+			return '  '..os_logo..' '..get_mode_text(mode)..' '
 		end,
 		highlight = {colors.red,colors.bg,'bold'},
 	},

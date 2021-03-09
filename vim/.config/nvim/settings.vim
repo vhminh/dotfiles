@@ -16,7 +16,7 @@ set showmatch                   " Dont know what this is
 set backspace=indent,eol,start  " Backspace
 set smartindent
 set autoread                    " Auto reload file from disk after running command
-set autowrite                   " Auto save file
+set autowriteall                " Auto save file
 set ignorecase                  " Ignore case when search
 set smartcase                   " Smart case when search
 set hlsearch                    " Highlight search results
