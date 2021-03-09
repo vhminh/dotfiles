@@ -76,7 +76,7 @@ gls.left[1] = {
 			vim.api.nvim_command('hi GalaxyViMode guifg='..colors.bg..' guibg='..get_mode_color(mode))
 			return '  '..os_logo..' '..get_mode_text(mode)..' '
 		end,
-		highlight = {colors.red,colors.bg,'bold'},
+		highlight = {colors.red,colors.bg},
 	},
 }
 
@@ -99,7 +99,7 @@ gls.left[4] = {
 	FileName = {
 		provider = {'FileName'},
 		condition = condition.buffer_not_empty,
-		highlight = {colors.magenta,colors.bg,'bold'}
+		highlight = {colors.magenta,colors.bg}
 	}
 }
 
@@ -148,7 +148,7 @@ gls.right[2] = {
 		provider = 'LinePercent',
 		separator = ' ',
 		separator_highlight = {'NONE',colors.bg},
-		highlight = {colors.fg,colors.bg,'bold'},
+		highlight = {colors.fg,colors.bg},
 	}
 }
 
@@ -157,7 +157,7 @@ gls.right[3] = {
 		provider = 'FileEncode',
 		separator = ' ',
 		separator_highlight = {'NONE',colors.bg},
-		highlight = {colors.green,colors.bg,'bold'}
+		highlight = {colors.green,colors.bg}
 	}
 }
 
@@ -166,7 +166,7 @@ gls.right[4] = {
 		provider = 'FileFormat',
 		separator = ' ',
 		separator_highlight = {'NONE',colors.bg},
-		highlight = {colors.green,colors.bg,'bold'}
+		highlight = {colors.green,colors.bg}
 	}
 }
 
@@ -183,7 +183,7 @@ gls.right[5] = {
 		separator = ' ',
 		separator_highlight = {'NONE',colors.bg},
 		icon = '  LSP: ',
-		highlight = {colors.cyan,colors.bg,'bold'}
+		highlight = {colors.cyan,colors.bg}
 	}
 }
 
@@ -250,7 +250,7 @@ gls.short_line_left[2] = {
 	SFileName = {
 		provider = 'SFileName',
 		condition = condition.buffer_not_empty,
-		highlight = {colors.fg,colors.bg,'bold'}
+		highlight = {colors.fg,colors.bg}
 	}
 }
 
