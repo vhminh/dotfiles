@@ -104,13 +104,28 @@ gls.left[4] = {
 }
 
 gls.left[5] = {
+	Function = {
+		provider = function () 
+			local fn_name = vim.api.nvim_eval("get(b:, 'vista_nearest_method_or_function', '')")
+			if fn_name == "" then
+				return ""
+			end
+			return ': ' .. fn_name
+		end,
+		separator = ' ',
+		separator_highlight = {'NONE',colors.bg},
+		highlight = {colors.fg,colors.bg},
+	},
+}
+
+gls.left[6] = {
 	DiagnosticError = {
 		provider = 'DiagnosticError',
 		icon = '  ',
 		highlight = {colors.red,colors.bg}
 	}
 }
-gls.left[6] = {
+gls.left[7] = {
 	DiagnosticWarn = {
 		provider = 'DiagnosticWarn',
 		icon = '  ',
@@ -118,7 +133,7 @@ gls.left[6] = {
 	}
 }
 
-gls.left[7] = {
+gls.left[8] = {
 	DiagnosticHint = {
 		provider = 'DiagnosticHint',
 		icon = '  ',
@@ -126,7 +141,7 @@ gls.left[7] = {
 	}
 }
 
-gls.left[8] = {
+gls.left[9] = {
 	DiagnosticInfo = {
 		provider = 'DiagnosticInfo',
 		icon = '  ',
@@ -134,13 +149,22 @@ gls.left[8] = {
 	}
 }
 
+
+-- gls.right[1] = {
+-- 	LineInfo = {
+-- 		provider = 'LineColumn',
+-- 		separator = ' ',
+-- 		separator_highlight = {'NONE',colors.bg},
+-- 		highlight = {colors.fg,colors.bg},
+-- 	},
+-- }
 gls.right[1] = {
-	LineInfo = {
-		provider = 'LineColumn',
+	TotalLines = {
+		provider = function () return vim.api.nvim_buf_line_count(0) .. ' lines' end,
 		separator = ' ',
 		separator_highlight = {'NONE',colors.bg},
 		highlight = {colors.fg,colors.bg},
-	},
+	}
 }
 
 gls.right[2] = {
