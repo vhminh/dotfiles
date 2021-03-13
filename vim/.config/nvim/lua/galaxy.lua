@@ -105,7 +105,7 @@ gls.left[4] = {
 
 gls.left[5] = {
 	Function = {
-		provider = function () 
+		provider = function ()
 			local fn_name = vim.api.nvim_eval("get(b:, 'vista_nearest_method_or_function', '')")
 			if fn_name == "" then
 				return ""
@@ -206,7 +206,6 @@ gls.right[5] = {
 		end,
 		separator = ' ',
 		separator_highlight = {'NONE',colors.bg},
-		icon = '  LSP: ',
 		highlight = {colors.cyan,colors.bg}
 	}
 }

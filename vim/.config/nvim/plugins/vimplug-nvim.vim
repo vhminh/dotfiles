@@ -4,4 +4,5 @@ Plug 'liuchengxu/vista.vim'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'glepnir/galaxyline.nvim'
+Plug 'onsails/lspkind-nvim'
 
