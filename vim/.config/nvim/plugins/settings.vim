@@ -2,6 +2,7 @@ if has('nvim-0.5')
 	source $HOME/.config/nvim/plugins/settings/lsp.vim
 	source $HOME/.config/nvim/plugins/settings/completion.vim
 	source $HOME/.config/nvim/plugins/settings/vista.vim
+	source $HOME/.config/nvim/plugins/settings/tree-sitter.vim
 	source $HOME/.config/nvim/plugins/settings/nvim-tree.vim
 	source $HOME/.config/nvim/plugins/settings/galaxyline.vim
 else
