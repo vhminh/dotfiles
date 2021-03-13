@@ -36,6 +36,12 @@ tnoremap <M-j> <C-w>j
 tnoremap <M-k> <C-w>k
 tnoremap <M-l> <C-w>l
 
+" Resize panes
+nnoremap <C-w><C-h> :vertical resize -2<CR>
+nnoremap <C-w><C-j> :resize -2<CR>
+nnoremap <C-w><C-k> :resize +2<CR>
+nnoremap <C-w><C-l> :vertical resize +2<CR>
+
 " Navigate with rendered line instead of logical line
 nnoremap k gk
 nnoremap j gj
