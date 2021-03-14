@@ -45,3 +45,6 @@ nnoremap <C-w><C-l> :vertical resize +2<CR>
 " Navigate with rendered line instead of logical line
 nnoremap k gk
 nnoremap j gj
+
+" Ctrl-Q to quit
+nnoremap <C-q> :quit<CR>
