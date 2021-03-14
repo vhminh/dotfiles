@@ -149,34 +149,19 @@ gls.left[9] = {
 	}
 }
 
-
--- gls.right[1] = {
--- 	LineInfo = {
--- 		provider = 'LineColumn',
--- 		separator = ' ',
--- 		separator_highlight = {'NONE',colors.bg},
--- 		highlight = {colors.fg,colors.bg},
--- 	},
--- }
 gls.right[1] = {
 	TotalLines = {
-		provider = function () return vim.api.nvim_buf_line_count(0) .. ' lines' end,
-		separator = ' ',
+		provider = function () 
+			local cur_line_num = vim.api.nvim_win_get_cursor(0)[1]
+			local line_count = vim.api.nvim_buf_line_count(0)
+			return cur_line_num .. ' / ' .. line_count
+		end,
 		separator_highlight = {'NONE',colors.bg},
 		highlight = {colors.fg,colors.bg},
 	}
 }
 
 gls.right[2] = {
-	PerCent = {
-		provider = 'LinePercent',
-		separator = ' ',
-		separator_highlight = {'NONE',colors.bg},
-		highlight = {colors.fg,colors.bg},
-	}
-}
-
-gls.right[3] = {
 	FileEncode = {
 		provider = 'FileEncode',
 		separator = ' ',
@@ -185,7 +170,7 @@ gls.right[3] = {
 	}
 }
 
-gls.right[4] = {
+gls.right[3] = {
 	FileFormat = {
 		provider = 'FileFormat',
 		separator = ' ',
@@ -194,7 +179,7 @@ gls.right[4] = {
 	}
 }
 
-gls.right[5] = {
+gls.right[4] = {
 	ShowLspClient = {
 		provider = 'GetLspClient',
 		condition = function ()
@@ -210,7 +195,7 @@ gls.right[5] = {
 	}
 }
 
-gls.right[6] = {
+gls.right[5] = {
 	GitIcon = {
 		provider = function() return '  ' end,
 		condition = condition.check_git_workspace,
@@ -220,7 +205,7 @@ gls.right[6] = {
 	}
 }
 
-gls.right[7] = {
+gls.right[6] = {
 	GitBranch = {
 		provider = 'GitBranch',
 		condition = condition.check_git_workspace,
@@ -228,7 +213,7 @@ gls.right[7] = {
 	}
 }
 
-gls.right[8] = {
+gls.right[7] = {
 	DiffAdd = {
 		provider = 'DiffAdd',
 		condition = condition.hide_in_width,
@@ -236,7 +221,7 @@ gls.right[8] = {
 		highlight = {colors.green,colors.bg},
 	}
 }
-gls.right[9] = {
+gls.right[8] = {
 	DiffModified = {
 		provider = 'DiffModified',
 		condition = condition.hide_in_width,
@@ -244,7 +229,7 @@ gls.right[9] = {
 		highlight = {colors.yellow,colors.bg},
 	}
 }
-gls.right[10] = {
+gls.right[9] = {
 	DiffRemove = {
 		provider = 'DiffRemove',
 		condition = condition.hide_in_width,
@@ -253,7 +238,7 @@ gls.right[10] = {
 	}
 }
 
-gls.right[11] = {
+gls.right[10] = {
 	RainbowBlue = {
 		provider = function() return ' ▊' end,
 		highlight = {colors.blue,colors.bg}
