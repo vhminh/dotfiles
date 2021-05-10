@@ -1,4 +1,5 @@
 nnoremap <leader>d <cmd>LspTroubleToggle<cr>
+nnoremap gr <cmd>LspTroubleToggle lsp_references<cr>
 
 lua << EOF
   require("trouble").setup {
