@@ -5,6 +5,7 @@ if has('nvim-0.5')
 	source $HOME/.config/nvim/plugins/settings/tree-sitter.vim
 	source $HOME/.config/nvim/plugins/settings/nvim-tree.vim
 	source $HOME/.config/nvim/plugins/settings/galaxyline.vim
+	source $HOME/.config/nvim/plugins/settings/trouble.vim
 else
 	source $HOME/.config/nvim/plugins/settings/lightline.vim
 	source $HOME/.config/nvim/plugins/settings/tagbar.vim

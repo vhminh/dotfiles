@@ -6,4 +6,5 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'glepnir/galaxyline.nvim'
 Plug 'onsails/lspkind-nvim'
+Plug 'folke/lsp-trouble.nvim'
 
