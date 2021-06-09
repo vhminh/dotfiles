@@ -4,6 +4,7 @@ if has('nvim-0.5')
 	source $HOME/.config/nvim/viml/vista.vim
 	source $HOME/.config/nvim/viml/tree-sitter.vim
 	source $HOME/.config/nvim/viml/nvim-tree.vim
+	lua require('nvim-icons')
 	source $HOME/.config/nvim/viml/trouble.vim
 	lua require('galaxy')
 else
