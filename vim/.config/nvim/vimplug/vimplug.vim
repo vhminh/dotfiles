@@ -12,21 +12,11 @@ if empty(glob(vimplug_path))
 	let need_to_install_plugins = 1
 endif
 
-call plug#begin('~/.vim/plugged')
-Plug 'jiangmiao/auto-pairs'
-Plug 'joshdick/onedark.vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-commentary'
-" Plug 'wellle/context.vim'
-" Plug 'wfxr/minimap.vim'
 if has('nvim-0.5')
-	source $HOME/.config/nvim/plugins/vimplug-nvim.vim
+	source $HOME/.config/nvim/vimplug/nvim.vim
 else
-	source $HOME/.config/nvim/plugins/vimplug-vim.vim
+	source $HOME/.config/nvim/vim.vim
 endif
-call plug#end()
 
 " Install plugins
 if need_to_install_plugins == 1
@@ -36,5 +26,5 @@ if need_to_install_plugins == 1
 	q
 endif
 
-source $HOME/.config/nvim/plugins/settings.vim
+source $HOME/.config/nvim/vimplug/settings.vim
 
