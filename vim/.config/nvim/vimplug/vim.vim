@@ -15,5 +15,5 @@ Plug 'preservim/nerdtree' |
 			\ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'itchyny/lightline.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()

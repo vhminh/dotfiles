@@ -15,7 +15,7 @@ endif
 if has('nvim-0.5')
 	source $HOME/.config/nvim/vimplug/nvim.vim
 else
-	source $HOME/.config/nvim/vim.vim
+	source $HOME/.config/nvim/vimplug/vim.vim
 endif
 
 " Install plugins
