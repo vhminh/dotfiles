@@ -37,14 +37,15 @@ colorscheme onedark
 " FZF                                        "
 """"""""""""""""""""""""""""""""""""""""""""""
 nnoremap <C-f> :Files<CR>
-nnoremap <leader>ff :Files<CR>
-nnoremap <leader>fb :Buffers<CR>
-let g:NetrwIsOpen=0
+nnoremap <C-b> :Buffers<CR>
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>b :Buffers<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " NETRW                                      "
 """"""""""""""""""""""""""""""""""""""""""""""
+let g:NetrwIsOpen=0
 function! ToggleNetrw()
     if g:NetrwIsOpen
         let i = bufnr("$")
@@ -128,6 +129,8 @@ set foldmethod=indent
 set foldlevelstart=99
 
 " other
+set autoread
+set autowriteall
 set autochdir
 set cursorline
 set lazyredraw
@@ -139,6 +142,7 @@ set scrolloff=5
 
 " Statusline stuffs
 if has('nvim')
+    let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
     set noshowmode
 endif
 set noruler
