@@ -25,3 +25,7 @@ command! BDel call fzf#run(fzf#wrap({
 
 nnoremap <leader>fw :BDel<CR>
 
+if executable('rg')
+  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden -g "!{.git,node_modules}"'
+end
+
