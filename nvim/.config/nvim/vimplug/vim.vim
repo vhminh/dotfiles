@@ -1,4 +1,3 @@
-call plug#begin('~/.vim/plugged')
 Plug 'jiangmiao/auto-pairs'
 Plug 'joshdick/onedark.vim'
 Plug 'airblade/vim-gitgutter'
@@ -16,4 +15,4 @@ Plug 'preservim/nerdtree' |
 Plug 'itchyny/lightline.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-call plug#end()
+

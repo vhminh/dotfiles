@@ -1,4 +1,3 @@
-call plug#begin('~/.vim/plugged')
 Plug 'jiangmiao/auto-pairs'
 Plug 'joshdick/onedark.vim'
 Plug 'airblade/vim-gitgutter'
@@ -15,5 +14,4 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'glepnir/galaxyline.nvim'
 Plug 'onsails/lspkind-nvim'
 Plug 'folke/lsp-trouble.nvim'
-call plug#end()
 

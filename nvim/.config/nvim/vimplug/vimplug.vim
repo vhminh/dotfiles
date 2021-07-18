@@ -1,30 +1,24 @@
-let need_to_install_plugins = 0
-if has('nvim')
-	let vimplug_path = '~/.local/share/nvim/site/autoload/plug.vim'
-else
-	let vimplug_path = '~/.vim/autoload/plug.vim'
+" auto install vim plug
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-if empty(glob(vimplug_path))
-	silent execute '!curl -fLo ' . vimplug_path . ' --create-dirs '
-		\ . 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-	"autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-	let need_to_install_plugins = 1
-endif
-
+" plugins
+call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 if has('nvim-0.5')
-	source $HOME/.config/nvim/vimplug/nvim.vim
+  source $HOME/.config/nvim/vimplug/nvim.vim
 else
-	source $HOME/.config/nvim/vimplug/vim.vim
+  source $HOME/.config/nvim/vimplug/vim.vim
 endif
+call plug#end()
 
-" Install plugins
-if need_to_install_plugins == 1
-	echo "Installing plugins..."
-	silent! PlugInstall
-	echo "Done!"
-	q
-endif
+" auto install missing plugin
+autocmd VimEnter *
+  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \|   PlugInstall --sync | q
+  \| endif
 
 source $HOME/.config/nvim/vimplug/settings.vim
 
