@@ -41,6 +41,10 @@ nnoremap <C-b> :Buffers<CR>
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>b :Buffers<CR>
 
+if executable('rg')
+  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden -g "!{.git,node_modules}"'
+end
+
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " NETRW                                      "
@@ -103,6 +107,7 @@ set relativenumber
 " searching
 set incsearch
 set hlsearch
+set ignorecase
 set smartcase
 
 " useful mappings
