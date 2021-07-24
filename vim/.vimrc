@@ -98,6 +98,92 @@ end
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
+" STATUS LINE                                "
+""""""""""""""""""""""""""""""""""""""""""""""
+let colors = onedark#GetColors()
+execute 'highlight' 'StatusLineHighlightRed'  'guibg=' colors.red.gui 'ctermbg=' colors.red.cterm  'guifg=' colors.background.gui 'ctermfg=' colors.background.cterm
+execute 'highlight' 'StatusLineHighlightGreen' 'guibg=' colors.green.gui 'ctermbg=' colors.green.cterm 'guifg=' colors.background.gui 'ctermfg=' colors.background.cterm
+execute 'highlight' 'StatusLineHighlightBlue' 'guibg=' colors.blue.gui 'ctermbg=' colors.blue.cterm 'guifg=' colors.background.gui 'ctermfg=' colors.background.cterm
+execute 'highlight' 'StatusLineHighlightYellow' 'guibg=' colors.yellow.gui 'ctermbg=' colors.yellow.cterm 'guifg=' colors.background.gui 'ctermfg=' colors.background.cterm
+execute 'highlight' 'StatusLineHighlightPurple' 'guibg=' colors.purple.gui 'ctermbg=' colors.purple.cterm 'guifg=' colors.background.gui 'ctermfg=' colors.background.cterm
+
+let g:name_by_mode = {
+  \ 'n': 'NORMAL',
+  \ 'v': 'VISUAL',
+  \ 'V': 'V-LINE',
+  \ '': 'V-BLOCK',
+  \ 's': 'SELECT',
+  \ 'S': 'S-LINE',
+  \ '': 'S_BLOCK',
+  \ 'i': 'INSERT',
+  \ 'R': 'REPLACE',
+  \ 'c': 'COMMAND',
+  \ 'r': 'ENTER?',
+  \ '!': 'SHELL',
+  \ 't': 'TERM',
+  \}
+
+let g:color_by_mode = {
+  \ 'n': 'Blue',
+  \ 'v': 'Yellow',
+  \ 'V': 'Yellow',
+  \ '': 'Yellow',
+  \ 's': 'Yellow',
+  \ 'S': 'Yellow',
+  \ '': 'Yellow',
+  \ 'i': 'Green',
+  \ 'R': 'Red',
+  \}
+
+autocmd WinEnter * let w:is_split_active = 1
+autocmd WinLeave * let w:is_split_active = 0
+
+function! GetStatusLineMode()
+  if exists('w:is_split_active') && !w:is_split_active
+    return 'INACTIVE'
+  endif
+  let m = mode(1)
+  let color = has_key(g:color_by_mode, m) ? get(g:color_by_mode, m) : 'Purple'
+  return '%#StatusLineHighlight' . color . '# ' . get(g:name_by_mode, m, 'UNKNOWN') . ' %*'
+endfunction
+
+function! GetGitBranch()
+  if !executable('git')
+    " Git not installed
+    return ''
+  endif
+  silent! exe 'git rev-parse --is-inside-work-tree &>/dev/null'
+  if v:shell_error != 0
+    " Not inside a git repo
+    return ''
+  endif
+  return system('git symbolic-ref --short HEAD')
+endfunction
+
+function! StatusLineGitBranch()
+  if !exists('w:git_branch')
+    let w:git_branch = GetGitBranch()
+  endif
+  return w:git_branch
+endfunction
+
+autocmd WinEnter * let w:git_branch = GetGitBranch()
+autocmd VimEnter * let w:git_branch = GetGitBranch()
+autocmd BufWinEnter * let w:git_branch = GetGitBranch()
+
+set statusline=%{%GetStatusLineMode()%}
+set statusline+=\ %t
+set statusline+=\ %y
+set statusline+=\ %m
+set statusline+=\ %r
+set statusline+=\ %h
+set statusline+=\ %w
+set statusline+=%=
+set statusline+=Current:\ %-5l\ Total:\ %-5L
+set statusline+=\ %{StatusLineGitBranch()}\ 
+
+
+""""""""""""""""""""""""""""""""""""""""""""""
 " OTHER                                      "
 """"""""""""""""""""""""""""""""""""""""""""""
 filetype plugin indent on
@@ -124,6 +210,7 @@ set smartcase
 " useful mappings
 map <C-c> <ESC>
 map! <C-c> <ESC>
+map <C-c> :nohlsearch<CR>
 nnoremap j gj
 nnoremap k gk
 nnoremap B ^
@@ -162,7 +249,7 @@ if has('nvim')
 endif
 set noruler
 
-set laststatus=1
+set laststatus=2
 set noshowcmd
 set cmdheight=1
 
