@@ -69,6 +69,7 @@ function! ToggleNetrw()
     silent Lexplore
   endif
 endfunction
+
 nnoremap <C-n> :call ToggleNetrw()<CR>
 nnoremap <leader>n :call ToggleNetrw()<CR>
 let g:netrw_winsize = 20
@@ -77,6 +78,10 @@ augroup netrw_mapping
   autocmd!
   autocmd filetype netrw call NetrwMapping()
 augroup END
+
+" Dont auto change dir when open another buffer
+" since we need netrw to open the working directory
+set noautochdir
 
 function! NetrwMapping()
   nmap <buffer> o <CR>
@@ -142,7 +147,6 @@ set foldlevelstart=99
 " other
 set autoread
 set autowriteall
-set autochdir
 set cursorline
 set lazyredraw
 set showmatch
