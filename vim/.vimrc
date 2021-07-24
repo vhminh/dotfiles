@@ -17,7 +17,9 @@ Plug 'joshdick/onedark.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'jiangmiao/auto-pairs'
-"Plug 'preservim/tagbar'
+if executable('ctags')
+  Plug 'preservim/tagbar'
+end
 call plug#end()
 " auto install missing plugin
 autocmd VimEnter *
@@ -82,8 +84,10 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""
 " TAGBAR                                     "
 """"""""""""""""""""""""""""""""""""""""""""""
-"nnoremap <C-t> :TagbarToggle<CR>
-"nnoremap <leader>t :TagbarToggle<CR>
+if executable('ctags')
+  nnoremap <C-t> :TagbarToggle<CR>
+  nnoremap <leader>t :TagbarToggle<CR>
+end
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
