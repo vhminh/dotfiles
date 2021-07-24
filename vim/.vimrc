@@ -32,6 +32,7 @@ autocmd VimEnter *
 " ONE DARK                                   "
 """"""""""""""""""""""""""""""""""""""""""""""
 syntax on
+set notermguicolors
 colorscheme onedark
 
 
