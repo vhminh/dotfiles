@@ -23,9 +23,9 @@ end
 call plug#end()
 " auto install missing plugin
 autocmd VimEnter *
-      \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-      \|   PlugInstall --sync | q
-      \| endif
+  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \|   PlugInstall --sync | q
+  \| endif
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
