@@ -101,7 +101,7 @@ end
 " STATUS LINE                                "
 """"""""""""""""""""""""""""""""""""""""""""""
 let colors = onedark#GetColors()
-let background_color = has_key(colors, 'background') ? colors.background : colors.back
+let background_color = has_key(colors, 'background') ? colors.background : colors.black
 execute 'highlight' 'StatusLineHighlightRed'  'guibg=' colors.red.gui 'ctermbg=' colors.red.cterm  'guifg=' background_color.gui 'ctermfg=' background_color.cterm
 execute 'highlight' 'StatusLineHighlightGreen' 'guibg=' colors.green.gui 'ctermbg=' colors.green.cterm 'guifg=' background_color.gui 'ctermfg=' background_color.cterm
 execute 'highlight' 'StatusLineHighlightBlue' 'guibg=' colors.blue.gui 'ctermbg=' colors.blue.cterm 'guifg=' background_color.gui 'ctermfg=' background_color.cterm
