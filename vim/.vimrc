@@ -17,6 +17,7 @@ Plug 'joshdick/onedark.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-vinegar'
 if executable('ctags')
   Plug 'preservim/tagbar'
 end
