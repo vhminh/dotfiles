@@ -139,7 +139,7 @@ let g:color_by_mode = {
 autocmd WinEnter * let w:is_split_active = 1
 autocmd WinLeave * let w:is_split_active = 0
 
-function! GetStatusLineMode()
+function! StatusLineMode()
   if exists('w:is_split_active') && !w:is_split_active
     return 'INACTIVE'
   endif
@@ -168,20 +168,15 @@ function! StatusLineGitBranch()
   return w:git_branch
 endfunction
 
+function! StatusLine()
+  return StatusLineMode() . ' %t %y %m%< %r %h %w%=Current: %-5l Total: %-5l ' . StatusLineGitBranch() . ' '
+endfunction
+
 autocmd WinEnter * let w:git_branch = GetGitBranch()
 autocmd VimEnter * let w:git_branch = GetGitBranch()
 autocmd BufWinEnter * let w:git_branch = GetGitBranch()
 
-set statusline=%{%GetStatusLineMode()%}
-set statusline+=\ %t
-set statusline+=\ %y
-set statusline+=\ %m
-set statusline+=\ %r
-set statusline+=\ %h
-set statusline+=\ %w
-set statusline+=%=
-set statusline+=Current:\ %-5l\ Total:\ %-5L
-set statusline+=\ %{StatusLineGitBranch()}\ 
+set statusline=%!StatusLine()
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
