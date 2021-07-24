@@ -101,11 +101,12 @@ end
 " STATUS LINE                                "
 """"""""""""""""""""""""""""""""""""""""""""""
 let colors = onedark#GetColors()
-execute 'highlight' 'StatusLineHighlightRed'  'guibg=' colors.red.gui 'ctermbg=' colors.red.cterm  'guifg=' colors.background.gui 'ctermfg=' colors.background.cterm
-execute 'highlight' 'StatusLineHighlightGreen' 'guibg=' colors.green.gui 'ctermbg=' colors.green.cterm 'guifg=' colors.background.gui 'ctermfg=' colors.background.cterm
-execute 'highlight' 'StatusLineHighlightBlue' 'guibg=' colors.blue.gui 'ctermbg=' colors.blue.cterm 'guifg=' colors.background.gui 'ctermfg=' colors.background.cterm
-execute 'highlight' 'StatusLineHighlightYellow' 'guibg=' colors.yellow.gui 'ctermbg=' colors.yellow.cterm 'guifg=' colors.background.gui 'ctermfg=' colors.background.cterm
-execute 'highlight' 'StatusLineHighlightPurple' 'guibg=' colors.purple.gui 'ctermbg=' colors.purple.cterm 'guifg=' colors.background.gui 'ctermfg=' colors.background.cterm
+let background_color = has_key(colors, 'background') ? colors.background : colors.back
+execute 'highlight' 'StatusLineHighlightRed'  'guibg=' colors.red.gui 'ctermbg=' colors.red.cterm  'guifg=' background_color.gui 'ctermfg=' background_color.cterm
+execute 'highlight' 'StatusLineHighlightGreen' 'guibg=' colors.green.gui 'ctermbg=' colors.green.cterm 'guifg=' background_color.gui 'ctermfg=' background_color.cterm
+execute 'highlight' 'StatusLineHighlightBlue' 'guibg=' colors.blue.gui 'ctermbg=' colors.blue.cterm 'guifg=' background_color.gui 'ctermfg=' background_color.cterm
+execute 'highlight' 'StatusLineHighlightYellow' 'guibg=' colors.yellow.gui 'ctermbg=' colors.yellow.cterm 'guifg=' background_color.gui 'ctermfg=' background_color.cterm
+execute 'highlight' 'StatusLineHighlightPurple' 'guibg=' colors.purple.gui 'ctermbg=' colors.purple.cterm 'guifg=' background_color.gui 'ctermfg=' background_color.cterm
 
 let g:name_by_mode = {
   \ 'n': 'NORMAL',
