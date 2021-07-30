@@ -169,7 +169,7 @@ function! StatusLineGitBranch()
 endfunction
 
 function! StatusLine()
-  return StatusLineMode() . ' %t %y %m%< %r %h %w%=Current: %-5l Total: %-5l ' . StatusLineGitBranch() . ' '
+  return StatusLineMode() . ' %t %y %m%< %r %h %w%=Current: %-5l Total: %-5L ' . StatusLineGitBranch() . ' '
 endfunction
 
 autocmd WinEnter * let w:git_branch = GetGitBranch()
