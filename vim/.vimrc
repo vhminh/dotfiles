@@ -136,8 +136,12 @@ let g:color_by_mode = {
   \ 'R': 'Red',
   \}
 
+
+augroup SLActive
+  autocmd!
 autocmd WinEnter * let w:is_split_active = 1
 autocmd WinLeave * let w:is_split_active = 0
+augroup END
 
 function! StatusLineMode()
   if exists('w:is_split_active') && !w:is_split_active
@@ -172,9 +176,13 @@ function! StatusLine()
   return StatusLineMode() . ' %t %y %m%< %r %h %w%=Current: %-5l Total: %-5L ' . StatusLineGitBranch() . ' '
 endfunction
 
+augroup SLGitBranch
+  autocmd!
 autocmd WinEnter * let w:git_branch = GetGitBranch()
 autocmd VimEnter * let w:git_branch = GetGitBranch()
 autocmd BufWinEnter * let w:git_branch = GetGitBranch()
+augroup END
+
 
 set statusline=%!StatusLine()
 
