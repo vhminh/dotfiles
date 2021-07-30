@@ -201,6 +201,7 @@ set statusline=%!StatusLine()
 " GIT GUTTER                                 "
 """"""""""""""""""""""""""""""""""""""""""""""
 autocmd BufWritePost * GitGutter
+let g:gitgutter_map_keys = 0
 nmap <leader>gn <Plug>(GitGutterNextHunk)
 nmap <leader>gp <Plug>(GitGutterPrevHunk)
 nmap <leader>ghp <Plug>(GitGutterPreviewHunk)
