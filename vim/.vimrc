@@ -17,8 +17,9 @@ call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 Plug 'joshdick/onedark.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-vinegar'
+Plug 'airblade/vim-gitgutter'
+Plug 'jiangmiao/auto-pairs'
 if executable('ctags')
   Plug 'preservim/tagbar'
 end
@@ -177,7 +178,12 @@ function! StatusLineGitBranch()
 endfunction
 
 function! StatusLine()
-  return StatusLineMode() . ' %t %y %m%< %r %h %w%=Current: %-5l Total: %-5L ' . StatusLineGitBranch() . ' '
+  let result = StatusLineMode() . ' %t %y %m%< %r %h %w%=Current: %-5l Total: %-5L ' . StatusLineGitBranch() . ' '
+  let [a,m,r] = GitGutterGetHunkSummary()
+  if a + m + r > 0
+    let result = result . printf('+%d ~%d -%d', a, m, r) . ' '
+  end
+  return result
 endfunction
 
 augroup SLGitBranch
@@ -189,6 +195,17 @@ augroup END
 
 
 set statusline=%!StatusLine()
+
+
+""""""""""""""""""""""""""""""""""""""""""""""
+" GIT GUTTER                                 "
+""""""""""""""""""""""""""""""""""""""""""""""
+autocmd BufWritePost * GitGutter
+nmap <leader>gn <Plug>(GitGutterNextHunk)
+nmap <leader>gp <Plug>(GitGutterPrevHunk)
+nmap <leader>ghp <Plug>(GitGutterPreviewHunk)
+nmap <leader>ghs <Plug>(GitGutterStageHunk)
+nmap <leader>ghu <Plug>(GitGutterUndoHunk)
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -240,6 +257,7 @@ set foldmethod=indent
 set foldlevelstart=99
 
 " other
+set updatetime=500
 set autoread
 set autowriteall
 set cursorline
