@@ -264,6 +264,7 @@ set autowriteall
 set cursorline
 set lazyredraw
 set showmatch
+set ttymouse=xterm2 " Set this to have smooth mouse selection in tmux
 set mouse=a
 set splitbelow
 set splitright
