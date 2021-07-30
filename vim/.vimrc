@@ -205,7 +205,7 @@ set smartcase
 
 " useful mappings
 map <C-c> <ESC>
-map! <C-c> <ESC>
+imap <C-c> <ESC>
 map <C-c> :nohlsearch<CR>
 nnoremap j gj
 nnoremap k gk

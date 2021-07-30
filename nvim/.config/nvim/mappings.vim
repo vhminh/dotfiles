@@ -5,7 +5,11 @@ nnoremap <ESC> :nohlsearch<CR>
 " since I remap Capslock to Ctrl
 " and C-c is easier to reach than C-[
 map <C-c> <ESC>
-map! <C-c> <ESC>
+" Dont map <C-c> to <ESC> in command-line mode
+" <C-c> in commandline mode cancel the command
+" <ESC> in commandline mode exec the command
+" map! <C-c> <ESC>
+imap <C-c> <ESC>
 
 " Fix Y behavior to yank to the end of the line
 nmap Y y$
