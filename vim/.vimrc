@@ -291,6 +291,7 @@ end
 """"""""""""""""""""""""""""""""""""""""""""""
 " COC STUFFS                                 "
 """"""""""""""""""""""""""""""""""""""""""""""
+let g:coc_disable_startup_warning = 1
 " copy-paste from
 " https://github.com/neoclide/coc.nvim#example-vim-configuration
 " with some modification
