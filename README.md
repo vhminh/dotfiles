@@ -1,36 +1,38 @@
 # dotfiles
-My dotfiles for `X` window server, `bash`, `neovim`, `alacritty`, `tmux`
+My dotfiles for `neovim`, `X`, `alacritty`, `tmux`, `bash`
 
 ## Configs
-- Xorg
+- X
 	- Map `Capslock` to `Control` (or `ESC`)
-	- Increase keyboard key repeat rate
+	- Increase keyboard key repeat rate (`.xinitrc`)
 - Neovim
 	- onedark theme
 	- fzf
-	- For vim and neovim < 0.5
-		- nerdtree
-		- tagbar
-		- devicons
-		- coc completion
-		- lightline
-	- For neovim >= 0.5
-		- nvim-tree
-		- vista
-		- builtin lsp
-		- galaxy line
-		- tree-sitter
-- Bash aliases
-	- Use `exa` instead of `ls`
+	- builtin lsp
+	- tree-sitter
+	- vista
+	- galaxy line
+	- nvim-tree
+- Vim
+	- onedark theme
+	- fzf
+	- tagbar
+	- devicons
+	- coc completion
+	- lightline
+	- nerdtree
+- Bash
+	- Aliases
+	- Prompt
+- Tmux
+	- Shortcuts
 - Alacritty
+	- Vs code terminal theme
+	- Font
+- Some wallpaper in pics
 
 ## Dependencies
-### For (neo)vim
-- ctags (for tagbar)
-- Fira Mono nerd font (for devicons)
-- ripgrep (for fzf)
-- Language servers (gopls, clangd, ...) for neovim lsp
-### For bash alias
-- exa
-### For Alacritty
-- Fira Mono nerd font
+- `Fira Mono nerd font` for `alacitty` and `neovim` icon (optional)
+- `ctags` for `vim` with `tagbar`
+- `ripgrep` for `fzf` (optional)
+- Language servers (`gopls`, `clangd`, ...) for `neovim lsp`
