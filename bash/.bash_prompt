@@ -1,0 +1,20 @@
+PROMPT_COMMAND=prompt
+
+function prompt() {
+	local exit_code="$?"
+	local GREEN='\[\033[01;32m\]'
+	local WHITE='\[\033[01;37m\]'
+	local CYAN='\[\033[01;36m\]'
+	local CLEAR='\[\033[00m\]'
+
+	PS1=""
+
+	local git_branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')
+	if [ -n "$git_branch" ]; then
+		PS1="${GREEN}[\u@\h${WHITE} \W ${CYAN}${git_branch}${GREEN}]\$ ${CLEAR}"
+	else
+		PS1="${GREEN}[\u@\h${WHITE} \W${GREEN}]\$ ${CLEAR}"
+	fi
+	return ${exit_code}
+}
+
