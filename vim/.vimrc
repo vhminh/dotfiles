@@ -270,7 +270,7 @@ set foldlevelstart=99
 " other
 set updatetime=500
 set wildmenu
-set wildmode=longest,list,lastused
+set wildmode=list:longest
 set autoread
 set autowriteall
 set cursorline
