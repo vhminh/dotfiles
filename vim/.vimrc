@@ -196,6 +196,16 @@ augroup END
 
 set statusline=%!StatusLine()
 
+if has('nvim')
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+  set noshowmode
+endif
+set noruler
+
+set laststatus=2
+set noshowcmd
+set cmdheight=1
+
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " GIT GUTTER                                 "
@@ -259,6 +269,8 @@ set foldlevelstart=99
 
 " other
 set updatetime=500
+set wildmenu
+set wildmode=longest,list,lastused
 set autoread
 set autowriteall
 set cursorline
@@ -269,17 +281,6 @@ set mouse=a
 set splitbelow
 set splitright
 set scrolloff=5
-
-" Statusline stuffs
-if has('nvim')
-  let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
-  set noshowmode
-endif
-set noruler
-
-set laststatus=2
-set noshowcmd
-set cmdheight=1
 
 
 
