@@ -112,6 +112,7 @@ execute 'highlight' 'StatusLineHighlightGreen' 'guibg=' colors.green.gui 'ctermb
 execute 'highlight' 'StatusLineHighlightBlue' 'guibg=' colors.blue.gui 'ctermbg=' colors.blue.cterm 'guifg=' background_color.gui 'ctermfg=' background_color.cterm
 execute 'highlight' 'StatusLineHighlightYellow' 'guibg=' colors.yellow.gui 'ctermbg=' colors.yellow.cterm 'guifg=' background_color.gui 'ctermfg=' background_color.cterm
 execute 'highlight' 'StatusLineHighlightPurple' 'guibg=' colors.purple.gui 'ctermbg=' colors.purple.cterm 'guifg=' background_color.gui 'ctermfg=' background_color.cterm
+execute 'highlight' 'StatusLineHighlightGray' 'guibg=' colors.special_grey.gui 'ctermbg=' colors.special_grey.cterm 'guifg=' background_color.gui 'ctermfg=' background_color.cterm
 
 let g:name_by_mode = {
   \ 'n': 'NORMAL',
@@ -141,16 +142,24 @@ let g:color_by_mode = {
   \ 'R': 'Red',
   \}
 
-
 augroup SLActive
   autocmd!
-  autocmd WinEnter * let w:is_split_active = 1
-  autocmd WinLeave * let w:is_split_active = 0
+  autocmd WinEnter * setlocal statusline=%!StatusLine(1)
+  autocmd VimEnter * setlocal statusline=%!StatusLine(1)
+  autocmd BufWinEnter * setlocal statusline=%!StatusLine(1)
+  autocmd WinLeave * setlocal statusline=%!StatusLine(0)
 augroup END
 
-function! StatusLineMode()
-  if exists('w:is_split_active') && !w:is_split_active
-    return 'INACTIVE'
+augroup SLGitBranch
+  autocmd!
+  autocmd WinEnter * let w:git_branch = GetGitBranch()
+  autocmd VimEnter * let w:git_branch = GetGitBranch()
+  autocmd BufWinEnter * let w:git_branch = GetGitBranch()
+augroup END
+
+function! StatusLineMode(is_active)
+  if !a:is_active
+    return '%#StatusLineHighlightGray# INACTIVE %*'
   endif
   let m = mode(1)
   let color = has_key(g:color_by_mode, m) ? get(g:color_by_mode, m) : 'Purple'
@@ -177,24 +186,14 @@ function! StatusLineGitBranch()
   return w:git_branch
 endfunction
 
-function! StatusLine()
-  let result = StatusLineMode() . ' %t %y %m%< %r %h %w%=Current: %-5l Total: %-5L ' . StatusLineGitBranch() . ' '
+function! StatusLine(is_active)
+  let result = StatusLineMode(a:is_active) . ' %t %y %m%< %r %h %w%=Current: %-5l Total: %-5L ' . StatusLineGitBranch() . ' '
   let [a,m,r] = GitGutterGetHunkSummary()
   if a + m + r > 0
     let result = result . printf('+%d ~%d -%d', a, m, r) . ' '
   end
   return result
 endfunction
-
-augroup SLGitBranch
-  autocmd!
-  autocmd WinEnter * let w:git_branch = GetGitBranch()
-  autocmd VimEnter * let w:git_branch = GetGitBranch()
-  autocmd BufWinEnter * let w:git_branch = GetGitBranch()
-augroup END
-
-
-set statusline=%!StatusLine()
 
 if has('nvim')
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
