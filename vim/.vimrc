@@ -1,5 +1,6 @@
 set nocompatible
 let mapleader=" "
+set termguicolors
 
 let enable_coc = 0
 
@@ -38,7 +39,13 @@ autocmd VimEnter *
 " ONE DARK                                   "
 """"""""""""""""""""""""""""""""""""""""""""""
 syntax on
-set notermguicolors
+let g:onedark_color_overrides = {
+  \ 'background': { 'gui': '#262626', 'cterm': '235', 'cterm16': '0' },
+  \ 'cursor_grey': { 'gui': '#303030', 'cterm': '236', 'cterm16': '0' },
+  \ 'visual_grey': { 'gui': '#3a3a3a', 'cterm': '237', 'cterm16': '8' },
+  \ 'menu_grey': { 'gui': '#3a3a3a', 'cterm': '237', 'cterm16': '7' },
+  \ 'vertsplit': { 'gui': '#5f5f5f', 'cterm': '59', 'cterm16': '7' },
+  \ }
 colorscheme onedark
 
 
