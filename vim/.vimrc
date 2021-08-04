@@ -210,12 +210,7 @@ set cmdheight=1
 " GIT GUTTER                                 "
 """"""""""""""""""""""""""""""""""""""""""""""
 autocmd BufWritePost * GitGutter
-let g:gitgutter_map_keys = 0
-nmap <leader>gn <Plug>(GitGutterNextHunk)
-nmap <leader>gp <Plug>(GitGutterPrevHunk)
-nmap <leader>ghp <Plug>(GitGutterPreviewHunk)
-nmap <leader>ghs <Plug>(GitGutterStageHunk)
-nmap <leader>ghu <Plug>(GitGutterUndoHunk)
+let g:gitgutter_map_keys = 1
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
