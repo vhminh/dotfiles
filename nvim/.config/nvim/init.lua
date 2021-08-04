@@ -229,12 +229,24 @@ end
 vim.api.nvim_set_keymap('n', '<C-f>', '<Cmd>Files<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>f', '<Cmd>Files<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>b', '<Cmd>Buffers<CR>', { noremap = true, silent = true })
+if vim.fn.executable('rg') ~= 0 then
+	vim.api.nvim_command[[
+	function! RipgrepFzf(query, fullscreen)
+	let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case --hidden -g "!{.git,node_modules}" -- %s || true'
+	let initial_command = printf(command_fmt, shellescape(a:query))
+	let reload_command = printf(command_fmt, '{q}')
+	let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+	call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+	endfunction
 
-vim.api.nvim_command[[
-if executable('rg')
-	let $FZF_DEFAULT_COMMAND = 'rg --files --hidden -g "!{.git,node_modules}"'
-	endif
-]]
+	command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+	]]
+	vim.api.nvim_command[[command! -bang -nargs=* Rg call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case --hidden -g "!{.git,node_modules}" '.shellescape(<q-args>), 1, <bang>0)]]
+	vim.env['FZF_DEFAULT_COMMAND'] = 'rg --files --hidden -g "!{.git,node_modules}"'
+	vim.api.nvim_set_keymap('n', '<leader>g', '<Cmd>RG<CR>', { noremap = true, silent = true })
+elseif vim.fn.executable('ag') ~= 0 then
+	vim.api.nvim_set_keymap('n', '<leader>g', '<Cmd>Ag<CR>', { noremap = true, silent = true })
+end
 
 
 ----------------------------------------
