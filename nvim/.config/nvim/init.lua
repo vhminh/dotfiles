@@ -30,17 +30,16 @@ packer.startup(function()
 	use 'joshdick/onedark.vim'
 	use 'neovim/nvim-lspconfig'
 	use 'nvim-lua/completion-nvim'
-	use 'hrsh7th/nvim-compe'
 	use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' }
 	use { 'junegunn/fzf', run = function() vim.fn['fzf#install']() end }
 	use 'junegunn/fzf.vim'
-	use { 'glepnir/galaxyline.nvim', requires = 'kyazdani42/nvim-web-devicons' }
-	use { 'lewis6991/gitsigns.nvim', requires = 'nvim-lua/plenary.nvim' }
 	use 'windwp/nvim-autopairs'
 	use 'tpope/vim-commentary'
+	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+	use { 'glepnir/galaxyline.nvim', requires = 'kyazdani42/nvim-web-devicons' }
+	use { 'lewis6991/gitsigns.nvim', requires = 'nvim-lua/plenary.nvim' }
 	use 'liuchengxu/vista.vim'
 	use 'onsails/lspkind-nvim'
-	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 end)
 
 if need_install_plugin then
@@ -58,7 +57,6 @@ vim.g['onedark_color_overrides'] = {
 	background = { gui = "#262626", cterm = "235", cterm16 = "0" },
 	cursor_grey = { gui = "#303030", cterm = "236", cterm16 = "0" },
 	visual_grey = { gui = "#3a3a3a", cterm = "237", cterm16 = "8" },
-	menu_grey = { gui = "#3a3a3a", cterm = "237", cterm16 = "7" },
 	vertsplit = { gui = "#5f5f5f", cterm = "59", cterm16 = "7" },
 }
 
@@ -87,7 +85,7 @@ local colors = {
 	grey = onedarkColors.cursor_grey,
 }
 local get_display_color = function (color)
-	if vim.api.nvim_get_option('termguicolors') then
+	if vim.opt.termguicolors then
 		return color.gui
 	end
 return color.cterm
@@ -257,7 +255,7 @@ require('nvim-autopairs').setup{}
 
 
 ----------------------------------------
--- GIT SIGNS                          -
+-- GIT SIGNS                           -
 ----------------------------------------
 require('gitsigns').setup {
 	signs = {
@@ -285,7 +283,7 @@ require('gitsigns').setup {
 
 
 ----------------------------------------
--- GALAXY LINE                         -
+-- TREESITTER                          -
 ----------------------------------------
 require'nvim-treesitter.configs'.setup {
 	ensure_installed = "maintained",
@@ -575,10 +573,6 @@ set listchars=tab:>·,trail:~
 set list
 set fillchars=vert:\|
 hi vertsplit guifg=Gray guibg=bg
-
-if has('gui_running')
-	set guifont=Fira\ Mono\ Nerd\ Font\ Medium\ 12
-endif
 
 filetype plugin indent on
 
