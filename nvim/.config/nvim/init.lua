@@ -36,6 +36,7 @@ packer.startup(function()
 	use 'junegunn/fzf.vim'
 	use { 'glepnir/galaxyline.nvim', requires = 'kyazdani42/nvim-web-devicons' }
 	use { 'lewis6991/gitsigns.nvim', requires = 'nvim-lua/plenary.nvim' }
+	use 'windwp/nvim-autopairs'
 	use 'tpope/vim-commentary'
 	use 'liuchengxu/vista.vim'
 	use 'onsails/lspkind-nvim'
@@ -247,6 +248,12 @@ if vim.fn.executable('rg') ~= 0 then
 elseif vim.fn.executable('ag') ~= 0 then
 	vim.api.nvim_set_keymap('n', '<leader>g', '<Cmd>Ag<CR>', { noremap = true, silent = true })
 end
+
+
+----------------------------------------
+-- NVIM AUTOPAIRS                      -
+----------------------------------------
+require('nvim-autopairs').setup{}
 
 
 ----------------------------------------
