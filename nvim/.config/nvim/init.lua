@@ -39,6 +39,7 @@ packer.startup(function()
 	use { 'lewis6991/gitsigns.nvim', requires = 'nvim-lua/plenary.nvim' }
 	use 'liuchengxu/vista.vim'
 	use 'onsails/lspkind-nvim'
+	use 'romgrk/barbar.nvim'
 end)
 
 if need_install_plugin then
@@ -99,7 +100,32 @@ end
 ----------------------------------------
 -- NVIM TREE                           -
 ----------------------------------------
-vim.api.nvim_set_keymap('n', '<leader>n', '<Cmd>NvimTreeToggle<CR>', { noremap = true, silent = true })
+local view = require('nvim-tree.view')
+toggle_tree = function()
+	if view.win_open() then
+		require'nvim-tree'.close()
+		require'bufferline.state'.set_offset(0)
+	else
+		require'nvim-tree'.find_file(true)
+		require'bufferline.state'.set_offset(31, 'File Explorer')
+	end
+end
+
+vim.api.nvim_set_keymap('n', '<leader>n', '<Cmd>lua toggle_tree()<CR>', { noremap = true, silent = true })
+
+
+----------------------------------------
+-- BAR BAR                             -
+----------------------------------------
+vim.api.nvim_set_keymap('n', '<leader>,', '<Cmd>BufferPrevious<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>.', '<Cmd>BufferNext<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader><', '<Cmd>BufferMovePrevious<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>>', '<Cmd>BufferMoveNext<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>c', '<Cmd>BufferClose<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>p', '<Cmd>BufferPick<CR>', { noremap = true, silent = true })
+vim.g.bufferline = {
+	letters = 'asdfjkl;ghASDFJKLGH',
+}
 
 
 ----------------------------------------
