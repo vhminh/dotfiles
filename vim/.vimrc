@@ -19,6 +19,7 @@ Plug 'joshdick/onedark.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-vinegar'
+Plug 'justinmk/vim-sneak'
 Plug 'airblade/vim-gitgutter'
 Plug 'jiangmiao/auto-pairs'
 if executable('ctags')
@@ -112,6 +113,28 @@ set noautochdir
 function! NetrwMapping()
   nmap <buffer> o <CR>
 endfunction
+
+
+""""""""""""""""""""""""""""""""""""""""""""""
+" SNEAK                                      "
+""""""""""""""""""""""""""""""""""""""""""""""
+let g:sneak#label = 1
+let g:sneak#prompt = '> '
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
+
+let colors = onedark#GetColors()
+let background_color = has_key(colors, 'background') ? colors.background : colors.black
+
+augroup SneakHighlight
+autocmd!
+autocmd ColorScheme * execute 'highlight Sneak guifg=' background_color.gui 'guibg=' colors.yellow.gui 'ctermfg=' background_color.cterm 'ctermbg=' colors.yellow.cterm
+autocmd ColorScheme * execute 'highlight SneakLabel guifg=' background_color.gui 'guibg=' colors.yellow.gui 'ctermfg=' background_color.cterm 'ctermbg=' colors.yellow.cterm
+augroup END
+
+colorscheme onedark
 
 
 """"""""""""""""""""""""""""""""""""""""""""""

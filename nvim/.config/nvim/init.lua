@@ -37,6 +37,7 @@ packer.startup(function()
 	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 	use { 'glepnir/galaxyline.nvim', requires = 'kyazdani42/nvim-web-devicons' }
 	use { 'lewis6991/gitsigns.nvim', requires = 'nvim-lua/plenary.nvim' }
+	use 'justinmk/vim-sneak'
 	use 'liuchengxu/vista.vim'
 	use 'onsails/lspkind-nvim'
 	use 'romgrk/barbar.nvim'
@@ -317,6 +318,31 @@ require'nvim-treesitter.configs'.setup {
 		enable = true,
 	},
 }
+
+
+----------------------------------------
+-- SNEAK                               -
+----------------------------------------
+vim.g['sneak#label'] = true
+vim.g['sneak#prompt'] = ' '
+vim.api.nvim_set_keymap('n', 'f', '<Plug>Sneak_f', { noremap = false, silent = true })
+vim.api.nvim_set_keymap('n', 'F', '<Plug>Sneak_F', { noremap = false, silent = true })
+vim.api.nvim_set_keymap('n', 't', '<Plug>Sneak_t', { noremap = false, silent = true })
+vim.api.nvim_set_keymap('n', 'T', '<Plug>Sneak_T', { noremap = false, silent = true })
+vim.api.nvim_command('highlight Sneak guifg='..colors.fg..' guibg='..colors.yellow)
+vim.api.nvim_command('highlight SneakLabel guifg='..colors.fg..' guibg='..colors.yellow)
+vim.api.nvim_command('highlight SneakScope guifg='..colors.bg..' guibg='..colors.yellow)
+
+vim.api.nvim_exec([[
+	augroup SneakHighlight
+	autocmd!
+	autocmd ColorScheme * highlight Sneak guifg=]]..colors.bg..' guibg='..colors.yellow..[[
+
+	autocmd ColorScheme * highlight SneakLabel guifg=]]..colors.bg..' guibg='..colors.yellow..[[
+
+	augroup END
+	]], false)
+vim.cmd [[colorscheme onedark]]
 
 
 ----------------------------------------
