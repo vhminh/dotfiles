@@ -329,9 +329,6 @@ vim.api.nvim_set_keymap('n', 'f', '<Plug>Sneak_f', { noremap = false, silent = t
 vim.api.nvim_set_keymap('n', 'F', '<Plug>Sneak_F', { noremap = false, silent = true })
 vim.api.nvim_set_keymap('n', 't', '<Plug>Sneak_t', { noremap = false, silent = true })
 vim.api.nvim_set_keymap('n', 'T', '<Plug>Sneak_T', { noremap = false, silent = true })
-vim.api.nvim_command('highlight Sneak guifg='..colors.fg..' guibg='..colors.yellow)
-vim.api.nvim_command('highlight SneakLabel guifg='..colors.fg..' guibg='..colors.yellow)
-vim.api.nvim_command('highlight SneakScope guifg='..colors.bg..' guibg='..colors.yellow)
 
 vim.api.nvim_exec([[
 	augroup SneakHighlight
