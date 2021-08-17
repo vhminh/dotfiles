@@ -25,6 +25,7 @@ Plug 'jiangmiao/auto-pairs'
 if executable('ctags')
   Plug 'preservim/tagbar'
 end
+Plug 'tpope/vim-commentary'
 if enable_coc
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 end
