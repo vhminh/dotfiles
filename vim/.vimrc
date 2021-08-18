@@ -154,6 +154,18 @@ colorscheme onedark
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
+" CURSOR                                     "
+""""""""""""""""""""""""""""""""""""""""""""""
+if has('nvim')
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+else
+  let &t_SI = "\e[6 q"
+  let &t_SR = "\e[4 q"
+  let &t_EI = "\e[2 q"
+endif
+
+
+""""""""""""""""""""""""""""""""""""""""""""""
 " TAGBAR                                     "
 """"""""""""""""""""""""""""""""""""""""""""""
 if executable('ctags')
@@ -255,10 +267,7 @@ function! StatusLine(is_active)
   return result
 endfunction
 
-if has('nvim')
-  let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
-  set noshowmode
-endif
+set noshowmode
 set noruler
 
 set laststatus=2
