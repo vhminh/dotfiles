@@ -120,7 +120,7 @@ let g:netrw_liststyle = 3
 augroup netrw_mapping
   autocmd!
   autocmd filetype netrw call NetrwMapping()
-augroup END
+augroup end
 
 " Dont auto change dir when open another buffer
 " since we need netrw to open the working directory
@@ -144,11 +144,11 @@ map T <Plug>Sneak_T
 let colors = onedark#GetColors()
 let background_color = has_key(colors, 'background') ? colors.background : colors.black
 
-augroup SneakHighlight
-autocmd!
-autocmd ColorScheme * execute 'highlight Sneak guifg=' background_color.gui 'guibg=' colors.yellow.gui 'ctermfg=' background_color.cterm 'ctermbg=' colors.yellow.cterm
-autocmd ColorScheme * execute 'highlight SneakLabel guifg=' background_color.gui 'guibg=' colors.yellow.gui 'ctermfg=' background_color.cterm 'ctermbg=' colors.yellow.cterm
-augroup END
+augroup sneak_highlight
+  autocmd!
+  autocmd ColorScheme * execute 'highlight Sneak guifg=' background_color.gui 'guibg=' colors.yellow.gui 'ctermfg=' background_color.cterm 'ctermbg=' colors.yellow.cterm
+  autocmd ColorScheme * execute 'highlight SneakLabel guifg=' background_color.gui 'guibg=' colors.yellow.gui 'ctermfg=' background_color.cterm 'ctermbg=' colors.yellow.cterm
+augroup end
 
 colorscheme onedark
 
@@ -214,20 +214,20 @@ let g:color_by_mode = {
   \ 'R': 'Red',
   \}
 
-augroup SLActive
+augroup sl_active
   autocmd!
   autocmd WinEnter * setlocal statusline=%!StatusLine(1)
   autocmd VimEnter * setlocal statusline=%!StatusLine(1)
   autocmd BufWinEnter * setlocal statusline=%!StatusLine(1)
   autocmd WinLeave * setlocal statusline=%!StatusLine(0)
-augroup END
+augroup end
 
-augroup SLGitBranch
+augroup sl_git_branch
   autocmd!
   autocmd WinEnter * let w:git_branch = GetGitBranch()
   autocmd VimEnter * let w:git_branch = GetGitBranch()
   autocmd BufWinEnter * let w:git_branch = GetGitBranch()
-augroup END
+augroup end
 
 function! StatusLineMode(is_active)
   if !a:is_active
@@ -448,7 +448,7 @@ nmap <leader>rn <Plug>(coc-rename)
 xmap <leader>lf  <Plug>(coc-format-selected)
 nmap <leader>lf  <Plug>(coc-format-selected)
 
-augroup mygroup
+augroup coc_sth_group
   autocmd!
   " Setup formatexpr specified filetype(s).
   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
