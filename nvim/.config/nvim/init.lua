@@ -370,7 +370,7 @@ local get_mode_color = function(mode)
 		ic = colors.green, R = colors.red, Rv = colors.red,
 		cv = colors.fg, ce = colors.fg, r = colors.fg,
 		rm = colors.fg, ['r?'] = colors.fg,
-		['!']  = colors.purple, t = colors.purple
+		['!'] = colors.purple, t = colors.purple
 	}
 	return mode_color[mode]
 end
@@ -384,7 +384,7 @@ local get_mode_text = function(mode)
 		ic = 'COMPLETION', R = 'REPLACE', Rv = 'VIRT-REPLACE',
 		cv = 'EX', ce = 'EX-NORMAL', r = 'ENTER-PROMPT',
 		rm = 'MORE_PROMPT', ['r?'] = 'CONFIRM',
-		['!']  = 'SHELL', t = 'TERM'
+		['!'] = 'SHELL', t = 'TERM'
 	}
 	return mode_text[mode]
 end
