@@ -131,6 +131,68 @@ vim.api.nvim_set_keymap('n', '<leader>n', '<Cmd>lua toggle_tree()<CR>', { norema
 
 
 ----------------------------------------
+-- NVIM WEB DEVICONS                   -
+----------------------------------------
+-- https://gist.github.com/fernandohenriques/12661bf250c8c2d8047188222cab7e28
+function hex2rgb(hex)
+	local hex = hex:gsub("#","")
+	if hex:len() == 3 then
+		return (tonumber("0x"..hex:sub(1, 1)) * 17), (tonumber("0x"..hex:sub(2, 2)) * 17), (tonumber("0x"..hex:sub(3, 3)) * 17)
+	else
+		return tonumber("0x"..hex:sub(1, 2)), tonumber("0x"..hex:sub(3, 4)), tonumber("0x"..hex:sub(5, 6))
+	end
+end
+
+-- Low cost approximation formula of sth from CIE
+-- https://stackoverflow.com/a/9085524
+-- https://www.compuphase.com/cmetric.htm
+local color_diff = function (c1, c2)
+	local r1, g1, b1 = hex2rgb(c1)
+	local r2, g2, b2 = hex2rgb(c2)
+	local rmean = (r1 + r2) / 2
+	local r = r1 - r2
+	local g = g1 - g2
+	local b = b1 - b2
+	return (((512+rmean)*r*r)/(2^8)) + 4*g*g + (((767-rmean)*b*b)/(2^8))
+end
+
+
+nvim_web_devicons_set_onedark_colors = function ()
+	if vim.opt.termguicolors then
+		local candidate_colors = {}
+		-- get color from onedark
+		for key, color in pairs(colors) do
+			if color ~= colors.bg and color ~= colors.grey then
+				candidate_colors[key] = color
+			end
+		end
+		-- get nearest color for each icon
+		local icons = require('nvim-web-devicons').get_icons()
+		for key, icon in pairs(icons) do
+			local nearest_color = candidate_colors.blue
+			for _, color in pairs(candidate_colors) do
+				if color_diff(icon.color, nearest_color) > color_diff(icon.color, color) then
+					nearest_color = color
+				end
+			end
+			icons[key].color = nearest_color
+		end
+		-- override default icons
+		require('nvim-web-devicons').setup {
+			override = icons
+		}
+	end
+end
+
+-- vim.api.nvim_exec([[
+-- augroup nvim_web_devicons_color
+-- autocmd!
+-- autocmd ColorScheme * lua nvim_web_devicons_set_onedark_colors()
+-- augroup END
+-- ]], false)
+
+
+----------------------------------------
 -- BAR BAR                             -
 ----------------------------------------
 vim.api.nvim_set_keymap('n', '<leader>,', '<Cmd>BufferPrevious<CR>', { noremap = true, silent = true })
