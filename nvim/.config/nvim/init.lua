@@ -10,11 +10,11 @@ local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvi
 local need_install_plugin = false
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 	need_install_plugin = true
-	print("Cloning packer.nvim")
+	print('Cloning packer.nvim')
 	vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-	print("Packadd packer.nvim")
+	print('Packadd packer.nvim')
 	vim.api.nvim_command 'packadd packer.nvim'
-	print("Done")
+	print('Done')
 end
 
 if vim._update_package_paths then
@@ -55,50 +55,50 @@ vim.api.nvim_command 'PackerInstall'
 -- override onedark color
 -- override gui values with corresponding cterm values (except for special_grey)
 vim.g['onedark_color_overrides'] = {
-	red = { gui = "#ff5f87", cterm = "204", cterm16 = "1" },
-	dark_red = { gui = "#ff0000", cterm = "196", cterm16 = "9" },
-	green = { gui = "#87d787", cterm = "114", cterm16 = "2" },
-	yellow = { gui = "#d7af87", cterm = "180", cterm16 = "3" },
-	dark_yellow = { gui = "#d7875f", cterm = "173", cterm16 = "11" },
-	blue = { gui = "#00afff", cterm = "39", cterm16 = "4" },
-	purple = { gui = "#d75fd7", cterm = "170", cterm16 = "5" },
-	cyan = { gui = "#00afd7", cterm = "38", cterm16 = "6" },
-	white = { gui = "#afafaf", cterm = "145", cterm16 = "15" },
-	black = { gui = "#262626", cterm = "235", cterm16 = "0" },
-	foreground = { gui = "#afafaf", cterm = "145", cterm16 = "NONE" },
-	background = { gui = "#262626", cterm = "235", cterm16 = "NONE" },
-	comment_grey = { gui = "#5f5f5f", cterm = "59", cterm16 = "7" },
-	gutter_fg_grey = { gui = "#444444", cterm = "238", cterm16 = "8" },
-	cursor_grey = { gui = "#303030", cterm = "236", cterm16 = "0" },
-	visual_grey = { gui = "#3a3a3a", cterm = "237", cterm16 = "8" },
-	menu_grey = { gui = "#3a3a3a", cterm = "237", cterm16 = "7" },
-	special_grey = { gui = "#3b4048", cterm = "238", cterm16 = "7" }, -- use default onedark color
-	vertsplit = { gui = "#5f5f5f", cterm = "59", cterm16 = "7" },
+	red = { gui = '#ff5f87', cterm = '204', cterm16 = '1' },
+	dark_red = { gui = '#ff0000', cterm = '196', cterm16 = '9' },
+	green = { gui = '#87d787', cterm = '114', cterm16 = '2' },
+	yellow = { gui = '#d7af87', cterm = '180', cterm16 = '3' },
+	dark_yellow = { gui = '#d7875f', cterm = '173', cterm16 = '11' },
+	blue = { gui = '#00afff', cterm = '39', cterm16 = '4' },
+	purple = { gui = '#d75fd7', cterm = '170', cterm16 = '5' },
+	cyan = { gui = '#00afd7', cterm = '38', cterm16 = '6' },
+	white = { gui = '#afafaf', cterm = '145', cterm16 = '15' },
+	black = { gui = '#262626', cterm = '235', cterm16 = '0' },
+	foreground = { gui = '#afafaf', cterm = '145', cterm16 = 'NONE' },
+	background = { gui = '#262626', cterm = '235', cterm16 = 'NONE' },
+	comment_grey = { gui = '#5f5f5f', cterm = '59', cterm16 = '7' },
+	gutter_fg_grey = { gui = '#444444', cterm = '238', cterm16 = '8' },
+	cursor_grey = { gui = '#303030', cterm = '236', cterm16 = '0' },
+	visual_grey = { gui = '#3a3a3a', cterm = '237', cterm16 = '8' },
+	menu_grey = { gui = '#3a3a3a', cterm = '237', cterm16 = '7' },
+	special_grey = { gui = '#3b4048', cterm = '238', cterm16 = '7' }, -- use default onedark color
+	vertsplit = { gui = '#5f5f5f', cterm = '59', cterm16 = '7' },
 }
 
 vim.api.nvim_exec([[
-if (has("autocmd") && !has("gui_running"))
+if (has('autocmd') && !has('gui_running'))
 	augroup colorextend
 	autocmd!
 	let colors = onedark#GetColors()
-	autocmd ColorScheme * call onedark#extend_highlight("Keyword", { "fg": colors.purple })
+	autocmd ColorScheme * call onedark#extend_highlight('Keyword', { 'fg': colors.purple })
 	augroup END
 	endif
 	]], false)
 vim.cmd [[colorscheme onedark]]
 
 -- extract color to use in other plugins
-local onedarkColors = vim.api.nvim_eval('onedark#GetColors()')
+local onedark_colors = vim.api.nvim_eval('onedark#GetColors()')
 local colors = {
-	bg = onedarkColors.background,
-	fg = onedarkColors.foreground,
-	yellow = onedarkColors.yellow,
-	cyan = onedarkColors.cyan,
-	green = onedarkColors.green,
-	purple = onedarkColors.purple,
-	blue = onedarkColors.blue,
-	red = onedarkColors.red,
-	grey = onedarkColors.cursor_grey,
+	bg = onedark_colors.background,
+	fg = onedark_colors.foreground,
+	yellow = onedark_colors.yellow,
+	cyan = onedark_colors.cyan,
+	green = onedark_colors.green,
+	purple = onedark_colors.purple,
+	blue = onedark_colors.blue,
+	red = onedark_colors.red,
+	grey = onedark_colors.cursor_grey,
 }
 local get_display_color = function (color)
 	if vim.opt.termguicolors then
@@ -328,7 +328,7 @@ require('gitsigns').setup {
 -- TREESITTER                          -
 ----------------------------------------
 require'nvim-treesitter.configs'.setup {
-	ensure_installed = "maintained",
+	ensure_installed = 'maintained',
 	highlight = {
 		enable = true,
 	},
@@ -346,7 +346,7 @@ vim.api.nvim_set_keymap('n', 't', '<Plug>Sneak_t', { noremap = false, silent = t
 vim.api.nvim_set_keymap('n', 'T', '<Plug>Sneak_T', { noremap = false, silent = true })
 
 vim.api.nvim_exec([[
-	augroup SneakHighlight
+	augroup sneak_highlight
 	autocmd!
 	autocmd ColorScheme * highlight Sneak guifg=]]..colors.bg..' guibg='..colors.yellow..[[
 
@@ -377,7 +377,7 @@ end
 
 local get_mode_text = function(mode)
 	local mode_text = {
-		n = 'NORMAL', i = "INSERT", v = 'VISUAL',
+		n = 'NORMAL', i = 'INSERT', v = 'VISUAL',
 		[''] = 'V-BLOCK', V = 'V-LINE',
 		c = 'COMMAND', no = 'OPERATOR', s = 'SELECT',
 		S= 'S-LINE', [''] = 'S-BLOCK',
@@ -455,9 +455,9 @@ gls.left[4] = {
 gls.left[5] = {
 	Function = {
 		provider = function ()
-			local fn_name = vim.api.nvim_eval("get(b:, 'vista_nearest_method_or_function', '')")
-			if fn_name == "" then
-				return ""
+			local fn_name = vim.api.nvim_eval('get(b:, "vista_nearest_method_or_function", "")')
+			if fn_name == '' then
+				return ''
 			end
 			return ': ' .. fn_name
 		end,
