@@ -29,6 +29,7 @@ Plug 'tpope/vim-commentary'
 if enable_coc
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 end
+Plug 'sheerun/vim-polyglot'
 call plug#end()
 " auto install missing plugin
 autocmd VimEnter *
