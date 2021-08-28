@@ -740,74 +740,74 @@ vim.api.nvim_set_keymap('n', '<leader>t', '<Cmd>Vista!!<CR>', { noremap = true, 
 ----------------------------------------
 -- CUSTOM SETTINGS                     -
 ----------------------------------------
--- TODO: port to lua later
---
+-- <C-c> as <ESC>
+vim.api.nvim_set_keymap('', '<C-c>', '<ESC>', { noremap = false, silent = true })
+vim.api.nvim_set_keymap('i', '<C-c>', '<ESC>', { noremap = false, silent = true })
+-- Indent
+vim.opt.expandtab = false
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.smartindent = true
+-- Visual
+vim.opt.listchars = { tab = '>·', trail = '~', }
+vim.opt.list = true
+vim.opt.fillchars= { vert = '|', }
 vim.api.nvim_command[[
-syntax on
-set listchars=tab:>·,trail:~
-set list
-set fillchars=vert:\|
 hi vertsplit guifg=Gray guibg=bg
-
-filetype plugin indent on
-
-set foldmethod=indent
-set foldlevelstart=99
-
-set splitbelow
-set splitright
-
-set hidden
-set encoding=utf8
-set nowrap
-set showcmd
-set clipboard=unnamedplus
-set showmatch
-set backspace=indent,eol,start
-set smartindent
-set autoread
-set autowriteall
-set ignorecase
-set smartcase
-set hlsearch
-set incsearch
-set mouse=a
-set noexpandtab
-set shiftwidth=4
-set tabstop=4
-set scrolloff=5
-set number
-set relativenumber
-set cursorline
-set noshowmode
-
-nnoremap <C-c> :nohlsearch<CR>
-nnoremap <ESC> :nohlsearch<CR>
-
-map <C-c> <ESC>
-imap <C-c> <ESC>
-
-nmap Y y$
-
-vmap < <gv
-vmap > >gv
-
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-tnoremap <C-h> <C-w>h
-tnoremap <C-j> <C-w>j
-tnoremap <C-k> <C-w>k
-tnoremap <C-l> <C-w>l
-
-nnoremap <C-w><C-h> :vertical resize -2<CR>
-nnoremap <C-w><C-j> :resize -2<CR>
-nnoremap <C-w><C-k> :resize +2<CR>
-nnoremap <C-w><C-l> :vertical resize +2<CR>
-
-nnoremap k gk
-nnoremap j gj
-nnoremap <C-q> :quit<CR>
 ]]
+vim.opt.number = true
+vim.opt.relativenumber = false
+vim.opt.cursorline = true
+vim.opt.scrolloff = 5
+vim.opt.wrap = false
+vim.opt.showmatch = true
+vim.opt.showcmd = true
+vim.opt.showmode = false
+-- Behavior
+vim.opt.backspace = { 'indent', 'eol', 'start' }
+vim.opt.clipboard = { 'unnamedplus' }
+vim.opt.mouse = { a = true }
+vim.api.nvim_set_keymap('n', 'Y', 'y$', { noremap = false, silent = true })
+vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = false, silent = true })
+vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = false, silent = true })
+
+vim.api.nvim_set_keymap('n', 'j', 'v:count == 0 ? "gj" : "j"', { expr = true, noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'k', 'v:count == 0 ? "gk" : "k"', { expr = true, noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<C-q>', '<Cmd>quit<CR>', { noremap = true, silent = true })
+-- Fold
+vim.opt.foldmethod = 'indent'
+vim.opt.foldlevelstart = 99
+-- Split direction
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+-- Search
+vim.opt.hlsearch = true
+vim.opt.incsearch = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.api.nvim_set_keymap('n', '<ESC>', '<Cmd>nohlsearch<CR>', { noremap = true, silent = true })
+-- Panes
+vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('t', '<C-h>', '<C-w>h', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('t', '<C-j>', '<C-w>j', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('t', '<C-k>', '<C-w>k', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('t', '<C-l>', '<C-w>l', { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<C-w><C-h>', '<Cmd>vertical resize -2<CR>', { noremap = true, silent = false })
+vim.api.nvim_set_keymap('n', '<C-w><C-j>', '<Cmd>resize -2<CR>', { noremap = true, silent = false })
+vim.api.nvim_set_keymap('n', '<C-w><C-k>', '<Cmd>resize +2<CR>', { noremap = true, silent = false })
+vim.api.nvim_set_keymap('n', '<C-w><C-l>', '<Cmd>vertical resize +2<CR>', { noremap = true, silent = false })
+-- Other
+vim.api.nvim_command[[
+filetype plugin indent on
+]]
+vim.opt.hidden = true
+vim.opt.encoding = 'utf-8'
+vim.opt.autoread = true
+vim.opt.autowriteall = true
 
