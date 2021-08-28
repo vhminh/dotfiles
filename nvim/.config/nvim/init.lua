@@ -803,9 +803,6 @@ vim.api.nvim_set_keymap('n', '<C-w><C-j>', '<Cmd>resize -2<CR>', { noremap = tru
 vim.api.nvim_set_keymap('n', '<C-w><C-k>', '<Cmd>resize +2<CR>', { noremap = true, silent = false })
 vim.api.nvim_set_keymap('n', '<C-w><C-l>', '<Cmd>vertical resize +2<CR>', { noremap = true, silent = false })
 -- Other
-vim.api.nvim_command[[
-filetype plugin indent on
-]]
 vim.opt.hidden = true
 vim.opt.encoding = 'utf-8'
 vim.opt.autoread = true
