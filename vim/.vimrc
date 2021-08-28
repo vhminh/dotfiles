@@ -3,6 +3,7 @@ let mapleader=" "
 set termguicolors
 
 let enable_coc = 0
+let enable_coc = enable_coc && !has('nvim-0.5')
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " VIM PLUG                                   "
@@ -26,7 +27,10 @@ if executable('ctags')
   Plug 'preservim/tagbar'
 end
 Plug 'tpope/vim-commentary'
-if enable_coc
+if has('nvim-0.5')
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'nvim-lua/completion-nvim'
+elseif enable_coc
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 end
 Plug 'sheerun/vim-polyglot'
@@ -345,6 +349,31 @@ set mouse=a
 set splitbelow
 set splitright
 set scrolloff=5
+
+
+""""""""""""""""""""""""""""""""""""""""""""""
+" NVIM BUILTIN LSP                           "
+""""""""""""""""""""""""""""""""""""""""""""""
+if has('nvim-0.5')
+  set completeopt=menuone,noinsert,noselect
+  let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+
+  lua require'lspconfig'.gopls.setup{on_attach=require'completion'.on_attach}
+  lua require'lspconfig'.clangd.setup{on_attach=require'completion'.on_attach}
+  lua require'lspconfig'.pyright.setup{on_attach=require'completion'.on_attach}
+
+  nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+  nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
+  nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
+  nnoremap <silent> K  <cmd>lua vim.lsp.buf.hover()<CR>
+  nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
+  nnoremap <silent> [d <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+  nnoremap <silent> ]d <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+  nnoremap <silent> <leader>ca <cmd>lua print(vim.inspect(vim.lsp.buf.code_action()))<CR>
+
+  nnoremap <silent> <C-LeftMouse> <LeftMouse><cmd>lua vim.lsp.buf.definition()<CR>
+  nnoremap <silent> <RightMouse> <LeftMouse><cmd>lua vim.inspect(vim.lsp.buf.code_action())<CR>
+end
 
 
 
