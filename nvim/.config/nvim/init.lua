@@ -1,6 +1,8 @@
 vim.opt.termguicolors = true
 vim.g.mapleader = ' '
 
+-- Some options
+local use_fzf = false -- Use fzf instead of telescope
 
 ----------------------------------------
 -- PACKER                              -
@@ -32,10 +34,15 @@ packer.startup(function()
 	use 'neovim/nvim-lspconfig'
 	use 'nvim-lua/completion-nvim'
 	use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' }
-	use { 'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}} }
-	if vim.fn.has('make') and vim.fn.has('gcc') then
-		use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-		has_telescope_fzf_native = true
+	if use_fzf then
+		use { 'junegunn/fzf', run = function() vim.fn['fzf#install']() end }
+		use 'junegunn/fzf.vim'
+	else
+		use { 'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}} }
+		if vim.fn.has('make') and vim.fn.has('gcc') then
+			use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+			has_telescope_fzf_native = true
+		end
 	end
 	use 'windwp/nvim-autopairs'
 	use 'tpope/vim-commentary'
@@ -331,42 +338,67 @@ end
 
 
 ----------------------------------------
--- TELESCOPE                           -
+-- FUZZY FINDER                        -
 ----------------------------------------
-require('telescope').setup{
-	defaults = {
-		vimgrep_arguments = {
-			'rg',
-			'--color=never',
-			'--no-heading',
-			'--with-filename',
-			'--line-number',
-			'--column',
-			'--smart-case',
-			'--hidden',
-			'-g',
-			'!{.git,node_modules}',
+if use_fzf then
+	-- fzf
+	vim.api.nvim_set_keymap('n', '<C-f>', '<Cmd>Files<CR>', { noremap = true, silent = true })
+	vim.api.nvim_set_keymap('n', '<leader>f', '<Cmd>Files<CR>', { noremap = true, silent = true })
+	vim.api.nvim_set_keymap('n', '<leader>b', '<Cmd>Buffers<CR>', { noremap = true, silent = true })
+	if vim.fn.executable('rg') ~= 0 then
+		vim.api.nvim_command[[
+		function! RipgrepFzf(query, fullscreen)
+			let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case --hidden -g "!{.git,node_modules}" -- %s || true'
+			let initial_command = printf(command_fmt, shellescape(a:query))
+			let reload_command = printf(command_fmt, '{q}')
+			let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+			call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+		endfunction
+		command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+		]]
+		vim.api.nvim_command[[command! -bang -nargs=* Rg call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case --hidden -g "!{.git,node_modules}" '.shellescape(<q-args>), 1, <bang>0)]]
+		vim.env['FZF_DEFAULT_COMMAND'] = 'rg --files --hidden -g "!{.git,node_modules}"'
+		vim.api.nvim_set_keymap('n', '<leader>g', '<Cmd>RG<CR>', { noremap = true, silent = true })
+	elseif vim.fn.executable('ag') ~= 0 then
+		vim.api.nvim_set_keymap('n', '<leader>g', '<Cmd>Ag<CR>', { noremap = true, silent = true })
+	end
+else
+	-- telescope
+	require('telescope').setup{
+		defaults = {
+			vimgrep_arguments = {
+				'rg',
+				'--color=never',
+				'--no-heading',
+				'--with-filename',
+				'--line-number',
+				'--column',
+				'--smart-case',
+				'--hidden',
+				'-g',
+				'!{.git,node_modules}',
+			},
 		},
-	},
-	extensions = {
-		fzf = has_telescope_fzf_native and {
-			fuzzy = true,
-			override_generic_sorter = true,
-			override_file_sorter = true,
-			case_mode = 'smart_case',
-		} or nil,
-	},
-}
-if has_telescope_fzf_native then
-	require('telescope').load_extension('fzf')
-end
+		extensions = {
+			fzf = has_telescope_fzf_native and {
+				fuzzy = true,
+				override_generic_sorter = true,
+				override_file_sorter = true,
+				case_mode = 'smart_case',
+			} or nil,
+		},
+	}
+	if has_telescope_fzf_native then
+		require('telescope').load_extension('fzf')
+	end
 
-vim.api.nvim_set_keymap('n', '<C-f>', '<Cmd>lua require("telescope.builtin").find_files({ find_command = {"rg", "--files", "--hidden", "-g", "!{.git,node_modules}"} })<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>f', '<Cmd>lua require("telescope.builtin").find_files({ find_command = {"rg", "--files", "--hidden", "-g", "!{.git,node_modules}"} })<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>b', '<Cmd>lua require("telescope.builtin").buffers()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>g', '<Cmd>lua require("telescope.builtin").live_grep()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>ca', '<Cmd>lua require("telescope.builtin").lsp_code_actions()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>s', '<Cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols()<CR>', { noremap = true, silent = true })
+	vim.api.nvim_set_keymap('n', '<C-f>', '<Cmd>lua require("telescope.builtin").find_files({ find_command = {"rg", "--files", "--hidden", "-g", "!{.git,node_modules}"} })<CR>', { noremap = true, silent = true })
+	vim.api.nvim_set_keymap('n', '<leader>f', '<Cmd>lua require("telescope.builtin").find_files({ find_command = {"rg", "--files", "--hidden", "-g", "!{.git,node_modules}"} })<CR>', { noremap = true, silent = true })
+	vim.api.nvim_set_keymap('n', '<leader>b', '<Cmd>lua require("telescope.builtin").buffers()<CR>', { noremap = true, silent = true })
+	vim.api.nvim_set_keymap('n', '<leader>g', '<Cmd>lua require("telescope.builtin").live_grep()<CR>', { noremap = true, silent = true })
+	vim.api.nvim_set_keymap('n', '<leader>ca', '<Cmd>lua require("telescope.builtin").lsp_code_actions()<CR>', { noremap = true, silent = true })
+	vim.api.nvim_set_keymap('n', '<leader>s', '<Cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols()<CR>', { noremap = true, silent = true })
+end
 
 
 ----------------------------------------
