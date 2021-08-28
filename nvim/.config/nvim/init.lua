@@ -139,7 +139,7 @@ toggle_tree = function()
 	end
 end
 
-vim.api.nvim_set_keymap('n', '<leader>n', '<Cmd>lua toggle_tree()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>e', '<Cmd>lua toggle_tree()<CR>', { noremap = true, silent = true })
 
 
 ----------------------------------------
@@ -211,8 +211,8 @@ vim.api.nvim_set_keymap('n', '<leader>,', '<Cmd>BufferPrevious<CR>', { noremap =
 vim.api.nvim_set_keymap('n', '<leader>.', '<Cmd>BufferNext<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader><', '<Cmd>BufferMovePrevious<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>>', '<Cmd>BufferMoveNext<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>c', '<Cmd>BufferClose<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>p', '<Cmd>BufferPick<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>q', '<Cmd>BufferClose<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>o', '<Cmd>BufferPick<CR>', { noremap = true, silent = true })
 vim.g.bufferline = {
 	letters = 'asdfjkl;ghASDFJKLGH',
 }
@@ -270,7 +270,7 @@ local on_attach = function(client, bufnr)
 	buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 	buf_set_keymap('n', '<leader>lq', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
-	-- buf_set_keymap('n', '<leader>lca', '<cmd>lua print(vim.inspect(vim.lsp.buf.code_action()))<CR>', opts) -- leaving this one commented and mapping <leader>ca to view code action in telescope.nvim
+	-- buf_set_keymap('n', '<leader>ca', '<cmd>lua print(vim.inspect(vim.lsp.buf.code_action()))<CR>', opts) -- leaving this one commented and mapping <leader>ca to view code action in telescope.nvim
 	-- mouse mapping
 	buf_set_keymap('n', '<C-LeftMouse>', '<LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>', opts)
 	buf_set_keymap('n', '<RightMouse>', '<LeftMouse> <cmd>lua vim.inspect(vim.lsp.buf.code_action())<CR>', opts)
