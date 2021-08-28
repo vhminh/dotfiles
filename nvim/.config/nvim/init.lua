@@ -23,6 +23,7 @@ end
 
 vim.cmd([[autocmd BufWritePost init.lua source <afile> | PackerCompile]])
 
+local has_telescope_fzf_native = false
 local packer = require('packer')
 local use = packer.use
 packer.startup(function()
@@ -32,6 +33,10 @@ packer.startup(function()
 	use 'nvim-lua/completion-nvim'
 	use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' }
 	use { 'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}} }
+	if vim.fn.has('make') and vim.fn.has('gcc') then
+		use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+		has_telescope_fzf_native = true
+	end
 	use 'windwp/nvim-autopairs'
 	use 'tpope/vim-commentary'
 	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
@@ -343,7 +348,19 @@ require('telescope').setup{
 			'!{.git,node_modules}',
 		},
 	},
+	extensions = {
+		fzf = has_telescope_fzf_native and {
+			fuzzy = true,
+			override_generic_sorter = true,
+			override_file_sorter = true,
+			case_mode = 'smart_case',
+		} or nil,
+	},
 }
+if has_telescope_fzf_native then
+	require('telescope').load_extension('fzf')
+end
+
 vim.api.nvim_set_keymap('n', '<C-f>', '<Cmd>lua require("telescope.builtin").find_files({ find_command = {"rg", "--files", "--hidden", "-g", "!{.git,node_modules}"} })<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>f', '<Cmd>lua require("telescope.builtin").find_files({ find_command = {"rg", "--files", "--hidden", "-g", "!{.git,node_modules}"} })<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>b', '<Cmd>lua require("telescope.builtin").buffers()<CR>', { noremap = true, silent = true })
