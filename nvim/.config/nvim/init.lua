@@ -129,7 +129,7 @@ end
 -- NVIM TREE                           -
 ----------------------------------------
 local view = require('nvim-tree.view')
-toggle_tree = function()
+_G.toggle_tree = function()
 	if view.win_open() then
 		require'nvim-tree'.close()
 		require'bufferline.state'.set_offset(0)
@@ -257,29 +257,29 @@ local on_attach = function(client, bufnr)
 	buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
 	buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
 	buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-	buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-	-- buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-	buf_set_keymap('n', '<leader>lwa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-	buf_set_keymap('n', '<leader>lwr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-	buf_set_keymap('n', '<leader>lwl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-	buf_set_keymap('n', '<leader>lD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-	buf_set_keymap('n', '<leader>lrn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-	buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts) -- leaving this one commented and mapping gr to view lsp references in trouble.nvim
-	buf_set_keymap('n', '<leader>le', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-	buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-	buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-	buf_set_keymap('n', '<leader>lq', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+	buf_set_keymap('n', 'gi', '<Cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+	-- buf_set_keymap('n', '<C-k>', '<Cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+	buf_set_keymap('n', '<leader>lwa', '<Cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+	buf_set_keymap('n', '<leader>lwr', '<Cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+	buf_set_keymap('n', '<leader>lwl', '<Cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+	buf_set_keymap('n', '<leader>lD', '<Cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+	buf_set_keymap('n', '<leader>lrn', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
+	buf_set_keymap('n', 'gr', '<Cmd>lua vim.lsp.buf.references()<CR>', opts) -- leaving this one commented and mapping gr to view lsp references in trouble.nvim
+	buf_set_keymap('n', '<leader>le', '<Cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+	buf_set_keymap('n', '[d', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+	buf_set_keymap('n', ']d', '<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+	buf_set_keymap('n', '<leader>lq', '<Cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
-	-- buf_set_keymap('n', '<leader>ca', '<cmd>lua print(vim.inspect(vim.lsp.buf.code_action()))<CR>', opts) -- leaving this one commented and mapping <leader>ca to view code action in telescope.nvim
+	-- buf_set_keymap('n', '<leader>ca', '<Cmd>lua print(vim.inspect(vim.lsp.buf.code_action()))<CR>', opts) -- leaving this one commented and mapping <leader>ca to view code action in telescope.nvim
 	-- mouse mapping
-	buf_set_keymap('n', '<C-LeftMouse>', '<LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>', opts)
-	buf_set_keymap('n', '<RightMouse>', '<LeftMouse> <cmd>lua vim.inspect(vim.lsp.buf.code_action())<CR>', opts)
+	buf_set_keymap('n', '<C-LeftMouse>', '<LeftMouse> <Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+	buf_set_keymap('n', '<RightMouse>', '<LeftMouse> <Cmd>lua vim.inspect(vim.lsp.buf.code_action())<CR>', opts)
 
 	-- Set some keybinds conditional on server capabilities
 	if client.resolved_capabilities.document_formatting then
-		buf_set_keymap('n', '<leader>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+		buf_set_keymap('n', '<leader>lf', '<Cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 	elseif client.resolved_capabilities.document_range_formatting then
-		buf_set_keymap('n', '<leader>lf', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
+		buf_set_keymap('n', '<leader>lf', '<Cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
 	end
 
 	-- Set autocommands conditional on server_capabilities
@@ -421,16 +421,16 @@ require('gitsigns').setup {
 	current_line_blame = true,
 	keymaps = {
 		noremap = true,
-		['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
-		['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
-		['n <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-		['v <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-		['n <leader>hu'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
-		['n <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
-		['v <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-		['n <leader>hR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
-		['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-		['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
+		['n ]c'] = { expr = true, "&diff ? ']c' : '<Cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
+		['n [c'] = { expr = true, "&diff ? '[c' : '<Cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
+		['n <leader>hs'] = '<Cmd>lua require"gitsigns".stage_hunk()<CR>',
+		['v <leader>hs'] = '<Cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+		['n <leader>hu'] = '<Cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
+		['n <leader>hr'] = '<Cmd>lua require"gitsigns".reset_hunk()<CR>',
+		['v <leader>hr'] = '<Cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+		['n <leader>hR'] = '<Cmd>lua require"gitsigns".reset_buffer()<CR>',
+		['n <leader>hp'] = '<Cmd>lua require"gitsigns".preview_hunk()<CR>',
+		['n <leader>hb'] = '<Cmd>lua require"gitsigns".blame_line(true)<CR>',
 	},
 }
 
@@ -740,14 +740,17 @@ vim.api.nvim_set_keymap('n', '<leader>t', '<Cmd>Vista!!<CR>', { noremap = true, 
 ----------------------------------------
 -- CUSTOM SETTINGS                     -
 ----------------------------------------
+
 -- <C-c> as <ESC>
 vim.api.nvim_set_keymap('', '<C-c>', '<ESC>', { noremap = false, silent = true })
 vim.api.nvim_set_keymap('i', '<C-c>', '<ESC>', { noremap = false, silent = true })
+
 -- Indent
 vim.opt.expandtab = false
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.smartindent = true
+
 -- Visual
 vim.opt.listchars = { tab = '>·', trail = '~', }
 vim.opt.list = true
@@ -763,6 +766,7 @@ vim.opt.wrap = false
 vim.opt.showmatch = true
 vim.opt.showcmd = true
 vim.opt.showmode = false
+
 -- Behavior
 vim.opt.backspace = { 'indent', 'eol', 'start' }
 vim.opt.clipboard = { 'unnamedplus' }
@@ -774,19 +778,21 @@ vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = false, silent = true })
 vim.api.nvim_set_keymap('n', 'j', 'v:count == 0 ? "gj" : "j"', { expr = true, noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'k', 'v:count == 0 ? "gk" : "k"', { expr = true, noremap = true, silent = true })
 
-vim.api.nvim_set_keymap('n', '<C-q>', '<Cmd>quit<CR>', { noremap = true, silent = true })
 -- Fold
 vim.opt.foldmethod = 'indent'
 vim.opt.foldlevelstart = 99
+
 -- Split direction
 vim.opt.splitbelow = true
 vim.opt.splitright = true
+
 -- Search
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.api.nvim_set_keymap('n', '<ESC>', '<Cmd>nohlsearch<CR>', { noremap = true, silent = true })
+
 -- Panes
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', { noremap = true, silent = true })
@@ -802,9 +808,11 @@ vim.api.nvim_set_keymap('n', '<C-w><C-h>', '<Cmd>vertical resize -2<CR>', { nore
 vim.api.nvim_set_keymap('n', '<C-w><C-j>', '<Cmd>resize -2<CR>', { noremap = true, silent = false })
 vim.api.nvim_set_keymap('n', '<C-w><C-k>', '<Cmd>resize +2<CR>', { noremap = true, silent = false })
 vim.api.nvim_set_keymap('n', '<C-w><C-l>', '<Cmd>vertical resize +2<CR>', { noremap = true, silent = false })
+
 -- Other
 vim.opt.hidden = true
 vim.opt.encoding = 'utf-8'
 vim.opt.autoread = true
 vim.opt.autowriteall = true
+vim.api.nvim_set_keymap('n', '<C-q>', '<Cmd>quit<CR>', { noremap = true, silent = true })
 
