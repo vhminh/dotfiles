@@ -277,7 +277,7 @@ function! StatusLineGitBranch()
 endfunction
 
 function! StatusLine(is_active)
-  let result = StatusLineMode(a:is_active) . ' %t %y %m%< %r %h %w%=Current: %-5l Total: %-5L'
+  let result = StatusLineMode(a:is_active) . ' %t %y %m%< %r %h %w%=%l / %L [%{&fileencoding?&fileencoding:&encoding}] [%{&fileformat}] '
   if a:is_active
     let result = result . '%#StatusLineHighlightGitBranchActive# ' . StatusLineGitBranch() . '  '
   else
