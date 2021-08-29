@@ -25,14 +25,14 @@ Plug 'airblade/vim-gitgutter'
 Plug 'jiangmiao/auto-pairs'
 if executable('ctags')
   Plug 'preservim/tagbar'
-end
+endif
 Plug 'tpope/vim-commentary'
 if has('nvim-0.5')
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-lua/completion-nvim'
 elseif enable_coc
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-end
+endif
 Plug 'sheerun/vim-polyglot'
 call plug#end()
 " auto install missing plugin
@@ -68,7 +68,6 @@ let g:onedark_color_overrides = {
   \ 'special_grey': { 'gui': '#3b4048', 'cterm': '238', 'cterm16': '7' },
   \ 'vertsplit': { 'gui': '#5f5f5f', 'cterm': '59', 'cterm16': '7' },
   \ }
-colorscheme onedark
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -95,7 +94,7 @@ if executable('rg')
   nnoremap <leader>g :RG<CR>
 elseif executable('ag')
   nnoremap <leader>g :Ag<CR>
-end
+endif
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -146,16 +145,14 @@ map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 
-let colors = onedark#GetColors()
-let background_color = has_key(colors, 'background') ? colors.background : colors.black
 
 augroup sneak_highlight
   autocmd!
+  let colors = onedark#GetColors()
+  let background_color = has_key(colors, 'background') ? colors.background : colors.black
   autocmd ColorScheme * execute 'highlight Sneak guifg=' background_color.gui 'guibg=' colors.yellow.gui 'ctermfg=' background_color.cterm 'ctermbg=' colors.yellow.cterm
   autocmd ColorScheme * execute 'highlight SneakLabel guifg=' background_color.gui 'guibg=' colors.yellow.gui 'ctermfg=' background_color.cterm 'ctermbg=' colors.yellow.cterm
 augroup end
-
-colorscheme onedark
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -176,20 +173,36 @@ endif
 if executable('ctags')
   nnoremap <C-t> :TagbarToggle<CR>
   nnoremap <leader>t :TagbarToggle<CR>
-end
+endif
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " STATUS LINE                                "
 """"""""""""""""""""""""""""""""""""""""""""""
-let colors = onedark#GetColors()
-let background_color = has_key(colors, 'background') ? colors.background : colors.black
-execute 'highlight' 'StatusLineHighlightRed'  'guibg=' colors.red.gui 'ctermbg=' colors.red.cterm  'guifg=' background_color.gui 'ctermfg=' background_color.cterm
-execute 'highlight' 'StatusLineHighlightGreen' 'guibg=' colors.green.gui 'ctermbg=' colors.green.cterm 'guifg=' background_color.gui 'ctermfg=' background_color.cterm
-execute 'highlight' 'StatusLineHighlightBlue' 'guibg=' colors.blue.gui 'ctermbg=' colors.blue.cterm 'guifg=' background_color.gui 'ctermfg=' background_color.cterm
-execute 'highlight' 'StatusLineHighlightYellow' 'guibg=' colors.yellow.gui 'ctermbg=' colors.yellow.cterm 'guifg=' background_color.gui 'ctermfg=' background_color.cterm
-execute 'highlight' 'StatusLineHighlightPurple' 'guibg=' colors.purple.gui 'ctermbg=' colors.purple.cterm 'guifg=' background_color.gui 'ctermfg=' background_color.cterm
-execute 'highlight' 'StatusLineHighlightGray' 'guibg=' colors.special_grey.gui 'ctermbg=' colors.special_grey.cterm 'guifg=' background_color.gui 'ctermfg=' background_color.cterm
+function! StatusLineSetHighlightGroup()
+  let colors = onedark#GetColors()
+  let stl_color_active = {
+    \ 'guibg': synIDattr(synIDtrans(hlID('StatusLine')), 'bg', 'gui'),
+    \ 'ctermbg': synIDattr(synIDtrans(hlID('StatusLine')), 'bg', 'cterm'),
+    \ 'guifg': synIDattr(synIDtrans(hlID('StatusLine')), 'fg', 'gui'),
+    \ 'ctermfg': synIDattr(synIDtrans(hlID('StatusLine')), 'fg', 'cterm'),
+    \ }
+  execute 'highlight' 'StatusLineHighlightRed'  'guibg=' colors.red.gui 'ctermbg=' colors.red.cterm  'guifg=' stl_color_active.guibg 'ctermfg=' stl_color_active.ctermbg
+  execute 'highlight' 'StatusLineHighlightGreen' 'guibg=' colors.green.gui 'ctermbg=' colors.green.cterm 'guifg=' stl_color_active.guibg 'ctermfg=' stl_color_active.ctermbg
+  execute 'highlight' 'StatusLineHighlightBlue' 'guibg=' colors.blue.gui 'ctermbg=' colors.blue.cterm 'guifg=' stl_color_active.guibg 'ctermfg=' stl_color_active.ctermbg
+  execute 'highlight' 'StatusLineHighlightYellow' 'guibg=' colors.yellow.gui 'ctermbg=' colors.yellow.cterm 'guifg=' stl_color_active.guibg 'ctermfg=' stl_color_active.ctermbg
+  execute 'highlight' 'StatusLineHighlightPurple' 'guibg=' colors.purple.gui 'ctermbg=' colors.purple.cterm 'guifg=' stl_color_active.guibg 'ctermfg=' stl_color_active.ctermbg
+  execute 'highlight' 'StatusLineHighlightGray' 'guibg=' colors.special_grey.gui 'ctermbg=' colors.special_grey.cterm 'guifg=' stl_color_active.guibg 'ctermfg=' stl_color_active.ctermbg
+  execute 'highlight' 'StatusLineHighlightGitBranchActive' 'guibg=' stl_color_active.guibg 'ctermbg=' stl_color_active.ctermbg 'guifg=' colors.purple.gui 'ctermfg=' colors.purple.cterm
+  execute 'highlight' 'StatusLineHighlightGitAdd' 'guibg=' stl_color_active.guibg 'ctermbg=' stl_color_active.ctermbg 'guifg=' colors.green.gui 'ctermfg=' colors.green.cterm
+  execute 'highlight' 'StatusLineHighlightGitChange' 'guibg=' stl_color_active.guibg 'ctermbg=' stl_color_active.ctermbg 'guifg=' colors.yellow.gui 'ctermfg=' colors.yellow.cterm
+  execute 'highlight' 'StatusLineHighlightGitDelete' 'guibg=' stl_color_active.guibg 'ctermbg=' stl_color_active.ctermbg 'guifg=' colors.red.gui 'ctermfg=' colors.red.cterm
+endfunction
+
+augroup stl_hi_colors
+  autocmd!
+  autocmd ColorScheme * call StatusLineSetHighlightGroup()
+augroup end
 
 let g:name_by_mode = {
   \ 'n': 'NORMAL',
@@ -264,11 +277,20 @@ function! StatusLineGitBranch()
 endfunction
 
 function! StatusLine(is_active)
-  let result = StatusLineMode(a:is_active) . ' %t %y %m%< %r %h %w%=Current: %-5l Total: %-5L ' . StatusLineGitBranch() . ' '
+  let result = StatusLineMode(a:is_active) . ' %t %y %m%< %r %h %w%=Current: %-5l Total: %-5L'
+  if a:is_active
+    let result = result . '%#StatusLineHighlightGitBranchActive# ' . StatusLineGitBranch() . '  '
+  else
+    let result = result . '%#StatusLineNC# ' . StatusLineGitBranch() . '  '
+  endif
   let [a,m,r] = GitGutterGetHunkSummary()
   if a + m + r > 0
-    let result = result . printf('+%d ~%d -%d', a, m, r) . ' '
-  end
+    if a:is_active
+      let result = result . printf('%%#StatusLineHighlightGitAdd#+%d %%#StatusLineHighlightGitChange#~%d %%#StatusLineHighlightGitDelete#-%d', a, m, r) . ' '
+    else
+      let result = result . printf('%%#StatusLineNC#+%d %%#StatusLineNC#~%d %%#StatusLineNC#-%d', a, m, r) . ' '
+    endif
+  endif
   return result
 endfunction
 
@@ -350,6 +372,8 @@ set splitbelow
 set splitright
 set scrolloff=5
 
+colorscheme onedark
+
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " NVIM BUILTIN LSP                           "
@@ -373,7 +397,7 @@ if has('nvim-0.5')
 
   nnoremap <silent> <C-LeftMouse> <LeftMouse><cmd>lua vim.lsp.buf.definition()<CR>
   nnoremap <silent> <RightMouse> <LeftMouse><cmd>lua vim.inspect(vim.lsp.buf.code_action())<CR>
-end
+endif
 
 
 
@@ -382,7 +406,7 @@ end
 
 if !enable_coc
   finish
-end
+endif
 """"""""""""""""""""""""""""""""""""""""""""""
 " COC STUFFS                                 "
 """"""""""""""""""""""""""""""""""""""""""""""
