@@ -307,6 +307,7 @@ set cmdheight=1
 """"""""""""""""""""""""""""""""""""""""""""""
 autocmd BufWritePost * GitGutter
 let g:gitgutter_map_keys = 1
+let g:gitgutter_preview_win_floating = 1
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
