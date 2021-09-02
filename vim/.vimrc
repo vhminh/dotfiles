@@ -385,6 +385,7 @@ colorscheme onedark
 " LSP AND SYNTAX HIGHLIGHTING                "
 """"""""""""""""""""""""""""""""""""""""""""""
 if has('nvim-0.5')
+  " lsp
   set completeopt=menuone,noinsert,noselect
   let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 
@@ -403,6 +404,16 @@ if has('nvim-0.5')
 
   nnoremap <silent> <C-LeftMouse> <LeftMouse><cmd>lua vim.lsp.buf.definition()<CR>
   nnoremap <silent> <RightMouse> <LeftMouse><cmd>lua vim.inspect(vim.lsp.buf.code_action())<CR>
+
+  " treesitter
+  lua <<EOF
+  require'nvim-treesitter.configs'.setup {
+    ensure_installed = 'maintained',
+    highlight = {
+      enable = true,
+    },
+  }
+EOF
 elseif enable_coc
   " https://github.com/neoclide/coc.nvim#example-vim-configuration
   let g:coc_disable_startup_warning = 1
