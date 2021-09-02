@@ -71,6 +71,11 @@ let g:onedark_color_overrides = {
   \ 'special_grey': { 'gui': '#3b4048', 'cterm': '238', 'cterm16': '7' },
   \ 'vertsplit': { 'gui': '#5f5f5f', 'cterm': '59', 'cterm16': '7' },
   \ }
+augroup colorextend
+  autocmd!
+  let colors = onedark#GetColors()
+  autocmd ColorScheme * call onedark#extend_highlight('Keyword', { 'fg': colors.purple })
+augroup end
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
