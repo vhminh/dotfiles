@@ -34,6 +34,7 @@ if has('nvim-0.5')
 else
   if enable_coc
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'antoinemadec/coc-fzf'
   endif
   Plug 'sheerun/vim-polyglot'
 endif
@@ -461,7 +462,7 @@ elseif enable_coc
   nmap <leader>lf <Plug>(coc-format-selected)
   xmap <leader>a  <Plug>(coc-codeaction-selected)
   nmap <leader>a  <Plug>(coc-codeaction-selected)
-  nnoremap <silent><nowait> <leader>d  <cmd><C-u>CocList diagnostics<cr>
+  " nnoremap <silent><nowait> <leader>d  <cmd><C-u>CocList diagnostics<cr>
   nnoremap <silent><nowait> <leader>s  <cmd><C-u>CocList outline<cr>
 
   augroup coc_sth_group
@@ -478,5 +479,10 @@ elseif enable_coc
   " NOTE: Please see `:h coc-status` for integrations with external plugins that
   " provide custom statusline: lightline.vim, vim-airline.
   " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+  " coc and fzf integration
+  let g:coc_fzf_preview = ''
+  let g:coc_fzf_opts = []
+  nnoremap <silent> <leader>d <cmd>CocFzfList diagnostics<CR>
 endif
 
