@@ -1,5 +1,5 @@
 set nocompatible
-let mapleader=" "
+let mapleader=' '
 set termguicolors
 
 let enable_coc = 1
@@ -110,10 +110,10 @@ endif
 let g:NetrwIsOpen=0
 function! ToggleNetrw()
   if g:NetrwIsOpen
-    let i = bufnr("$")
+    let i = bufnr('$')
     while (i >= 1)
-      if (getbufvar(i, "&filetype") == "netrw")
-        silent exe "bdelete " . i
+      if (getbufvar(i, '&filetype') == 'netrw')
+        silent exe 'bdelete ' . i
       endif
       let i-=1
     endwhile
@@ -167,9 +167,9 @@ augroup end
 if has('nvim')
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 else
-  let &t_SI = "\e[6 q"
-  let &t_SR = "\e[4 q"
-  let &t_EI = "\e[2 q"
+  let &t_SI = '\e[6 q'
+  let &t_SR = '\e[4 q'
+  let &t_EI = '\e[2 q'
 endif
 
 
@@ -426,7 +426,7 @@ elseif enable_coc
   set nowritebackup
   set shortmess+=c
 
-  if has("nvim-0.5.0") || has("patch-8.1.1564")
+  if has('nvim-0.5.0') || has('patch-8.1.1564')
     set signcolumn=number
   else
     set signcolumn=yes
@@ -448,7 +448,7 @@ elseif enable_coc
     elseif (coc#rpc#ready())
       call CocActionAsync('doHover')
     else
-      execute '!' . &keywordprg . " " . expand('<cword>')
+      execute '!' . &keywordprg . ' ' . expand('<cword>')
     endif
   endfunction
 
