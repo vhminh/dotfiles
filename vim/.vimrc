@@ -81,10 +81,9 @@ augroup end
 """"""""""""""""""""""""""""""""""""""""""""""
 " FZF                                        "
 """"""""""""""""""""""""""""""""""""""""""""""
-nnoremap <C-f> :Files<CR>
-nnoremap <C-b> :Buffers<CR>
-nnoremap <leader>f :Files<CR>
-nnoremap <leader>b :Buffers<CR>
+nnoremap <silent> <C-f> <cmd>Files<CR>
+nnoremap <silent> <leader>f <cmd>Files<CR>
+nnoremap <silent> <leader>b <cmd>Buffers<CR>
 
 if executable('rg')
   function! RipgrepFzf(query, fullscreen)
@@ -99,9 +98,9 @@ if executable('rg')
   command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
   let $FZF_DEFAULT_COMMAND = 'rg --files --hidden -g "!{.git,node_modules}"'
-  nnoremap <leader>g :RG<CR>
+  nnoremap <silent> <leader>g <cmd>RG<CR>
 elseif executable('ag')
-  nnoremap <leader>g :Ag<CR>
+  nnoremap <silent> <leader>g <cmd>Ag<CR>
 endif
 
 
@@ -125,7 +124,7 @@ function! ToggleNetrw()
   endif
 endfunction
 
-nnoremap <silent> <leader>e :call ToggleNetrw()<CR>
+nnoremap <silent> <leader>e <cmd>call ToggleNetrw()<CR>
 let g:netrw_winsize = 20
 let g:netrw_liststyle = 3
 augroup netrw_mapping
@@ -178,8 +177,8 @@ endif
 " TAGBAR                                     "
 """"""""""""""""""""""""""""""""""""""""""""""
 if executable('ctags')
-  nnoremap <C-t> :TagbarToggle<CR>
-  nnoremap <leader>t :TagbarToggle<CR>
+  nnoremap <silent> <C-t> :TagbarToggle<CR>
+  nnoremap <silent> <leader>t :TagbarToggle<CR>
 endif
 
 
@@ -344,7 +343,7 @@ set smartcase
 " useful mappings
 map <C-c> <ESC>
 imap <C-c> <ESC>
-map <C-c> :nohlsearch<CR>
+map <silent> <C-c> <cmd>nohlsearch<CR>
 nnoremap j gj
 nnoremap k gk
 nnoremap B ^
@@ -356,10 +355,10 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-nnoremap <C-w><C-h> :vertical resize -2<CR>
-nnoremap <C-w><C-j> :resize -2<CR>
-nnoremap <C-w><C-k> :resize +2<CR>
-nnoremap <C-w><C-l> :vertical resize +2<CR>
+nnoremap <silent> <C-w><C-h> <cmd>vertical resize -2<CR>
+nnoremap <silent> <C-w><C-j> <cmd>resize -2<CR>
+nnoremap <silent> <C-w><C-k> <cmd>resize +2<CR>
+nnoremap <silent> <C-w><C-l> <cmd>vertical resize +2<CR>
 
 " fold
 set foldmethod=indent
@@ -441,7 +440,7 @@ elseif enable_coc
   nmap <silent> gi <Plug>(coc-implementation)
   nmap <silent> gr <Plug>(coc-references)
 
-  nnoremap <silent> K :call <SID>show_documentation()<CR>
+  nnoremap <silent> K <cmd>call <SID>show_documentation()<CR>
 
   function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
@@ -462,8 +461,8 @@ elseif enable_coc
   nmap <leader>lf <Plug>(coc-format-selected)
   xmap <leader>a  <Plug>(coc-codeaction-selected)
   nmap <leader>a  <Plug>(coc-codeaction-selected)
-  nnoremap <silent><nowait> <leader>d  :<C-u>CocList diagnostics<cr>
-  nnoremap <silent><nowait> <leader>s  :<C-u>CocList outline<cr>
+  nnoremap <silent><nowait> <leader>d  <cmd><C-u>CocList diagnostics<cr>
+  nnoremap <silent><nowait> <leader>s  <cmd><C-u>CocList outline<cr>
 
   augroup coc_sth_group
     autocmd!
