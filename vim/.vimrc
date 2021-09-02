@@ -120,8 +120,7 @@ function! ToggleNetrw()
   endif
 endfunction
 
-nnoremap <C-n> :call ToggleNetrw()<CR>
-nnoremap <leader>e :call ToggleNetrw()<CR>
+nnoremap <silent> <leader>e :call ToggleNetrw()<CR>
 let g:netrw_winsize = 20
 let g:netrw_liststyle = 3
 augroup netrw_mapping
