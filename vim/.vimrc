@@ -2,7 +2,7 @@ set nocompatible
 let mapleader=" "
 set termguicolors
 
-let enable_coc = 0
+let enable_coc = 1
 let enable_coc = enable_coc && !has('nvim-0.5')
 
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -30,10 +30,13 @@ Plug 'tpope/vim-commentary'
 if has('nvim-0.5')
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-lua/completion-nvim'
-elseif enable_coc
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+else
+  if enable_coc
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  endif
+  Plug 'sheerun/vim-polyglot'
 endif
-Plug 'sheerun/vim-polyglot'
 call plug#end()
 " auto install missing plugin
 autocmd VimEnter *
@@ -380,7 +383,7 @@ colorscheme onedark
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
-" NVIM BUILTIN LSP                           "
+" LSP AND SYNTAX HIGHLIGHTING                "
 """"""""""""""""""""""""""""""""""""""""""""""
 if has('nvim-0.5')
   set completeopt=menuone,noinsert,noselect
@@ -401,75 +404,64 @@ if has('nvim-0.5')
 
   nnoremap <silent> <C-LeftMouse> <LeftMouse><cmd>lua vim.lsp.buf.definition()<CR>
   nnoremap <silent> <RightMouse> <LeftMouse><cmd>lua vim.inspect(vim.lsp.buf.code_action())<CR>
-endif
+elseif enable_coc
+  " https://github.com/neoclide/coc.nvim#example-vim-configuration
+  let g:coc_disable_startup_warning = 1
+  set nobackup
+  set nowritebackup
+  set shortmess+=c
 
-
-
-
-
-
-if !enable_coc
-  finish
-endif
-""""""""""""""""""""""""""""""""""""""""""""""
-" COC STUFFS                                 "
-""""""""""""""""""""""""""""""""""""""""""""""
-" https://github.com/neoclide/coc.nvim#example-vim-configuration
-let g:coc_disable_startup_warning = 1
-set nobackup
-set nowritebackup
-set shortmess+=c
-
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
-
-nmap <silent> [d <Plug>(coc-diagnostic-prev)
-nmap <silent> ]d <Plug>(coc-diagnostic-next)
-
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
+  if has("nvim-0.5.0") || has("patch-8.1.1564")
+    set signcolumn=number
   else
-    execute '!' . &keywordprg . " " . expand('<cword>')
+    set signcolumn=yes
   endif
-endfunction
 
-autocmd CursorHold * silent call CocActionAsync('highlight')
+  nmap <silent> [d <Plug>(coc-diagnostic-prev)
+  nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
-nmap <leader>rn <Plug>(coc-rename)
-nmap <leader>ca <Plug>(coc-codeaction)
-nmap <leader>qf <Plug>(coc-fix-current)
-xmap <leader>lf <Plug>(coc-format-selected)
-nmap <leader>lf <Plug>(coc-format-selected)
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-nnoremap <silent><nowait> <leader>d  :<C-u>CocList diagnostics<cr>
-nnoremap <silent><nowait> <leader>s  :<C-u>CocList outline<cr>
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
 
-augroup coc_sth_group
-  autocmd!
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
+  nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-command! -nargs=0 Format :call CocAction('format')
-command! -nargs=? Fold   :call CocAction('fold', <f-args>)
-command! -nargs=0 OR     :call CocAction('runCommand', 'editor.action.organizeImport')
+  function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+      execute 'h '.expand('<cword>')
+    elseif (coc#rpc#ready())
+      call CocActionAsync('doHover')
+    else
+      execute '!' . &keywordprg . " " . expand('<cword>')
+    endif
+  endfunction
 
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+
+  nmap <leader>rn <Plug>(coc-rename)
+  nmap <leader>ca <Plug>(coc-codeaction)
+  nmap <leader>qf <Plug>(coc-fix-current)
+  xmap <leader>lf <Plug>(coc-format-selected)
+  nmap <leader>lf <Plug>(coc-format-selected)
+  xmap <leader>a  <Plug>(coc-codeaction-selected)
+  nmap <leader>a  <Plug>(coc-codeaction-selected)
+  nnoremap <silent><nowait> <leader>d  :<C-u>CocList diagnostics<cr>
+  nnoremap <silent><nowait> <leader>s  :<C-u>CocList outline<cr>
+
+  augroup coc_sth_group
+    autocmd!
+    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+  augroup end
+
+  command! -nargs=0 Format :call CocAction('format')
+  command! -nargs=? Fold   :call CocAction('fold', <f-args>)
+  command! -nargs=0 OR     :call CocAction('runCommand', 'editor.action.organizeImport')
+
+  " Add (Neo)Vim's native statusline support.
+  " NOTE: Please see `:h coc-status` for integrations with external plugins that
+  " provide custom statusline: lightline.vim, vim-airline.
+  " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+endif
 
