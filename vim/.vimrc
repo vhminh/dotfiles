@@ -406,6 +406,7 @@ if has('nvim-0.5')
   nnoremap <silent> [d <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
   nnoremap <silent> ]d <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
   nnoremap <silent> <leader>ca <cmd>lua print(vim.inspect(vim.lsp.buf.code_action()))<CR>
+  nnoremap <silent> <leader>lf <cmd>lua vim.lsp.buf.formatting()<CR>
 
   nnoremap <silent> <C-LeftMouse> <LeftMouse><cmd>lua vim.lsp.buf.definition()<CR>
   nnoremap <silent> <RightMouse> <LeftMouse><cmd>lua vim.inspect(vim.lsp.buf.code_action())<CR>
