@@ -348,8 +348,8 @@ set smartcase
 map <C-c> <ESC>
 imap <C-c> <ESC>
 map <silent> <C-c> <cmd>nohlsearch<CR>
-nnoremap j gj
-nnoremap k gk
+nnoremap <silent> <expr> j v:count == 0 ? 'gj' : 'j'
+nnoremap <silent> <expr> k v:count == 0 ? 'gk' : 'k'
 nnoremap B ^
 nnoremap E $
 nmap Y y$
