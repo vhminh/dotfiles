@@ -104,6 +104,9 @@ elseif executable('ag')
   nnoremap <silent> <leader>g <cmd>Ag<CR>
 endif
 
+" settings for bat
+let $BAT_THEME = 'TwoDark'
+
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " NETRW                                      "
