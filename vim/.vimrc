@@ -423,69 +423,91 @@ if has('nvim-0.5')
     },
   }
 EOF
-elseif enable_coc
-  " https://github.com/neoclide/coc.nvim#example-vim-configuration
-  let g:coc_disable_startup_warning = 1
-  set nobackup
-  set nowritebackup
-  set shortmess+=c
+else
+  if enable_coc
+    " https://github.com/neoclide/coc.nvim#example-vim-configuration
+    let g:coc_disable_startup_warning = 1
+    set nobackup
+    set nowritebackup
+    set shortmess+=c
 
-  if has('nvim-0.5.0') || has('patch-8.1.1564')
-    set signcolumn=number
-  else
-    set signcolumn=yes
-  endif
-
-  nmap <silent> [d <Plug>(coc-diagnostic-prev)
-  nmap <silent> ]d <Plug>(coc-diagnostic-next)
-
-  nmap <silent> gd <Plug>(coc-definition)
-  nmap <silent> gy <Plug>(coc-type-definition)
-  nmap <silent> gi <Plug>(coc-implementation)
-  nmap <silent> gr <Plug>(coc-references)
-
-  nnoremap <silent> K <cmd>call <SID>show_documentation()<CR>
-
-  function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-      execute 'h '.expand('<cword>')
-    elseif (coc#rpc#ready())
-      call CocActionAsync('doHover')
+    if has('nvim-0.5.0') || has('patch-8.1.1564')
+      set signcolumn=number
     else
-      execute '!' . &keywordprg . ' ' . expand('<cword>')
+      set signcolumn=yes
     endif
-  endfunction
 
-  autocmd CursorHold * silent call CocActionAsync('highlight')
+    nmap <silent> [d <Plug>(coc-diagnostic-prev)
+    nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
-  nmap <leader>rn <Plug>(coc-rename)
-  nmap <leader>ca <Plug>(coc-codeaction)
-  nmap <leader>qf <Plug>(coc-fix-current)
-  xmap <leader>lf <Plug>(coc-format-selected)
-  nmap <leader>lf <Plug>(coc-format-selected)
-  xmap <leader>a  <Plug>(coc-codeaction-selected)
-  nmap <leader>a  <Plug>(coc-codeaction-selected)
-  " nnoremap <silent><nowait> <leader>d  <cmd><C-u>CocList diagnostics<cr>
-  nnoremap <silent><nowait> <leader>s  <cmd><C-u>CocList outline<cr>
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references)
 
-  augroup coc_sth_group
-    autocmd!
-    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-  augroup end
+    nnoremap <silent> K <cmd>call <SID>show_documentation()<CR>
 
-  command! -nargs=0 Format :call CocAction('format')
-  command! -nargs=? Fold   :call CocAction('fold', <f-args>)
-  command! -nargs=0 OR     :call CocAction('runCommand', 'editor.action.organizeImport')
+    function! s:show_documentation()
+      if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+      elseif (coc#rpc#ready())
+        call CocActionAsync('doHover')
+      else
+        execute '!' . &keywordprg . ' ' . expand('<cword>')
+      endif
+    endfunction
 
-  " Add (Neo)Vim's native statusline support.
-  " NOTE: Please see `:h coc-status` for integrations with external plugins that
-  " provide custom statusline: lightline.vim, vim-airline.
-  " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+    autocmd CursorHold * silent call CocActionAsync('highlight')
 
-  " coc and fzf integration
-  let g:coc_fzf_preview = ''
-  let g:coc_fzf_opts = []
-  nnoremap <silent> <leader>d <cmd>CocFzfList diagnostics<CR>
+    nmap <leader>rn <Plug>(coc-rename)
+    nmap <leader>ca <Plug>(coc-codeaction)
+    nmap <leader>qf <Plug>(coc-fix-current)
+    xmap <leader>lf <Plug>(coc-format-selected)
+    nmap <leader>lf <Plug>(coc-format-selected)
+    xmap <leader>a  <Plug>(coc-codeaction-selected)
+    nmap <leader>a  <Plug>(coc-codeaction-selected)
+    " nnoremap <silent><nowait> <leader>d  <cmd><C-u>CocList diagnostics<cr>
+    nnoremap <silent><nowait> <leader>s  <cmd><C-u>CocList outline<cr>
+
+    augroup coc_sth_group
+      autocmd!
+      autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+      autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    augroup end
+
+    command! -nargs=0 Format :call CocAction('format')
+    command! -nargs=? Fold   :call CocAction('fold', <f-args>)
+    command! -nargs=0 OR     :call CocAction('runCommand', 'editor.action.organizeImport')
+
+    " Add (Neo)Vim's native statusline support.
+    " NOTE: Please see `:h coc-status` for integrations with external plugins that
+    " provide custom statusline: lightline.vim, vim-airline.
+    " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+    " coc and fzf integration
+    let g:coc_fzf_preview = ''
+    let g:coc_fzf_opts = []
+    nnoremap <silent> <leader>d <cmd>CocFzfList diagnostics<CR>
+  endif
+  " vim-polyglot syntax highlighting
+  " golang
+  let g:go_highlight_chan_whitespace_error = 1
+  let g:go_highlight_extra_types = 1
+  let g:go_highlight_space_tab_error = 1
+  let g:go_highlight_trailing_whitespace_error = 1
+  let g:go_highlight_operators = 1
+  let g:go_highlight_functions = 1
+  let g:go_highlight_function_parameters = 1
+  let g:go_highlight_function_calls = 1
+  let g:go_highlight_types = 1
+  let g:go_highlight_fields = 1
+  let g:go_highlight_build_constraints = 1
+  let g:go_highlight_generate_tags = 1
+  let g:go_highlight_string_spellcheck = 1
+  let g:go_highlight_format_strings = 1
+  let g:go_highlight_variable_declarations = 0
+  let g:go_highlight_variable_assignments = 0
+  let g:go_highlight_diagnostic_errors = 1
+  let g:go_highlight_diagnostic_warnings = 1
 endif
 
