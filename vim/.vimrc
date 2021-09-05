@@ -82,9 +82,9 @@ augroup end
 """"""""""""""""""""""""""""""""""""""""""""""
 " FZF                                        "
 """"""""""""""""""""""""""""""""""""""""""""""
-nnoremap <silent> <C-f> <cmd>Files<CR>
-nnoremap <silent> <leader>f <cmd>Files<CR>
-nnoremap <silent> <leader>b <cmd>Buffers<CR>
+nnoremap <silent> <C-f> :Files<CR>
+nnoremap <silent> <leader>f :Files<CR>
+nnoremap <silent> <leader>b :Buffers<CR>
 
 if executable('rg')
   function! RipgrepFzf(query, fullscreen)
@@ -99,9 +99,9 @@ if executable('rg')
   command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
   let $FZF_DEFAULT_COMMAND = 'rg --files --hidden -g "!{.git,node_modules}"'
-  nnoremap <silent> <leader>g <cmd>RG<CR>
+  nnoremap <silent> <leader>g :RG<CR>
 elseif executable('ag')
-  nnoremap <silent> <leader>g <cmd>Ag<CR>
+  nnoremap <silent> <leader>g :Ag<CR>
 endif
 
 " settings for bat
@@ -128,7 +128,7 @@ function! ToggleNetrw()
   endif
 endfunction
 
-nnoremap <silent> <leader>e <cmd>call ToggleNetrw()<CR>
+nnoremap <silent> <leader>e :call ToggleNetrw()<CR>
 let g:netrw_winsize = 20
 let g:netrw_liststyle = 3
 augroup netrw_mapping
@@ -347,7 +347,7 @@ set smartcase
 " useful mappings
 map <C-c> <ESC>
 imap <C-c> <ESC>
-map <silent> <C-c> <cmd>nohlsearch<CR>
+map <silent> <C-c> :nohlsearch<CR>
 nnoremap <silent> <expr> j v:count == 0 ? 'gj' : 'j'
 nnoremap <silent> <expr> k v:count == 0 ? 'gk' : 'k'
 nnoremap B ^
@@ -359,10 +359,10 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-nnoremap <silent> <C-w><C-h> <cmd>vertical resize -2<CR>
-nnoremap <silent> <C-w><C-j> <cmd>resize -2<CR>
-nnoremap <silent> <C-w><C-k> <cmd>resize +2<CR>
-nnoremap <silent> <C-w><C-l> <cmd>vertical resize +2<CR>
+nnoremap <silent> <C-w><C-h> :vertical resize -2<CR>
+nnoremap <silent> <C-w><C-j> :resize -2<CR>
+nnoremap <silent> <C-w><C-k> :resize +2<CR>
+nnoremap <silent> <C-w><C-l> :vertical resize +2<CR>
 
 " fold
 set foldmethod=indent
@@ -401,18 +401,18 @@ if has('nvim-0.5')
   lua require'lspconfig'.clangd.setup{on_attach=require'completion'.on_attach}
   lua require'lspconfig'.pyright.setup{on_attach=require'completion'.on_attach}
 
-  nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-  nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
-  nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
-  nnoremap <silent> K  <cmd>lua vim.lsp.buf.hover()<CR>
-  nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
-  nnoremap <silent> [d <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-  nnoremap <silent> ]d <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-  nnoremap <silent> <leader>ca <cmd>lua print(vim.inspect(vim.lsp.buf.code_action()))<CR>
-  nnoremap <silent> <leader>lf <cmd>lua vim.lsp.buf.formatting()<CR>
+  nnoremap <silent> gd :lua vim.lsp.buf.definition()<CR>
+  nnoremap <silent> gD :lua vim.lsp.buf.declaration()<CR>
+  nnoremap <silent> gr :lua vim.lsp.buf.references()<CR>
+  nnoremap <silent> K  :lua vim.lsp.buf.hover()<CR>
+  nnoremap <silent> gi :lua vim.lsp.buf.implementation()<CR>
+  nnoremap <silent> [d :lua vim.lsp.diagnostic.goto_prev()<CR>
+  nnoremap <silent> ]d :lua vim.lsp.diagnostic.goto_next()<CR>
+  nnoremap <silent> <leader>ca :lua print(vim.inspect(vim.lsp.buf.code_action()))<CR>
+  nnoremap <silent> <leader>lf :lua vim.lsp.buf.formatting()<CR>
 
-  nnoremap <silent> <C-LeftMouse> <LeftMouse><cmd>lua vim.lsp.buf.definition()<CR>
-  nnoremap <silent> <RightMouse> <LeftMouse><cmd>lua vim.inspect(vim.lsp.buf.code_action())<CR>
+  nnoremap <silent> <C-LeftMouse> <LeftMouse>:lua vim.lsp.buf.definition()<CR>
+  nnoremap <silent> <RightMouse> <LeftMouse>:lua vim.inspect(vim.lsp.buf.code_action())<CR>
 
   " treesitter
   lua <<EOF
@@ -445,7 +445,7 @@ else
     nmap <silent> gi <Plug>(coc-implementation)
     nmap <silent> gr <Plug>(coc-references)
 
-    nnoremap <silent> K <cmd>call <SID>show_documentation()<CR>
+    nnoremap <silent> K :call <SID>show_documentation()<CR>
 
     function! s:show_documentation()
       if (index(['vim','help'], &filetype) >= 0)
@@ -466,8 +466,8 @@ else
     nmap <leader>lf <Plug>(coc-format-selected)
     xmap <leader>a  <Plug>(coc-codeaction-selected)
     nmap <leader>a  <Plug>(coc-codeaction-selected)
-    " nnoremap <silent><nowait> <leader>d  <cmd><C-u>CocList diagnostics<cr>
-    nnoremap <silent><nowait> <leader>s  <cmd><C-u>CocList outline<cr>
+    " nnoremap <silent><nowait> <leader>d  :<C-u>CocList diagnostics<cr>
+    nnoremap <silent><nowait> <leader>s  :<C-u>CocList outline<cr>
 
     augroup coc_sth_group
       autocmd!
@@ -487,7 +487,7 @@ else
     " coc and fzf integration
     let g:coc_fzf_preview = ''
     let g:coc_fzf_opts = []
-    nnoremap <silent> <leader>d <cmd>CocFzfList diagnostics<CR>
+    nnoremap <silent> <leader>d :CocFzfList diagnostics<CR>
   endif
   " vim-polyglot syntax highlighting
   " golang
