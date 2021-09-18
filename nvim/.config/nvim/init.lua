@@ -23,7 +23,7 @@ if vim._update_package_paths then
 	vim._update_package_paths()
 end
 
-vim.cmd([[autocmd BufWritePost init.lua source <afile> | PackerCompile]])
+vim.cmd('autocmd BufWritePost init.lua source <afile> | PackerCompile')
 
 local has_telescope_fzf_native = false
 local packer = require('packer')
@@ -88,7 +88,7 @@ vim.g['onedark_color_overrides'] = {
 	vertsplit = { gui = '#5f5f5f', cterm = '59', cterm16 = '7' },
 }
 
-vim.api.nvim_exec([[
+vim.cmd([[
 if (has('autocmd') && !has('gui_running'))
 	augroup colorextend
 	autocmd!
@@ -96,8 +96,7 @@ if (has('autocmd') && !has('gui_running'))
 	autocmd ColorScheme * call onedark#extend_highlight('Keyword', { 'fg': colors.purple })
 	augroup END
 	endif
-	]], false)
-vim.cmd [[colorscheme onedark]]
+]])
 
 -- extract color to use in other plugins
 local onedark_colors = vim.api.nvim_eval('onedark#GetColors()')
@@ -169,7 +168,7 @@ local color_diff = function (c1, c2)
 end
 
 
-nvim_web_devicons_set_onedark_colors = function ()
+_G.nvim_web_devicons_set_onedark_colors = function ()
 	if vim.opt.termguicolors then
 		local candidate_colors = {}
 		-- get color from onedark
@@ -196,12 +195,12 @@ nvim_web_devicons_set_onedark_colors = function ()
 	end
 end
 
--- vim.api.nvim_exec([[
+-- vim.cmd([[
 -- augroup nvim_web_devicons_color
 -- autocmd!
 -- autocmd ColorScheme * lua nvim_web_devicons_set_onedark_colors()
 -- augroup END
--- ]], false)
+-- ]])
 
 
 ----------------------------------------
@@ -284,7 +283,7 @@ local on_attach = function(client, bufnr)
 
 	-- Set autocommands conditional on server_capabilities
 	if client.resolved_capabilities.document_highlight then
-		vim.api.nvim_exec([[
+		vim.cmd([[
 		hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
 		hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
 		hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
@@ -293,7 +292,7 @@ local on_attach = function(client, bufnr)
 		autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
 		autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
 		augroup END
-		]], false)
+		]])
 	end
 
 	-- Completion
@@ -346,7 +345,7 @@ if use_fzf then
 	vim.api.nvim_set_keymap('n', '<leader>f', '<Cmd>Files<CR>', { noremap = true, silent = true })
 	vim.api.nvim_set_keymap('n', '<leader>b', '<Cmd>Buffers<CR>', { noremap = true, silent = true })
 	if vim.fn.executable('rg') ~= 0 then
-		vim.api.nvim_command[[
+		vim.cmd([[
 		function! RipgrepFzf(query, fullscreen)
 			let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case --hidden -g "!{.git,node_modules}" -- %s || true'
 			let initial_command = printf(command_fmt, shellescape(a:query))
@@ -355,8 +354,8 @@ if use_fzf then
 			call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 		endfunction
 		command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-		]]
-		vim.api.nvim_command[[command! -bang -nargs=* Rg call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case --hidden -g "!{.git,node_modules}" '.shellescape(<q-args>), 1, <bang>0)]]
+		]])
+		vim.cmd([[command! -bang -nargs=* Rg call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case --hidden -g "!{.git,node_modules}" '.shellescape(<q-args>), 1, <bang>0)]])
 		vim.env['FZF_DEFAULT_COMMAND'] = 'rg --files --hidden -g "!{.git,node_modules}"'
 		vim.api.nvim_set_keymap('n', '<leader>g', '<Cmd>RG<CR>', { noremap = true, silent = true })
 	elseif vim.fn.executable('ag') ~= 0 then
@@ -457,16 +456,15 @@ vim.api.nvim_set_keymap('n', 'F', '<Plug>Sneak_F', { noremap = false, silent = t
 vim.api.nvim_set_keymap('n', 't', '<Plug>Sneak_t', { noremap = false, silent = true })
 vim.api.nvim_set_keymap('n', 'T', '<Plug>Sneak_T', { noremap = false, silent = true })
 
-vim.api.nvim_exec([[
-	augroup sneak_highlight
-	autocmd!
-	autocmd ColorScheme * highlight Sneak guifg=]]..colors.bg..' guibg='..colors.yellow..[[
+vim.cmd([[
+augroup sneak_highlight
+autocmd!
+autocmd ColorScheme * highlight Sneak guifg=]]..colors.bg..' guibg='..colors.yellow..[[
 
-	autocmd ColorScheme * highlight SneakLabel guifg=]]..colors.bg..' guibg='..colors.yellow..[[
+autocmd ColorScheme * highlight SneakLabel guifg=]]..colors.bg..' guibg='..colors.yellow..[[
 
-	augroup END
-	]], false)
-vim.cmd [[colorscheme onedark]]
+augroup END
+]])
 
 
 ----------------------------------------
@@ -756,9 +754,12 @@ vim.opt.smartindent = true
 vim.opt.listchars = { tab = '>·', trail = '~', }
 vim.opt.list = true
 vim.opt.fillchars= { vert = '|', }
-vim.api.nvim_command[[
-hi vertsplit guifg=Gray guibg=bg
-]]
+vim.cmd([[
+augroup highlight_vertsplit
+autocmd!
+autocmd Colorscheme * highlight vertsplit guifg=Gray guibg=bg
+augroup END
+]])
 vim.opt.number = true
 vim.opt.relativenumber = false
 vim.opt.cursorline = true
@@ -816,4 +817,6 @@ vim.opt.encoding = 'utf-8'
 vim.opt.autoread = true
 vim.opt.autowriteall = true
 vim.api.nvim_set_keymap('n', '<C-q>', '<Cmd>quit<CR>', { noremap = true, silent = true })
+
+vim.cmd('colorscheme onedark')
 
