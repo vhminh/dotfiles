@@ -65,10 +65,10 @@ vim.api.nvim_command 'PackerInstall'
 -- COLOR SCHEME                        -
 ----------------------------------------
 -- override onedark color
--- override gui values with corresponding cterm values (except for special_grey)
+-- override gui values with corresponding cterm values (except for dark_red and special_grey)
 vim.g['onedark_color_overrides'] = {
 	red = { gui = '#ff5f87', cterm = '204', cterm16 = '1' },
-	dark_red = { gui = '#ff0000', cterm = '196', cterm16 = '9' },
+	dark_red = { gui = '#be5046', cterm = '196', cterm16 = '9' }, -- use default onedark color
 	green = { gui = '#87d787', cterm = '114', cterm16 = '2' },
 	yellow = { gui = '#d7af87', cterm = '180', cterm16 = '3' },
 	dark_yellow = { gui = '#d7875f', cterm = '173', cterm16 = '11' },
