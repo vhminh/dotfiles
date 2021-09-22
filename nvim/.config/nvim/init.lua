@@ -751,7 +751,7 @@ vim.opt.shiftwidth = 4
 vim.opt.smartindent = true
 
 -- Visual
-vim.opt.listchars = { tab = '>·', trail = '~', }
+vim.opt.listchars = { tab = '» ', trail = '~', }
 vim.opt.list = true
 vim.opt.fillchars= { vert = '|', }
 vim.cmd([[
