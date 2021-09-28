@@ -1,0 +1,8 @@
+"\C-p":history-search-backward
+"\C-n":history-search-forward
+
+set colored-stats on
+set visible-stats on
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+
