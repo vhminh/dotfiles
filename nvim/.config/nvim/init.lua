@@ -32,7 +32,7 @@ packer.startup(function()
 	use 'wbthomason/packer.nvim'
 	use 'joshdick/onedark.vim'
 	use 'neovim/nvim-lspconfig'
-	use 'nvim-lua/completion-nvim'
+	use { 'hrsh7th/nvim-cmp', requires = { 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-path', 'hrsh7th/cmp-buffer', 'hrsh7th/cmp-vsnip', 'hrsh7th/vim-vsnip', 'rafamadriz/friendly-snippets' } }
 	use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' }
 	if use_fzf then
 		use { 'junegunn/fzf', run = function() vim.fn['fzf#install']() end }
@@ -224,9 +224,59 @@ vim.g.bufferline = {
 ----------------------------------------
 -- LSP                                 -
 ----------------------------------------
--- Lsp completion settings
+-- Lsp completion and lspkind settings
+local lspkind = require('lspkind')
 vim.opt.completeopt={ 'menuone', 'noinsert', 'noselect' }
 vim.g.completion_matching_strategy_list = { 'exact', 'substring', 'fuzzy' }
+vim.g.completion_trigger_on_delete = true
+local cmp = require('cmp')
+cmp.setup({
+	sources = {
+		{ name = 'nvim_lsp' },
+		{ name = 'path' },
+		{ name = 'vsnip' },
+		{ name = 'buffer' },
+	},
+	mapping = {
+		['<CR>'] = cmp.mapping.confirm({
+			behavior = cmp.ConfirmBehavior.Replace,
+			select = true,
+		})
+	},
+	snippet = {
+		expand = function (args)
+			vim.fn["vsnip#anonymous"](args.body)
+		end,
+	},
+	formatting = {
+		format = lspkind.cmp_format({
+			with_text = true,
+			symbol_map = {
+				Text = '',
+				Method = 'ƒ',
+				Function = '',
+				Constructor = '',
+				Variable = '',
+				Class = '',
+				Interface = 'ﰮ',
+				Module = '',
+				Property = '',
+				Unit = '',
+				Value = '',
+				Enum = '了',
+				Keyword = '',
+				Snippet = '﬌',
+				Color = '',
+				File = '',
+				Folder = '',
+				EnumMember = '',
+				Constant = '',
+				Struct = ''
+			},
+		})
+	},
+})
+
 -- Define signs
 vim.fn.sign_define('LspDiagnosticsSignError', {
 	text = '',
@@ -299,45 +349,26 @@ local on_attach = function(client, bufnr)
 		]])
 	end
 
-	-- Completion
-	local completion = require('completion')
-	completion.on_attach()
-
-	-- LSP kind
-	local lspkind = require('lspkind')
-	lspkind.init({
-		with_text = true,
-		symbol_map = {
-			Text = '',
-			Method = 'ƒ',
-			Function = '',
-			Constructor = '',
-			Variable = '',
-			Class = '',
-			Interface = 'ﰮ',
-			Module = '',
-			Property = '',
-			Unit = '',
-			Value = '',
-			Enum = '了',
-			Keyword = '',
-			Snippet = '﬌',
-			Color = '',
-			File = '',
-			Folder = '',
-			EnumMember = '',
-			Constant = '',
-			Struct = ''
-		},
-	})
 end
 
 -- Use a loop to conveniently both setup defined servers
 -- and map buffer local keybindings when the language server attaches
 local servers = { 'clangd', 'gopls', 'pyright', 'tsserver', 'rust_analyzer' }
 for _, lsp in ipairs(servers) do
-	nvim_lsp[lsp].setup { on_attach = on_attach }
+	nvim_lsp[lsp].setup {
+		on_attach = on_attach,
+		capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+	}
 end
+
+
+----------------------------------------
+-- VSNIP                               -
+----------------------------------------
+vim.api.nvim_set_keymap('i', '<Tab>', 'vsnip#jumpable(1) ? "<Plug>(vsnip-jump-next)" : "<Tab>"', { expr = true, noremap = false, silent = true })
+vim.api.nvim_set_keymap('s', '<Tab>', 'vsnip#jumpable(1) ? "<Plug>(vsnip-jump-next)" : "<Tab>"', { expr = true, noremap = false, silent = true })
+vim.api.nvim_set_keymap('i', '<S-Tab>', 'vsnip#jumpable(-1) ? "<Plug>(vsnip-jump-prev)" : "<S-Tab>"', { expr = true, noremap = false, silent = true })
+vim.api.nvim_set_keymap('s', '<S-Tab>', 'vsnip#jumpable(-1) ? "<Plug>(vsnip-jump-prev)" : "<S-Tab>"', { expr = true, noremap = false, silent = true })
 
 
 ----------------------------------------
