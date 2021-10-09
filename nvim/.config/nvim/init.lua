@@ -127,6 +127,10 @@ end
 ----------------------------------------
 -- NVIM TREE                           -
 ----------------------------------------
+require'nvim-tree'.setup {
+	open_on_setup = true,
+	lsp_diagnostics = true,
+}
 local view = require('nvim-tree.view')
 _G.toggle_tree = function()
 	if view.win_open() then
