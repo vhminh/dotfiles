@@ -128,8 +128,10 @@ end
 -- NVIM TREE                           -
 ----------------------------------------
 require'nvim-tree'.setup {
-	open_on_setup = true,
 	lsp_diagnostics = true,
+	view = {
+		auto_resize = true,
+	},
 }
 local view = require('nvim-tree.view')
 _G.toggle_tree = function()
@@ -137,7 +139,8 @@ _G.toggle_tree = function()
 		require'nvim-tree'.close()
 		require'bufferline.state'.set_offset(0)
 	else
-		require'nvim-tree'.find_file(true)
+		require'nvim-tree'.open()
+		require'nvim-tree'.find_file(false)
 		require'bufferline.state'.set_offset(31, 'File Explorer')
 	end
 end
