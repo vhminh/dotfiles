@@ -29,8 +29,14 @@ endif
 Plug 'tpope/vim-commentary'
 if has('nvim-0.5')
   Plug 'neovim/nvim-lspconfig'
-  Plug 'nvim-lua/completion-nvim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'hrsh7th/nvim-cmp'
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-vsnip'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/vim-vsnip'
+  Plug 'rafamadriz/friendly-snippets'
 else
   if enable_coc
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -390,16 +396,40 @@ colorscheme onedark
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
-" LSP AND SYNTAX HIGHLIGHTING                "
+" LSP, SYNTAX HIGHLIGHTING, AND SNIPPETS     "
 """"""""""""""""""""""""""""""""""""""""""""""
 if has('nvim-0.5')
-  " lsp
+  " completion
   set completeopt=menuone,noinsert,noselect
   let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+  let g:completion_trigger_on_delete = 1
+  lua <<EOF
+  local cmp = require('cmp')
+  cmp.setup({
+    sources = {
+      { name = 'nvim_lsp' },
+      { name = 'path' },
+      { name = 'vsnip' },
+      { name = 'buffer' },
+    },
+    mapping = {
+      ['<CR>'] = cmp.mapping.confirm({
+        behavior = cmp.ConfirmBehavior.Replace,
+        select = true,
+      })
+    },
+    snippet = {
+      expand = function (args)
+        vim.fn["vsnip#anonymous"](args.body)
+      end,
+    },
+  })
+EOF
 
-  lua require'lspconfig'.gopls.setup{on_attach=require'completion'.on_attach}
-  lua require'lspconfig'.clangd.setup{on_attach=require'completion'.on_attach}
-  lua require'lspconfig'.pyright.setup{on_attach=require'completion'.on_attach}
+  " lsp
+  lua require'lspconfig'.gopls.setup{}
+  lua require'lspconfig'.clangd.setup{}
+  lua require'lspconfig'.pyright.setup{}
 
   nnoremap <silent> gd :lua vim.lsp.buf.definition()<CR>
   nnoremap <silent> gD :lua vim.lsp.buf.declaration()<CR>
@@ -423,6 +453,12 @@ if has('nvim-0.5')
     },
   }
 EOF
+
+  " snippets
+  imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+  smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+  imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+  smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 else
   if enable_coc
     " https://github.com/neoclide/coc.nvim#example-vim-configuration
