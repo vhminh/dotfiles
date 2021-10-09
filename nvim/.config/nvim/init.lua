@@ -47,7 +47,7 @@ packer.startup(function()
 	use 'windwp/nvim-autopairs'
 	use 'tpope/vim-commentary'
 	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-	use { 'glepnir/galaxyline.nvim', requires = 'kyazdani42/nvim-web-devicons' }
+	use { 'NTBBloodbath/galaxyline.nvim', requires = 'kyazdani42/nvim-web-devicons' }
 	use { 'lewis6991/gitsigns.nvim', requires = 'nvim-lua/plenary.nvim' }
 	use 'justinmk/vim-sneak'
 	use 'liuchengxu/vista.vim'
@@ -588,7 +588,7 @@ gls.left[3] = {
 	FileIcon = {
 		provider = 'FileIcon',
 		condition = condition.buffer_not_empty,
-		highlight = {require('galaxyline.provider_fileinfo').get_file_icon_color,colors.grey},
+		highlight = {require('galaxyline.providers.fileinfo').get_file_icon_color,colors.grey},
 	},
 }
 
