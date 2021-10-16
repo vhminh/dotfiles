@@ -52,7 +52,7 @@ packer.startup(function()
 	use 'justinmk/vim-sneak'
 	use 'liuchengxu/vista.vim'
 	use 'onsails/lspkind-nvim'
-	use 'romgrk/barbar.nvim'
+	use { 'romgrk/barbar.nvim', disable = true  }
 end)
 
 if need_install_plugin then
@@ -128,7 +128,9 @@ end
 -- NVIM TREE                           -
 ----------------------------------------
 require'nvim-tree'.setup {
-	lsp_diagnostics = true,
+	diagnostics = {
+		enable = true,
+	},
 	view = {
 		auto_resize = true,
 	},
@@ -137,11 +139,11 @@ local view = require('nvim-tree.view')
 _G.toggle_tree = function()
 	if view.win_open() then
 		require'nvim-tree'.close()
-		require'bufferline.state'.set_offset(0)
+		-- require'bufferline.state'.set_offset(0)
 	else
 		require'nvim-tree'.open()
 		require'nvim-tree'.find_file(false)
-		require'bufferline.state'.set_offset(31, 'File Explorer')
+		-- require'bufferline.state'.set_offset(31, 'File Explorer')
 	end
 end
 
@@ -213,15 +215,15 @@ end
 ----------------------------------------
 -- BAR BAR                             -
 ----------------------------------------
-vim.api.nvim_set_keymap('n', '<leader>,', '<Cmd>BufferPrevious<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>.', '<Cmd>BufferNext<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader><', '<Cmd>BufferMovePrevious<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>>', '<Cmd>BufferMoveNext<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>q', '<Cmd>BufferClose<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>o', '<Cmd>BufferPick<CR>', { noremap = true, silent = true })
-vim.g.bufferline = {
-	letters = 'asdfjkl;ghASDFJKLGH',
-}
+-- vim.api.nvim_set_keymap('n', '<leader>,', '<Cmd>BufferPrevious<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader>.', '<Cmd>BufferNext<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader><', '<Cmd>BufferMovePrevious<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader>>', '<Cmd>BufferMoveNext<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader>q', '<Cmd>BufferClose<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader>o', '<Cmd>BufferPick<CR>', { noremap = true, silent = true })
+-- vim.g.bufferline = {
+-- 	letters = 'asdfjkl;ghASDFJKLGH',
+-- }
 
 
 ----------------------------------------
