@@ -598,6 +598,8 @@ gls.left[4] = {
 	FileName = {
 		provider = {'FileName'},
 		condition = condition.buffer_not_empty,
+		separator = ' ',
+		separator_highlight = {'NONE',colors.grey},
 		highlight = {colors.purple,colors.grey}
 	}
 }
@@ -696,7 +698,7 @@ gls.right[4] = {
 
 gls.right[5] = {
 	GitIcon = {
-		provider = function() return '  ' end,
+		provider = function() return ' ' end,
 		condition = condition.check_git_workspace,
 		separator = ' ',
 		separator_highlight = {'NONE',colors.grey},
@@ -717,6 +719,8 @@ gls.right[7] = {
 		provider = 'DiffAdd',
 		condition = condition.hide_in_width,
 		icon = '  ',
+		separator = ' ',
+		separator_highlight = {'NONE',colors.grey},
 		highlight = {colors.green,colors.grey},
 	}
 }
