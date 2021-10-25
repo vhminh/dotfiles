@@ -820,6 +820,8 @@ vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = false, silent = true })
 vim.api.nvim_set_keymap('n', 'j', 'v:count == 0 ? "gj" : "j"', { expr = true, noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'k', 'v:count == 0 ? "gk" : "k"', { expr = true, noremap = true, silent = true })
 
+vim.opt.shortmess:remove{ 'S' } -- Show number of matches
+
 -- Fold
 vim.opt.foldmethod = 'indent'
 vim.opt.foldlevelstart = 99

@@ -391,6 +391,7 @@ set mouse=a
 set splitbelow
 set splitright
 set scrolloff=5
+set shortmess-=S " Show number of matches
 
 colorscheme onedark
 
