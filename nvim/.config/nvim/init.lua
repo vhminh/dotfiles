@@ -33,6 +33,7 @@ packer.startup(function()
 	use 'joshdick/onedark.vim'
 	use 'neovim/nvim-lspconfig'
 	use { 'hrsh7th/nvim-cmp', requires = { 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-path', 'hrsh7th/cmp-buffer', 'hrsh7th/cmp-vsnip', 'hrsh7th/vim-vsnip', 'rafamadriz/friendly-snippets' } }
+	use { 'williamboman/nvim-lsp-installer' }
 	use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' }
 	if use_fzf then
 		use { 'junegunn/fzf', run = function() vim.fn['fzf#install']() end }
@@ -356,15 +357,14 @@ local on_attach = function(client, bufnr)
 
 end
 
--- Use a loop to conveniently both setup defined servers
--- and map buffer local keybindings when the language server attaches
-local servers = { 'clangd', 'gopls', 'pyright', 'tsserver', 'rust_analyzer' }
-for _, lsp in ipairs(servers) do
-	nvim_lsp[lsp].setup {
+-- Use servers installed with nvim-lsp-installer
+local lsp_installer = require('nvim-lsp-installer')
+lsp_installer.on_server_ready(function (server)
+	server:setup({
 		on_attach = on_attach,
 		capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
-	}
-end
+	})
+end)
 
 
 ----------------------------------------
