@@ -55,8 +55,8 @@ set path+=**
 set wildmenu
 set wildmode=list:longest
 set wildignore+=**/.git/**,**/build/**,**/logs/**
-nnoremap <leader>f :find 
-nnoremap <C-f> :find 
+nnoremap <leader>f :find ./
+nnoremap <C-f> :find ./
 
 " buffers
 nnoremap <leader>b :buffers<CR>:buffer 
