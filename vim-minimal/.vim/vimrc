@@ -83,6 +83,9 @@ set cmdheight=1
 set showmode
 set showcmd
 set ruler
+if has('statusline')
+  set rulerformat=%l,%c%V%=%L\ 
+endif
 
 " cursor
 if has('nvim')
