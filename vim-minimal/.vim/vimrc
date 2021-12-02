@@ -125,6 +125,7 @@ set foldmethod=indent
 set foldlevelstart=99
 
 " other
+set backspace=indent,eol,start
 set updatetime=300
 set encoding=utf-8
 set hidden
