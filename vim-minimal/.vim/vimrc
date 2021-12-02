@@ -58,6 +58,10 @@ set wildignore+=**/.git/**,**/build/**,**/logs/**
 nnoremap <leader>f :find 
 nnoremap <C-f> :find 
 
+" buffers
+nnoremap <leader>b :buffers<CR>:buffer 
+nnoremap <leader>d :buffers<CR>:bdelete 
+
 " tab stuffs
 set autoindent
 set tabstop=4
