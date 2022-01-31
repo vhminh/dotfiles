@@ -48,6 +48,7 @@ packer.startup(function()
 	use 'windwp/nvim-autopairs'
 	use 'tpope/vim-commentary'
 	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+	use 'nvim-treesitter/playground'
 	use { 'NTBBloodbath/galaxyline.nvim', requires = 'kyazdani42/nvim-web-devicons' }
 	use { 'lewis6991/gitsigns.nvim', requires = 'nvim-lua/plenary.nvim' }
 	use 'justinmk/vim-sneak'
@@ -106,6 +107,7 @@ local colors = {
 	fg = onedark_colors.foreground,
 	yellow = onedark_colors.yellow,
 	cyan = onedark_colors.cyan,
+	white = onedark_colors.white,
 	green = onedark_colors.green,
 	purple = onedark_colors.purple,
 	blue = onedark_colors.blue,
@@ -478,11 +480,34 @@ require('gitsigns').setup {
 ----------------------------------------
 -- TREESITTER                          -
 ----------------------------------------
+vim.cmd('autocmd ColorScheme * highlight TSTypeBuiltin guifg='..colors.purple)
+vim.cmd('autocmd ColorScheme * highlight TSPackageName guifg='..colors.white)
 require'nvim-treesitter.configs'.setup {
 	ensure_installed = 'maintained',
 	highlight = {
 		enable = true,
+		custom_captures = {
+			['package.name'] = 'TSPackageName',
+		},
 	},
+	playground = {
+		enable = true,
+		disable = {},
+		updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+		persist_queries = false, -- Whether the query persists across vim sessions
+		keybindings = {
+			toggle_query_editor = 'o',
+			toggle_hl_groups = 'i',
+			toggle_injected_languages = 't',
+			toggle_anonymous_nodes = 'a',
+			toggle_language_display = 'I',
+			focus_language = 'f',
+			unfocus_language = 'F',
+			update = 'R',
+			goto_node = '<cr>',
+			show_help = '?',
+		},
+	}
 }
 
 
