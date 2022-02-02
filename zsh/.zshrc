@@ -16,3 +16,6 @@ alias ls='ls --color=auto'
 export EDITOR=/usr/bin/nvim
 export VISUAL=/usr/bin/nvim
 
+export GOBIN=$HOME/go/bin
+export PATH=$PATH:$GOBIN
+
