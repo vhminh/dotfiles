@@ -82,6 +82,7 @@ augroup colorextend
   autocmd!
   let colors = onedark#GetColors()
   autocmd ColorScheme * call onedark#extend_highlight('Keyword', { 'fg': colors.purple })
+  autocmd ColorScheme * call onedark#extend_highlight('goDeclType', { 'fg': colors.purple })
 augroup end
 
 
@@ -394,6 +395,16 @@ set scrolloff=5
 set shortmess-=S " Show number of matches
 
 colorscheme onedark
+
+" nmap <C-s> :call <SID>SynStack()<CR>
+
+" function! <SID>SynStack()
+"   if !exists("*synstack")
+"     return
+"   endif
+"   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+" endfunc
+
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
