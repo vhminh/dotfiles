@@ -65,7 +65,7 @@ let g:onedark_color_overrides = {
   \ 'dark_yellow': { 'gui': '#d7875f', 'cterm': '173', 'cterm16': '11' },
   \ 'blue': { 'gui': '#00afff', 'cterm': '39', 'cterm16': '4' },
   \ 'purple': { 'gui': '#d75fd7', 'cterm': '170', 'cterm16': '5' },
-  \ 'cyan': { 'gui': '#00afd7', 'cterm': '38', 'cterm16': '6' },
+  \ 'cyan': { 'gui': '#56b6c2', 'cterm': '38', 'cterm16': '6' },
   \ 'white': { 'gui': '#afafaf', 'cterm': '145', 'cterm16': '15' },
   \ 'black': { 'gui': '#262626', 'cterm': '235', 'cterm16': '0' },
   \ 'foreground': { 'gui': '#afafaf', 'cterm': '145', 'cterm16': 'NONE' },
