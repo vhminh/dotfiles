@@ -599,7 +599,8 @@ gls.left[1] = {
 		provider = function()
 			local mode = vim.fn.mode()
 			vim.api.nvim_command('hi GalaxyViMode guifg='..colors.bg..' guibg='..get_mode_color(mode))
-			return '  '..os_logo..' '..get_mode_text(mode)..' '
+			-- return '  '..os_logo..' '..get_mode_text(mode)..' '
+			return '  '..get_mode_text(mode)..' '
 		end,
 		highlight = {colors.red,colors.bg},
 	},
