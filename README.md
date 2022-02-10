@@ -1,9 +1,4 @@
 # dotfiles
-My config for `vim`, `neovim`, `alacritty`, `tmux`, `bash`
+My config repo for `neovim`, `alacritty`, `tmux`, ...
 
-## Dependencies
-- `git`, `curl` for some scripts
-- `Fira Mono nerd font` for `alacitty` and `neovim` icon
-- `ctags` for `vim` with `tagbar`
-- `ripgrep` for `fzf` and `telescope.nvim`
-- Language servers (`gopls`, `clangd`, ...) for `neovim` built-in lsp client
+Some dependencies: `git`, `ripgrep`, `ctags`, `bat`, `Noto Sans Mono Nerd Font`, language servers, ...
