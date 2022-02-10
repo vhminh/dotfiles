@@ -5,8 +5,3 @@ keysym Caps_Lock = Control_L
 add Lock = Caps_Lock
 add Control = Control_L
 
-!! Swap caps lock and escape
-!clear Lock
-!keysym Caps_Lock = Escape
-!keysym Escape = Caps_Lock
-!add Lock = Caps_Lock
