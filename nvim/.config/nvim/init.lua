@@ -40,7 +40,7 @@ packer.startup(function()
 		use 'junegunn/fzf.vim'
 	else
 		use { 'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}} }
-		if vim.fn.has('make') and vim.fn.has('gcc') then
+		if vim.fn.executable('make') and vim.fn.executable('gcc') then
 			use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 			has_telescope_fzf_native = true
 		end
@@ -258,7 +258,7 @@ cmp.setup({
 	},
 	formatting = {
 		format = lspkind.cmp_format({
-			with_text = true,
+			mode = 'symbol_text',
 			symbol_map = {
 				Text = '',
 				Method = 'ƒ',
