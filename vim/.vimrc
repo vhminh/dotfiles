@@ -85,6 +85,16 @@ augroup colorextend
   autocmd ColorScheme * call onedark#extend_highlight('goDeclType', { 'fg': colors.purple })
 augroup end
 
+augroup go_highlight
+  autocmd!
+  let colors = onedark#GetColors()
+  autocmd ColorScheme * execute 'highlight goType guifg=' colors.purple.gui 'ctermfg=' colors.purple.cterm
+  autocmd ColorScheme * execute 'highlight goSignedInts guifg=' colors.purple.gui 'ctermfg=' colors.purple.cterm
+  autocmd ColorScheme * execute 'highlight goUnsignedInts guifg=' colors.purple.gui 'ctermfg=' colors.purple.cterm
+  autocmd ColorScheme * execute 'highlight goFloats guifg=' colors.purple.gui 'ctermfg=' colors.purple.cterm
+  autocmd ColorScheme * execute 'highlight goComplexes guifg=' colors.purple.gui 'ctermfg=' colors.purple.cterm
+augroup end
+
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " FZF                                        "
