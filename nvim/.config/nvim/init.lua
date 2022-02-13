@@ -725,7 +725,7 @@ gls.right[4] = {
 
 gls.right[5] = {
 	GitIcon = {
-		provider = function() return ' ' end,
+		provider = function() return ' ' end,
 		condition = condition.check_git_workspace,
 		separator = ' ',
 		separator_highlight = {'NONE',colors.grey},
