@@ -140,15 +140,15 @@ require'nvim-tree'.setup {
 }
 local view = require('nvim-tree.view')
 _G.toggle_tree = function()
-	if view.win_open() then
-		-- require'nvim-tree'.close()
-		require'nvim-tree'.toggle() -- The close function no longer exists
-		-- require'bufferline.state'.set_offset(0)
-	else
-		require'nvim-tree'.open()
-		require'nvim-tree'.find_file(false)
-		-- require'bufferline.state'.set_offset(31, 'File Explorer')
-	end
+	require'nvim-tree'.toggle()
+	-- if view.win_open() then
+	-- 	require'nvim-tree'.close()
+	-- 	require'bufferline.state'.set_offset(0)
+	-- else
+	-- 	require'nvim-tree'.open()
+	-- 	require'nvim-tree'.find_file(false)
+	-- 	require'bufferline.state'.set_offset(31, 'File Explorer')
+	-- end
 end
 
 vim.api.nvim_set_keymap('n', '<leader>e', '<Cmd>lua toggle_tree()<CR>', { noremap = true, silent = true })
