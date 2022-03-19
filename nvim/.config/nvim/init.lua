@@ -55,6 +55,7 @@ packer.startup(function()
 	use 'liuchengxu/vista.vim'
 	use 'onsails/lspkind-nvim'
 	use { 'romgrk/barbar.nvim', disable = true  }
+	use 'folke/lua-dev.nvim'
 end)
 
 if need_install_plugin then
@@ -138,7 +139,7 @@ require'nvim-tree'.setup {
 		auto_resize = true,
 	},
 }
-local view = require('nvim-tree.view')
+-- local view = require('nvim-tree.view')
 _G.toggle_tree = function()
 	require'nvim-tree'.toggle()
 	-- if view.win_open() then
@@ -158,12 +159,12 @@ vim.api.nvim_set_keymap('n', '<leader>e', '<Cmd>lua toggle_tree()<CR>', { norema
 -- NVIM WEB DEVICONS                   -
 ----------------------------------------
 -- https://gist.github.com/fernandohenriques/12661bf250c8c2d8047188222cab7e28
-function hex2rgb(hex)
-	local hex = hex:gsub("#","")
-	if hex:len() == 3 then
-		return (tonumber("0x"..hex:sub(1, 1)) * 17), (tonumber("0x"..hex:sub(2, 2)) * 17), (tonumber("0x"..hex:sub(3, 3)) * 17)
+local hex2rgb = function (hex)
+	local hex_values = hex:gsub("#","")
+	if hex_values:len() == 3 then
+		return (tonumber("0x"..hex_values:sub(1, 1)) * 17), (tonumber("0x"..hex_values:sub(2, 2)) * 17), (tonumber("0x"..hex_values:sub(3, 3)) * 17)
 	else
-		return tonumber("0x"..hex:sub(1, 2)), tonumber("0x"..hex:sub(3, 4)), tonumber("0x"..hex:sub(5, 6))
+		return tonumber("0x"..hex_values:sub(1, 2)), tonumber("0x"..hex_values:sub(3, 4)), tonumber("0x"..hex_values:sub(5, 6))
 	end
 end
 
@@ -307,7 +308,6 @@ vim.fn.sign_define('LspDiagnosticsSignHint', {
 	texthl = 'LspDiagnosticsSignHint'
 })
 
-local nvim_lsp = require('lspconfig')
 local on_attach = function(client, bufnr)
 	local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 	local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -363,10 +363,16 @@ end
 -- Use servers installed with nvim-lsp-installer
 local lsp_installer = require('nvim-lsp-installer')
 lsp_installer.on_server_ready(function (server)
-	server:setup({
+	local opt
+	if server.name == 'sumneko_lua' then
+		opt = require('lua-dev').setup({})
+	else
+		opt = {
 		on_attach = on_attach,
 		capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
-	})
+	}
+	end
+	server:setup(opt)
 end)
 
 
