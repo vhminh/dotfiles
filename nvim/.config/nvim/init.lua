@@ -368,9 +368,9 @@ lsp_installer.on_server_ready(function (server)
 		opt = require('lua-dev').setup({})
 	else
 		opt = {
-		on_attach = on_attach,
-		capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
-	}
+			on_attach = on_attach,
+			capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+		}
 	end
 	server:setup(opt)
 end)
