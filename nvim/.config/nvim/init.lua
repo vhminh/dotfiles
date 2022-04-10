@@ -447,6 +447,8 @@ else
 	vim.api.nvim_set_keymap('n', 'gr', '<Cmd>lua require("telescope.builtin").lsp_references()<CR>', { noremap = true, silent = true })
 	vim.api.nvim_set_keymap('n', '<leader>ca', '<Cmd>lua require("telescope.builtin").lsp_code_actions()<CR>', { noremap = true, silent = true })
 	vim.api.nvim_set_keymap('n', '<leader>s', '<Cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols()<CR>', { noremap = true, silent = true })
+	vim.api.nvim_set_keymap('n', '<leader>d', '<Cmd>lua require("telescope.builtin").diagnostics()<CR>', { noremap = true, silent = true })
+	vim.api.nvim_set_keymap('n', '<leader>a', '<Cmd>lua require("telescope.builtin").builtin()<CR>', { noremap = true, silent = true })
 end
 
 
@@ -491,7 +493,7 @@ vim.cmd('autocmd ColorScheme * highlight TSTypeBuiltin guifg='..colors.purple)
 vim.cmd('autocmd ColorScheme * highlight TSFuncBuiltin guifg='..colors.cyan)
 vim.cmd('autocmd ColorScheme * highlight TSPackageName guifg='..colors.white)
 require'nvim-treesitter.configs'.setup {
-	ensure_installed = 'maintained',
+	ensure_installed = 'all',
 	highlight = {
 		enable = true,
 		custom_captures = {
