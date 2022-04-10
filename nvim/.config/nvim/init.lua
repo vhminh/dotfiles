@@ -328,8 +328,8 @@ local on_attach = function(client, bufnr)
 	buf_set_keymap('n', '<leader>lrn', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
 	-- buf_set_keymap('n', 'gr', '<Cmd>lua vim.lsp.buf.references()<CR>', opts) -- leaving this one commented and mapping gr to view lsp references in telescope.nvim
 	buf_set_keymap('n', '<leader>le', '<Cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-	buf_set_keymap('n', '[d', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-	buf_set_keymap('n', ']d', '<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+	buf_set_keymap('n', '[d', '<Cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+	buf_set_keymap('n', ']d', '<Cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 	buf_set_keymap('n', '<leader>lq', '<Cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
 	-- buf_set_keymap('n', '<leader>ca', '<Cmd>lua print(vim.inspect(vim.lsp.buf.code_action()))<CR>', opts) -- leaving this one commented and mapping <leader>ca to view code action in telescope.nvim
@@ -576,7 +576,6 @@ local get_mode_text = function(mode)
 end
 
 local get_os_logo = function()
-	local icon
 	if vim.fn.has('win64') == 1 or vim.fn.has('win32') == 1 or vim.fn.has('win16') == 1 then
 		return ''
 	end
@@ -689,7 +688,7 @@ gls.left[9] = {
 
 gls.right[1] = {
 	TotalLines = {
-		provider = function () 
+		provider = function ()
 			local cur_line_num = vim.api.nvim_win_get_cursor(0)[1]
 			local line_count = vim.api.nvim_buf_line_count(0)
 			return cur_line_num .. ' / ' .. line_count
