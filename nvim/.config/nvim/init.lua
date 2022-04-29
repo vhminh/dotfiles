@@ -135,9 +135,6 @@ require'nvim-tree'.setup {
 	diagnostics = {
 		enable = true,
 	},
-	view = {
-		auto_resize = true,
-	},
 }
 -- local view = require('nvim-tree.view')
 _G.toggle_tree = function()
