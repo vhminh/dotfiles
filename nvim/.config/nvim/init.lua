@@ -357,20 +357,25 @@ local on_attach = function(client, bufnr)
 
 end
 
--- Use servers installed with nvim-lsp-installer
-local lsp_installer = require('nvim-lsp-installer')
-lsp_installer.on_server_ready(function (server)
-	local opt
-	if server.name == 'sumneko_lua' then
-		opt = require('lua-dev').setup({})
-	else
-		opt = {
-			on_attach = on_attach,
-			capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+-- Install language servers with nvim-lsp-installer
+local servers = { 'sumneko_lua', 'gopls', 'clangd' }
+require('nvim-lsp-installer').setup {
+	ensure_installed = servers,
+}
+
+-- Setup language server options
+for _, server in pairs(servers) do
+	local opt = {
+		on_attach = on_attach,
+		flags = {
+			debounce_text_changes = 150,
 		}
+	}
+	if server == 'sumneko_lua' then
+		opt = require('lua-dev').setup({ lspconfig = opt })
 	end
-	server:setup(opt)
-end)
+	require('lspconfig')[server].setup(opt)
+end
 
 
 ----------------------------------------
