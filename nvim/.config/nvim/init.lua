@@ -247,12 +247,12 @@ cmp.setup({
 		{ name = 'vsnip' },
 		{ name = 'buffer' },
 	},
-	mapping = {
+	mapping = cmp.mapping.preset.insert({
 		['<CR>'] = cmp.mapping.confirm({
 			behavior = cmp.ConfirmBehavior.Replace,
 			select = true,
 		})
-	},
+	}),
 	snippet = {
 		expand = function (args)
 			vim.fn["vsnip#anonymous"](args.body)
