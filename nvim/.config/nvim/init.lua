@@ -56,6 +56,7 @@ packer.startup(function()
 	use 'onsails/lspkind-nvim'
 	use { 'romgrk/barbar.nvim', disable = true  }
 	use 'folke/lua-dev.nvim'
+	use 'editorconfig/editorconfig-vim'
 end)
 
 if need_install_plugin then
