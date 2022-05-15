@@ -7,13 +7,13 @@ local use_fzf = false -- Use fzf instead of telescope
 ----------------------------------------
 -- PACKER                              -
 ----------------------------------------
-local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
 local need_install_plugin = false
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 	need_install_plugin = true
 	print('Cloning packer.nvim')
-	vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+	vim.fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
 	print('Packadd packer.nvim')
 	vim.api.nvim_command 'packadd packer.nvim'
 	print('Done')
@@ -39,7 +39,7 @@ packer.startup(function()
 		use { 'junegunn/fzf', run = function() vim.fn['fzf#install']() end }
 		use 'junegunn/fzf.vim'
 	else
-		use { 'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}} }
+		use { 'nvim-telescope/telescope.nvim', requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } } }
 		if vim.fn.executable('make') and vim.fn.executable('gcc') then
 			use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 			has_telescope_fzf_native = true
@@ -54,7 +54,7 @@ packer.startup(function()
 	use 'justinmk/vim-sneak'
 	use 'liuchengxu/vista.vim'
 	use 'onsails/lspkind-nvim'
-	use { 'romgrk/barbar.nvim', disable = true  }
+	use { 'romgrk/barbar.nvim', disable = true }
 	use 'folke/lua-dev.nvim'
 	use 'editorconfig/editorconfig-vim'
 end)
@@ -116,11 +116,11 @@ local colors = {
 	red = onedark_colors.red,
 	grey = onedark_colors.cursor_grey,
 }
-local get_display_color = function (color)
+local get_display_color = function(color)
 	if vim.opt.termguicolors then
 		return color.gui
 	end
-return color.cterm
+	return color.cterm
 end
 -- for now just use termguicolors option set when start vim
 -- does not provide reload in runtime
@@ -132,14 +132,14 @@ end
 ----------------------------------------
 -- NVIM TREE                           -
 ----------------------------------------
-require'nvim-tree'.setup {
+require 'nvim-tree'.setup {
 	diagnostics = {
 		enable = true,
 	},
 }
 -- local view = require('nvim-tree.view')
 _G.toggle_tree = function()
-	require'nvim-tree'.toggle()
+	require 'nvim-tree'.toggle()
 	-- if view.win_open() then
 	-- 	require'nvim-tree'.close()
 	-- 	require'bufferline.state'.set_offset(0)
@@ -157,30 +157,30 @@ vim.api.nvim_set_keymap('n', '<leader>e', '<Cmd>lua toggle_tree()<CR>', { norema
 -- NVIM WEB DEVICONS                   -
 ----------------------------------------
 -- https://gist.github.com/fernandohenriques/12661bf250c8c2d8047188222cab7e28
-local hex2rgb = function (hex)
-	local hex_values = hex:gsub("#","")
+local hex2rgb = function(hex)
+	local hex_values = hex:gsub("#", "")
 	if hex_values:len() == 3 then
-		return (tonumber("0x"..hex_values:sub(1, 1)) * 17), (tonumber("0x"..hex_values:sub(2, 2)) * 17), (tonumber("0x"..hex_values:sub(3, 3)) * 17)
+		return (tonumber("0x" .. hex_values:sub(1, 1)) * 17), (tonumber("0x" .. hex_values:sub(2, 2)) * 17), (tonumber("0x" .. hex_values:sub(3, 3)) * 17)
 	else
-		return tonumber("0x"..hex_values:sub(1, 2)), tonumber("0x"..hex_values:sub(3, 4)), tonumber("0x"..hex_values:sub(5, 6))
+		return tonumber("0x" .. hex_values:sub(1, 2)), tonumber("0x" .. hex_values:sub(3, 4)), tonumber("0x" .. hex_values:sub(5, 6))
 	end
 end
 
 -- Low cost approximation formula of sth from CIE
 -- https://stackoverflow.com/a/9085524
 -- https://www.compuphase.com/cmetric.htm
-local color_diff = function (c1, c2)
+local color_diff = function(c1, c2)
 	local r1, g1, b1 = hex2rgb(c1)
 	local r2, g2, b2 = hex2rgb(c2)
 	local rmean = (r1 + r2) / 2
 	local r = r1 - r2
 	local g = g1 - g2
 	local b = b1 - b2
-	return (((512+rmean)*r*r)/(2^8)) + 4*g*g + (((767-rmean)*b*b)/(2^8))
+	return (((512 + rmean) * r * r) / (2 ^ 8)) + 4 * g * g + (((767 - rmean) * b * b) / (2 ^ 8))
 end
 
 
-_G.nvim_web_devicons_set_onedark_colors = function ()
+_G.nvim_web_devicons_set_onedark_colors = function()
 	if vim.opt.termguicolors then
 		local candidate_colors = {}
 		-- get color from onedark
@@ -234,7 +234,7 @@ end
 ----------------------------------------
 -- Lsp completion and lspkind settings
 local lspkind = require('lspkind')
-vim.opt.completeopt={ 'menuone', 'noinsert', 'noselect' }
+vim.opt.completeopt = { 'menuone', 'noinsert', 'noselect' }
 vim.g.completion_matching_strategy_list = { 'exact', 'substring', 'fuzzy' }
 vim.g.completion_trigger_on_delete = true
 local cmp = require('cmp')
@@ -252,7 +252,7 @@ cmp.setup({
 		})
 	}),
 	snippet = {
-		expand = function (args)
+		expand = function(args)
 			vim.fn["vsnip#anonymous"](args.body)
 		end,
 	},
@@ -308,12 +308,13 @@ vim.fn.sign_define('LspDiagnosticsSignHint', {
 
 local on_attach = function(client, bufnr)
 	local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+
 	local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
 	buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
 	-- Mappings.
-	local opts = { noremap=true, silent=true }
+	local opts = { noremap = true, silent = true }
 	buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
 	buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
 	buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
@@ -415,7 +416,7 @@ if use_fzf then
 	end
 else
 	-- telescope
-	require('telescope').setup{
+	require('telescope').setup {
 		defaults = {
 			vimgrep_arguments = {
 				'rg',
@@ -459,7 +460,7 @@ end
 ----------------------------------------
 -- NVIM AUTOPAIRS                      -
 ----------------------------------------
-require('nvim-autopairs').setup{}
+require('nvim-autopairs').setup {}
 
 
 ----------------------------------------
@@ -476,8 +477,8 @@ require('gitsigns').setup {
 	current_line_blame = true,
 	keymaps = {
 		noremap = true,
-		['n ]c'] = { expr = true, "&diff ? ']c' : '<Cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
-		['n [c'] = { expr = true, "&diff ? '[c' : '<Cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
+		['n ]c'] = { expr = true, "&diff ? ']c' : '<Cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'" },
+		['n [c'] = { expr = true, "&diff ? '[c' : '<Cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'" },
 		['n <leader>hs'] = '<Cmd>lua require"gitsigns".stage_hunk()<CR>',
 		['v <leader>hs'] = '<Cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
 		['n <leader>hu'] = '<Cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
@@ -493,10 +494,10 @@ require('gitsigns').setup {
 ----------------------------------------
 -- TREESITTER                          -
 ----------------------------------------
-vim.cmd('autocmd ColorScheme * highlight TSTypeBuiltin guifg='..colors.purple)
-vim.cmd('autocmd ColorScheme * highlight TSFuncBuiltin guifg='..colors.cyan)
-vim.cmd('autocmd ColorScheme * highlight TSPackageName guifg='..colors.white)
-require'nvim-treesitter.configs'.setup {
+vim.cmd('autocmd ColorScheme * highlight TSTypeBuiltin guifg=' .. colors.purple)
+vim.cmd('autocmd ColorScheme * highlight TSFuncBuiltin guifg=' .. colors.cyan)
+vim.cmd('autocmd ColorScheme * highlight TSPackageName guifg=' .. colors.white)
+require 'nvim-treesitter.configs'.setup {
 	ensure_installed = 'all',
 	highlight = {
 		enable = true,
@@ -538,9 +539,9 @@ vim.api.nvim_set_keymap('n', 'T', '<Plug>Sneak_T', { noremap = false, silent = t
 vim.cmd([[
 augroup sneak_highlight
 autocmd!
-autocmd ColorScheme * highlight Sneak guifg=]]..colors.bg..' guibg='..colors.yellow..[[
+autocmd ColorScheme * highlight Sneak guifg=]] .. colors.bg .. ' guibg=' .. colors.yellow .. [[
 
-autocmd ColorScheme * highlight SneakLabel guifg=]]..colors.bg..' guibg='..colors.yellow..[[
+autocmd ColorScheme * highlight SneakLabel guifg=]] .. colors.bg .. ' guibg=' .. colors.yellow .. [[
 
 augroup END
 ]])
@@ -552,7 +553,7 @@ augroup END
 -- some util functions
 local get_mode_color = function(mode)
 	local mode_color = {
-		n = colors.blue, i = colors.green,v = colors.yellow,
+		n = colors.blue, i = colors.green, v = colors.yellow,
 		[''] = colors.yellow, V = colors.yellow,
 		c = colors.purple, no = colors.blue, s = colors.yellow,
 		S = colors.yellow, [''] = colors.yellow,
@@ -569,7 +570,7 @@ local get_mode_text = function(mode)
 		n = 'NORMAL', i = 'INSERT', v = 'VISUAL',
 		[''] = 'V-BLOCK', V = 'V-LINE',
 		c = 'COMMAND', no = 'OPERATOR', s = 'SELECT',
-		S= 'S-LINE', [''] = 'S-BLOCK',
+		S = 'S-LINE', [''] = 'S-BLOCK',
 		ic = 'COMPLETION', R = 'REPLACE', Rv = 'VIRT-REPLACE',
 		cv = 'EX', ce = 'EX-NORMAL', r = 'ENTER-PROMPT',
 		rm = 'MORE_PROMPT', ['r?'] = 'CONFIRM',
@@ -602,7 +603,7 @@ end
 local gl = require('galaxyline')
 local condition = require('galaxyline.condition')
 local gls = gl.section
-gl.short_line_list = {'NvimTree','vista','dbui'}
+gl.short_line_list = { 'NvimTree', 'vista', 'dbui' }
 
 local os_logo = get_os_logo()
 
@@ -610,18 +611,18 @@ gls.left[1] = {
 	ViMode = {
 		provider = function()
 			local mode = vim.fn.mode()
-			vim.api.nvim_command('hi GalaxyViMode guifg='..colors.bg..' guibg='..get_mode_color(mode))
+			vim.api.nvim_command('hi GalaxyViMode guifg=' .. colors.bg .. ' guibg=' .. get_mode_color(mode))
 			-- return '  '..os_logo..' '..get_mode_text(mode)..' '
-			return '  '..get_mode_text(mode)..' '
+			return '  ' .. get_mode_text(mode) .. ' '
 		end,
-		highlight = {colors.red,colors.bg},
+		highlight = { colors.red, colors.bg },
 	},
 }
 
 gls.left[2] = {
 	Separator = {
 		provider = function() return ' ' end,
-		highlight = {colors.fg, colors.grey}
+		highlight = { colors.fg, colors.grey }
 	},
 }
 
@@ -629,23 +630,23 @@ gls.left[3] = {
 	FileIcon = {
 		provider = 'FileIcon',
 		condition = condition.buffer_not_empty,
-		highlight = {require('galaxyline.providers.fileinfo').get_file_icon_color,colors.grey},
+		highlight = { require('galaxyline.providers.fileinfo').get_file_icon_color, colors.grey },
 	},
 }
 
 gls.left[4] = {
 	FileName = {
-		provider = {'FileName'},
+		provider = { 'FileName' },
 		condition = condition.buffer_not_empty,
 		separator = ' ',
-		separator_highlight = {'NONE',colors.grey},
-		highlight = {colors.purple,colors.grey}
+		separator_highlight = { 'NONE', colors.grey },
+		highlight = { colors.purple, colors.grey }
 	}
 }
 
 gls.left[5] = {
 	Function = {
-		provider = function ()
+		provider = function()
 			local fn_name = vim.api.nvim_eval('get(b:, "vista_nearest_method_or_function", "")')
 			if fn_name == '' then
 				return ''
@@ -653,8 +654,8 @@ gls.left[5] = {
 			return ': ' .. fn_name
 		end,
 		separator = ' ',
-		separator_highlight = {'NONE',colors.grey},
-		highlight = {colors.fg,colors.grey},
+		separator_highlight = { 'NONE', colors.grey },
+		highlight = { colors.fg, colors.grey },
 	},
 }
 
@@ -662,14 +663,14 @@ gls.left[6] = {
 	DiagnosticError = {
 		provider = 'DiagnosticError',
 		icon = '  ',
-		highlight = {colors.red,colors.grey}
+		highlight = { colors.red, colors.grey }
 	}
 }
 gls.left[7] = {
 	DiagnosticWarn = {
 		provider = 'DiagnosticWarn',
 		icon = '  ',
-		highlight = {colors.yellow,colors.grey},
+		highlight = { colors.yellow, colors.grey },
 	}
 }
 
@@ -677,7 +678,7 @@ gls.left[8] = {
 	DiagnosticHint = {
 		provider = 'DiagnosticHint',
 		icon = '  ',
-		highlight = {colors.cyan,colors.grey},
+		highlight = { colors.cyan, colors.grey },
 	}
 }
 
@@ -685,19 +686,19 @@ gls.left[9] = {
 	DiagnosticInfo = {
 		provider = 'DiagnosticInfo',
 		icon = '  ',
-		highlight = {colors.blue,colors.grey},
+		highlight = { colors.blue, colors.grey },
 	}
 }
 
 gls.right[1] = {
 	TotalLines = {
-		provider = function ()
+		provider = function()
 			local cur_line_num = vim.api.nvim_win_get_cursor(0)[1]
 			local line_count = vim.api.nvim_buf_line_count(0)
 			return cur_line_num .. ' / ' .. line_count
 		end,
-		separator_highlight = {'NONE',colors.grey},
-		highlight = {colors.fg,colors.grey},
+		separator_highlight = { 'NONE', colors.grey },
+		highlight = { colors.fg, colors.grey },
 	}
 }
 
@@ -705,8 +706,8 @@ gls.right[2] = {
 	FileEncode = {
 		provider = 'FileEncode',
 		separator = ' ',
-		separator_highlight = {'NONE',colors.grey},
-		highlight = {colors.green,colors.grey}
+		separator_highlight = { 'NONE', colors.grey },
+		highlight = { colors.green, colors.grey }
 	}
 }
 
@@ -714,24 +715,24 @@ gls.right[3] = {
 	FileFormat = {
 		provider = 'FileFormat',
 		separator = ' ',
-		separator_highlight = {'NONE',colors.grey},
-		highlight = {colors.green,colors.grey}
+		separator_highlight = { 'NONE', colors.grey },
+		highlight = { colors.green, colors.grey }
 	}
 }
 
 gls.right[4] = {
 	ShowLspClient = {
 		provider = 'GetLspClient',
-		condition = function ()
-			local tbl = {['dashboard'] = true,['']=true}
+		condition = function()
+			local tbl = { ['dashboard'] = true, [''] = true }
 			if tbl[vim.bo.filetype] then
 				return false
 			end
 			return true
 		end,
 		separator = ' ',
-		separator_highlight = {'NONE',colors.grey},
-		highlight = {colors.cyan,colors.grey}
+		separator_highlight = { 'NONE', colors.grey },
+		highlight = { colors.cyan, colors.grey }
 	}
 }
 
@@ -740,8 +741,8 @@ gls.right[5] = {
 		provider = function() return ' ' end,
 		condition = condition.check_git_workspace,
 		separator = ' ',
-		separator_highlight = {'NONE',colors.grey},
-		highlight = {colors.purple,colors.grey,'bold'},
+		separator_highlight = { 'NONE', colors.grey },
+		highlight = { colors.purple, colors.grey, 'bold' },
 	}
 }
 
@@ -749,7 +750,7 @@ gls.right[6] = {
 	GitBranch = {
 		provider = 'GitBranch',
 		condition = condition.check_git_workspace,
-		highlight = {colors.purple,colors.grey,'bold'},
+		highlight = { colors.purple, colors.grey, 'bold' },
 	}
 }
 
@@ -759,8 +760,8 @@ gls.right[7] = {
 		condition = condition.hide_in_width,
 		icon = '  ',
 		separator = ' ',
-		separator_highlight = {'NONE',colors.grey},
-		highlight = {colors.green,colors.grey},
+		separator_highlight = { 'NONE', colors.grey },
+		highlight = { colors.green, colors.grey },
 	}
 }
 gls.right[8] = {
@@ -768,7 +769,7 @@ gls.right[8] = {
 		provider = 'DiffModified',
 		condition = condition.hide_in_width,
 		icon = ' 柳',
-		highlight = {colors.yellow,colors.grey},
+		highlight = { colors.yellow, colors.grey },
 	}
 }
 gls.right[9] = {
@@ -776,14 +777,14 @@ gls.right[9] = {
 		provider = 'DiffRemove',
 		condition = condition.hide_in_width,
 		icon = '  ',
-		highlight = {colors.red,colors.grey},
+		highlight = { colors.red, colors.grey },
 	}
 }
 
 gls.right[10] = {
 	RainbowBlue = {
 		provider = function() return ' ▊' end,
-		highlight = {colors.blue,colors.grey}
+		highlight = { colors.blue, colors.grey }
 	},
 }
 
@@ -792,7 +793,7 @@ gls.short_line_left[1] = {
 		provider = 'FileIcon',
 		separator = ' ',
 		condition = condition.buffer_not_empty,
-		highlight = {colors.fg,colors.grey},
+		highlight = { colors.fg, colors.grey },
 	},
 }
 
@@ -800,14 +801,14 @@ gls.short_line_left[2] = {
 	SFileName = {
 		provider = 'SFileName',
 		condition = condition.buffer_not_empty,
-		highlight = {colors.fg,colors.grey}
+		highlight = { colors.fg, colors.grey }
 	}
 }
 
 gls.short_line_right[1] = {
 	BufferIcon = {
-		provider= 'BufferIcon',
-		highlight = {colors.fg,colors.grey}
+		provider = 'BufferIcon',
+		highlight = { colors.fg, colors.grey }
 	}
 }
 
@@ -836,7 +837,7 @@ vim.opt.smartindent = true
 -- Visual
 vim.opt.listchars = { tab = '» ', trail = '~', }
 vim.opt.list = true
-vim.opt.fillchars= { vert = '|', }
+vim.opt.fillchars = { vert = '|', }
 vim.cmd([[
 augroup highlight_vertsplit
 autocmd!
@@ -863,7 +864,7 @@ vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = false, silent = true })
 vim.api.nvim_set_keymap('n', 'j', 'v:count == 0 ? "gj" : "j"', { expr = true, noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'k', 'v:count == 0 ? "gk" : "k"', { expr = true, noremap = true, silent = true })
 
-vim.opt.shortmess:remove{ 'S' } -- Show number of matches
+vim.opt.shortmess:remove { 'S' } -- Show number of matches
 
 -- Fold
 vim.opt.foldmethod = 'indent'
@@ -904,4 +905,3 @@ vim.opt.autowriteall = true
 vim.api.nvim_set_keymap('n', '<C-q>', '<Cmd>quit<CR>', { noremap = true, silent = true })
 
 vim.cmd('colorscheme onedark')
-
