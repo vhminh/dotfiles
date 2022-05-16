@@ -44,6 +44,7 @@ packer.startup(function()
   use 'onsails/lspkind-nvim'
   use 'folke/lua-dev.nvim'
   use 'editorconfig/editorconfig-vim'
+  use { 'scalameta/nvim-metals', requires = { 'nvim-lua/plenary.nvim' } }
 end)
 
 if need_install_plugin then
@@ -195,6 +196,25 @@ for _, server in pairs(servers) do
   end
   require('lspconfig')[server].setup(opt)
 end
+
+
+-- Metals
+local metals_config = require('metals').bare_config()
+metals_config.settings = {
+  showImplicitArguments = true,
+  excludedPackages = { 'akka.actor.typed.javadsl', 'com.github.swagger.akka.javadsl' },
+}
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+metals_config.capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+metals_config.on_attach = on_attach
+local nvim_metals_group = vim.api.nvim_create_augroup('nvim-metals', { clear = true })
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'scala', 'sbt' },
+  callback = function()
+    require('metals').initialize_or_attach(metals_config)
+  end,
+  group = nvim_metals_group,
+})
 
 
 -- Vsnip
@@ -577,7 +597,7 @@ opt.backspace = { 'indent', 'eol', 'start' }
 opt.clipboard = { 'unnamedplus' }
 opt.mouse = { a = true }
 
-opt.shortmess:remove { 'S' }
+opt.shortmess:remove { 'S', 'F' }
 
 opt.foldmethod = 'indent'
 opt.foldlevelstart = 99
