@@ -104,7 +104,7 @@ require('nvim-tree').setup {
     enable = true,
   },
 }
-nnoremap('<leader>e', ':NvimTreeToggle')
+nnoremap('<leader>e', '<Cmd>NvimTreeToggle<CR>')
 
 
 -- Lsp
