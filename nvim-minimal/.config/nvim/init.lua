@@ -373,14 +373,7 @@ gls.left[1] = {
     highlight = { colors.red, colors.background },
   },
 }
-
-gls.left[2] = {
-  Separator = {
-    provider = function() return ' ' end,
-    highlight = { colors.foreground, colors.grey }
-  },
-}
-
+gls.left[2] = { Separator = { provider = function() return ' ' end, highlight = { colors.foreground, colors.grey } } }
 gls.left[3] = {
   FileIcon = {
     provider = 'FileIcon',
@@ -388,7 +381,6 @@ gls.left[3] = {
     highlight = { require('galaxyline.providers.fileinfo').get_file_icon_color, colors.grey },
   },
 }
-
 gls.left[4] = {
   FileName = {
     provider = { 'FileName' },
@@ -398,7 +390,6 @@ gls.left[4] = {
     highlight = { colors.purple, colors.grey }
   }
 }
-
 gls.left[5] = {
   Function = {
     provider = function()
@@ -413,37 +404,10 @@ gls.left[5] = {
     highlight = { colors.foreground, colors.grey },
   },
 }
-
-gls.left[6] = {
-  DiagnosticError = {
-    provider = 'DiagnosticError',
-    icon = '  ',
-    highlight = { colors.red, colors.grey }
-  }
-}
-gls.left[7] = {
-  DiagnosticWarn = {
-    provider = 'DiagnosticWarn',
-    icon = '  ',
-    highlight = { colors.yellow, colors.grey },
-  }
-}
-
-gls.left[8] = {
-  DiagnosticHint = {
-    provider = 'DiagnosticHint',
-    icon = '  ',
-    highlight = { colors.cyan, colors.grey },
-  }
-}
-
-gls.left[9] = {
-  DiagnosticInfo = {
-    provider = 'DiagnosticInfo',
-    icon = '  ',
-    highlight = { colors.blue, colors.grey },
-  }
-}
+gls.left[6] = { DiagnosticError = { provider = 'DiagnosticError', icon = '  ', highlight = { colors.red, colors.grey } } }
+gls.left[7] = { DiagnosticWarn = { provider = 'DiagnosticWarn', icon = '  ', highlight = { colors.yellow, colors.grey } } }
+gls.left[8] = { DiagnosticHint = { provider = 'DiagnosticHint', icon = '  ', highlight = { colors.cyan, colors.grey } } }
+gls.left[9] = { DiagnosticInfo = { provider = 'DiagnosticInfo', icon = '  ', highlight = { colors.blue, colors.grey } } }
 
 gls.right[1] = {
   TotalLines = {
@@ -456,7 +420,6 @@ gls.right[1] = {
     highlight = { colors.foreground, colors.grey },
   }
 }
-
 gls.right[2] = {
   FileEncode = {
     provider = 'FileEncode',
@@ -465,7 +428,6 @@ gls.right[2] = {
     highlight = { colors.green, colors.grey }
   }
 }
-
 gls.right[3] = {
   FileFormat = {
     provider = 'FileFormat',
@@ -474,7 +436,6 @@ gls.right[3] = {
     highlight = { colors.green, colors.grey }
   }
 }
-
 gls.right[4] = {
   ShowLspClient = {
     provider = 'GetLspClient',
@@ -490,7 +451,6 @@ gls.right[4] = {
     highlight = { colors.cyan, colors.grey }
   }
 }
-
 gls.right[5] = {
   GitIcon = {
     provider = function() return ' ' end,
@@ -500,7 +460,6 @@ gls.right[5] = {
     highlight = { colors.purple, colors.grey, 'bold' },
   }
 }
-
 gls.right[6] = {
   GitBranch = {
     provider = 'GitBranch',
@@ -508,7 +467,6 @@ gls.right[6] = {
     highlight = { colors.purple, colors.grey, 'bold' },
   }
 }
-
 gls.right[7] = {
   DiffAdd = {
     provider = 'DiffAdd',
@@ -535,13 +493,7 @@ gls.right[9] = {
     highlight = { colors.red, colors.grey },
   }
 }
-
-gls.right[10] = {
-  RainbowBlue = {
-    provider = function() return ' ▊' end,
-    highlight = { colors.blue, colors.grey }
-  },
-}
+gls.right[10] = { RainbowBlue = { provider = function() return ' ▊' end, highlight = { colors.blue, colors.grey } }, }
 
 gls.short_line_left[1] = {
   FileIcon = {
@@ -551,7 +503,6 @@ gls.short_line_left[1] = {
     highlight = { colors.foreground, colors.grey },
   },
 }
-
 gls.short_line_left[2] = {
   SFileName = {
     provider = 'SFileName',
@@ -560,12 +511,7 @@ gls.short_line_left[2] = {
   }
 }
 
-gls.short_line_right[1] = {
-  BufferIcon = {
-    provider = 'BufferIcon',
-    highlight = { colors.foreground, colors.grey }
-  }
-}
+gls.short_line_right[1] = { BufferIcon = { provider = 'BufferIcon', highlight = { colors.foreground, colors.grey } } }
 
 
 -- Vista
