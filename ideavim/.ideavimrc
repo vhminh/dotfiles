@@ -1,0 +1,37 @@
+let mapleader=' '
+
+set easymotion
+set commentary
+set ideajoin
+set NERDTree
+
+set incsearch
+set ignorecase
+set smartcase
+set scrolloff=5
+set showmode
+set idearefactormode=keep
+
+map <C-c> <ESC>
+
+nmap <leader>f <Action>(GotoFile)
+nmap <leader>s <Action>(GotoSymbol)
+nmap <leader>g <Action>(FindModal)
+nmap <C-o> <Action>(Back)
+nmap <C-i> <Action>(Forward)
+
+nmap [c <Action>(VcsShowPrevChangeMarker)
+nmap ]c <Action>(VcsShowNextChangeMarker)
+nmap [d <Action>(GotoPreviousError)
+nmap ]d <Action>(GotoNextError)
+
+nmap gi <Action>(GotoImplementation)
+nmap gr <Action>(GotoDeclaration)
+nmap go <Action>(GotoSuperMethod)
+nmap <leader>rn <Action>(RenameElement)
+nmap <leader>lf <Action>(ReformatCode)
+nmap <leader>ca <Action>(ShowIntentionActions)
+
+nmap <leader>e :NERDTreeToggle<CR>
+
+map s <Plug>(easymotion-bd-f2)
