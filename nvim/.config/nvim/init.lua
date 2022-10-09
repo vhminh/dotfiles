@@ -360,7 +360,7 @@ local on_attach = function(client, bufnr)
 end
 
 -- Install language servers with nvim-lsp-installer
-local servers = { 'sumneko_lua', 'gopls', 'clangd' }
+local servers = { 'sumneko_lua', 'gopls', 'clangd', 'pyright' }
 require('nvim-lsp-installer').setup {
 	ensure_installed = servers,
 }
