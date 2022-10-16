@@ -162,7 +162,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', '<leader>lf', '<Cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
   end
 
-  if client.resolved_capabilities.document_highlight then
+  if client.server_capabilities.documentHighlightProvider then
     vim.cmd([[
     hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
     hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
@@ -183,6 +183,9 @@ require('nvim-lsp-installer').setup {
   ensure_installed = servers,
 }
 
+-- neodev (must be set up before lsp config)
+require('neodev').setup({})
+
 -- setup language server options
 for _, server in pairs(servers) do
   local opt = {
@@ -191,9 +194,6 @@ for _, server in pairs(servers) do
       debounce_text_changes = 150,
     }
   }
-  if server == 'sumneko_lua' then
-    opt = require('neodev').setup { lspconfig = opt }
-  end
   require('lspconfig')[server].setup(opt)
 end
 
