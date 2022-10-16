@@ -42,7 +42,7 @@ packer.startup(function()
   use 'justinmk/vim-sneak'
   use 'liuchengxu/vista.vim'
   use 'onsails/lspkind-nvim'
-  use 'folke/lua-dev.nvim'
+  use 'folke/neodev.nvim'
   use 'editorconfig/editorconfig-vim'
   use { 'scalameta/nvim-metals', requires = { 'nvim-lua/plenary.nvim' } }
 end)
@@ -156,9 +156,9 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', ']d', '<Cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<leader>lq', '<Cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
-  if client.resolved_capabilities.document_formatting then
+  if client.server_capabilities.documentFormattingProvider then
     buf_set_keymap('n', '<leader>lf', '<Cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-  elseif client.resolved_capabilities.document_range_formatting then
+  elseif client.server_capabilities.documentRangeFormattingProvider then
     buf_set_keymap('n', '<leader>lf', '<Cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
   end
 
@@ -192,7 +192,7 @@ for _, server in pairs(servers) do
     }
   }
   if server == 'sumneko_lua' then
-    opt = require('lua-dev').setup { lspconfig = opt }
+    opt = require('neodev').setup { lspconfig = opt }
   end
   require('lspconfig')[server].setup(opt)
 end
@@ -205,7 +205,7 @@ metals_config.settings = {
   excludedPackages = { 'akka.actor.typed.javadsl', 'com.github.swagger.akka.javadsl' },
 }
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-metals_config.capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+metals_config.capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 metals_config.on_attach = on_attach
 local nvim_metals_group = vim.api.nvim_create_augroup('nvim-metals', { clear = true })
 vim.api.nvim_create_autocmd('FileType', {
