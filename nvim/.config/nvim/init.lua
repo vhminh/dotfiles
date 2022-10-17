@@ -505,6 +505,9 @@ require 'nvim-treesitter.configs'.setup {
 			['package.name'] = 'TSPackageName',
 		},
 	},
+	indent = {
+		enable = true,
+	},
 	playground = {
 		enable = true,
 		disable = {},

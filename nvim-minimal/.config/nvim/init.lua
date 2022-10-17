@@ -307,6 +307,9 @@ require('nvim-treesitter.configs').setup {
       ['package.name'] = 'TSPackageName',
     },
   },
+  indent = {
+    enable = true,
+  },
 }
 
 
