@@ -2,18 +2,19 @@ set nocompatible
 let mapleader=' '
 set termguicolors
 
-let enable_coc = 1
-let enable_coc = enable_coc && !has('nvim-0.5')
+let use_treesitter = has('nvim-0.5')
 
-""""""""""""""""""""""""""""""""""""""""""""""
-" VIM PLUG                                   "
-""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VIM PLUG
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " auto install vimplug
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+
 " plugins
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 Plug 'joshdick/onedark.vim'
@@ -23,28 +24,17 @@ Plug 'tpope/vim-vinegar'
 Plug 'justinmk/vim-sneak'
 Plug 'airblade/vim-gitgutter'
 Plug 'jiangmiao/auto-pairs'
-if executable('ctags')
-  Plug 'preservim/tagbar'
-endif
 Plug 'tpope/vim-commentary'
-if has('nvim-0.5')
-  Plug 'neovim/nvim-lspconfig'
+Plug 'preservim/tagbar'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'antoinemadec/coc-fzf'
+if use_treesitter
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'hrsh7th/nvim-cmp'
-  Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'hrsh7th/cmp-path'
-  Plug 'hrsh7th/cmp-vsnip'
-  Plug 'hrsh7th/cmp-buffer'
-  Plug 'hrsh7th/vim-vsnip'
-  Plug 'rafamadriz/friendly-snippets'
 else
-  if enable_coc
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'antoinemadec/coc-fzf'
-  endif
   Plug 'sheerun/vim-polyglot'
 endif
 call plug#end()
+
 " auto install missing plugin
 autocmd VimEnter *
   \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
@@ -52,11 +42,11 @@ autocmd VimEnter *
   \| endif
 
 
-""""""""""""""""""""""""""""""""""""""""""""""
-" ONE DARK                                   "
-""""""""""""""""""""""""""""""""""""""""""""""
-syntax on
-" Use cterm color for gui (except for dark_red and special_grey)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ONE DARK
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" use cterm color for gui (except for dark_red, cyan, and special_grey)
 let g:onedark_color_overrides = {
   \ 'red': { 'gui': '#ff5f87', 'cterm': '204', 'cterm16': '1' },
   \ 'dark_red': { 'gui': '#be5046', 'cterm': '196', 'cterm16': '9' },
@@ -96,9 +86,10 @@ augroup go_highlight
 augroup end
 
 
-""""""""""""""""""""""""""""""""""""""""""""""
-" FZF                                        "
-""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" FZF
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 nnoremap <silent> <C-f> :Files<CR>
 nnoremap <silent> <leader>f :Files<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
@@ -125,9 +116,10 @@ endif
 let $BAT_THEME = 'TwoDark'
 
 
-""""""""""""""""""""""""""""""""""""""""""""""
-" NETRW                                      "
-""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NETRW
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 let g:NetrwIsOpen=0
 function! ToggleNetrw()
   if g:NetrwIsOpen
@@ -153,7 +145,7 @@ augroup netrw_mapping
   autocmd filetype netrw call NetrwMapping()
 augroup end
 
-" Dont auto change dir when open another buffer
+" don't auto change dir when open another buffer
 " since we need netrw to open the working directory
 set noautochdir
 
@@ -162,9 +154,10 @@ function! NetrwMapping()
 endfunction
 
 
-""""""""""""""""""""""""""""""""""""""""""""""
-" SNEAK                                      "
-""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SNEAK
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 let g:sneak#label = 1
 let g:sneak#prompt = '> '
 map f <Plug>Sneak_f
@@ -182,9 +175,10 @@ augroup sneak_highlight
 augroup end
 
 
-""""""""""""""""""""""""""""""""""""""""""""""
-" CURSOR                                     "
-""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CURSOR
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 if has('nvim')
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 else
@@ -194,18 +188,20 @@ else
 endif
 
 
-""""""""""""""""""""""""""""""""""""""""""""""
-" TAGBAR                                     "
-""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" TAGBAR
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 if executable('ctags')
   nnoremap <silent> <C-t> :TagbarToggle<CR>
   nnoremap <silent> <leader>t :TagbarToggle<CR>
 endif
 
 
-""""""""""""""""""""""""""""""""""""""""""""""
-" STATUS LINE                                "
-""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" STATUS LINE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 function! StatusLineSetHighlightGroup()
   let colors = onedark#GetColors()
   let stl_color_active = {
@@ -285,12 +281,12 @@ endfunction
 
 function! GetGitBranch()
   if !executable('git')
-    " Git not installed
+    " git not installed
     return ''
   endif
   silent! exe 'git rev-parse --is-inside-work-tree &>/dev/null'
   if v:shell_error != 0
-    " Not inside a git repo
+    " not inside a git repo
     return ''
   endif
   return system('git symbolic-ref --short HEAD')
@@ -329,17 +325,118 @@ set noshowcmd
 set cmdheight=1
 
 
-""""""""""""""""""""""""""""""""""""""""""""""
-" GIT GUTTER                                 "
-""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" GIT GUTTER
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 autocmd BufWritePost * GitGutter
 let g:gitgutter_map_keys = 1
 let g:gitgutter_preview_win_floating = 1
 
 
-""""""""""""""""""""""""""""""""""""""""""""""
-" OTHER                                      "
-""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" LSP
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" https://github.com/neoclide/coc.nvim#example-vim-configuration
+set nobackup
+set nowritebackup
+set shortmess+=c
+set signcolumn=yes
+
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+nmap <silent> [d <Plug>(coc-diagnostic-prev)
+nmap <silent> ]d <Plug>(coc-diagnostic-next)
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . ' ' . expand('<cword>')
+  endif
+endfunction
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>ca <Plug>(coc-codeaction)
+nmap <leader>qf <Plug>(coc-fix-current)
+xmap <leader>lf <Plug>(coc-format-selected)
+nmap <leader>lf :call CocAction('format')<CR>
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+nnoremap <silent><nowait> <leader>s  :<C-u>CocList outline<cr>
+
+augroup coc_sth_group
+  autocmd!
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+command! -nargs=0 Format :call CocAction('format')
+command! -nargs=? Fold   :call CocAction('fold', <f-args>)
+command! -nargs=0 OR     :call CocAction('runCommand', 'editor.action.organizeImport')
+
+" coc and fzf integration
+let g:coc_fzf_preview = ''
+let g:coc_fzf_opts = []
+nnoremap <silent> <leader>d :CocFzfList diagnostics<CR>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CODE HIGHLIGHTING
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if use_treesitter
+  lua <<EOF
+  require'nvim-treesitter.configs'.setup {
+    ensure_installed = 'all',
+    highlight = {
+      enable = true,
+    },
+    indent = {
+      enable = true,
+    },
+  }
+EOF
+else
+  syntax on
+  let g:go_highlight_chan_whitespace_error = 1
+  let g:go_highlight_extra_types = 1
+  let g:go_highlight_space_tab_error = 1
+  let g:go_highlight_trailing_whitespace_error = 1
+  let g:go_highlight_operators = 1
+  let g:go_highlight_functions = 1
+  let g:go_highlight_function_parameters = 1
+  let g:go_highlight_function_calls = 1
+  let g:go_highlight_types = 1
+  let g:go_highlight_fields = 1
+  let g:go_highlight_build_constraints = 1
+  let g:go_highlight_generate_tags = 1
+  let g:go_highlight_string_spellcheck = 1
+  let g:go_highlight_format_strings = 1
+  let g:go_highlight_variable_declarations = 0
+  let g:go_highlight_variable_assignments = 0
+  let g:go_highlight_diagnostic_errors = 1
+  let g:go_highlight_diagnostic_warnings = 1
+endif
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VIM OPTS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 filetype plugin indent on
 
 " tab stuffs
@@ -396,176 +493,13 @@ set cursorline
 set lazyredraw
 set showmatch
 if !has('nvim')
-  set ttymouse=xterm2 " Set this to have smooth mouse selection in tmux
+  set ttymouse=xterm2 " set this to have smooth mouse selection in tmux
 end
 set mouse=a
 set splitbelow
 set splitright
 set scrolloff=5
-set shortmess-=S " Show number of matches
+set shortmess-=S " show number of matches
 
 colorscheme onedark
-
-" nmap <C-s> :call <SID>SynStack()<CR>
-
-" function! <SID>SynStack()
-"   if !exists("*synstack")
-"     return
-"   endif
-"   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-" endfunc
-
-
-
-""""""""""""""""""""""""""""""""""""""""""""""
-" LSP, SYNTAX HIGHLIGHTING, AND SNIPPETS     "
-""""""""""""""""""""""""""""""""""""""""""""""
-if has('nvim-0.5')
-  " completion
-  set completeopt=menuone,noinsert,noselect
-  let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-  let g:completion_trigger_on_delete = 1
-  lua <<EOF
-  local cmp = require('cmp')
-  cmp.setup({
-    sources = {
-      { name = 'nvim_lsp' },
-      { name = 'path' },
-      { name = 'vsnip' },
-      { name = 'buffer' },
-    },
-    mapping = {
-      ['<CR>'] = cmp.mapping.confirm({
-        behavior = cmp.ConfirmBehavior.Replace,
-        select = true,
-      })
-    },
-    snippet = {
-      expand = function (args)
-        vim.fn["vsnip#anonymous"](args.body)
-      end,
-    },
-  })
-EOF
-
-  " lsp
-  lua require'lspconfig'.gopls.setup{}
-  lua require'lspconfig'.clangd.setup{}
-  lua require'lspconfig'.pyright.setup{}
-
-  nnoremap <silent> gd :lua vim.lsp.buf.definition()<CR>
-  nnoremap <silent> gD :lua vim.lsp.buf.declaration()<CR>
-  nnoremap <silent> gr :lua vim.lsp.buf.references()<CR>
-  nnoremap <silent> K  :lua vim.lsp.buf.hover()<CR>
-  nnoremap <silent> gi :lua vim.lsp.buf.implementation()<CR>
-  nnoremap <silent> [d :lua vim.lsp.diagnostic.goto_prev()<CR>
-  nnoremap <silent> ]d :lua vim.lsp.diagnostic.goto_next()<CR>
-  nnoremap <silent> <leader>ca :lua print(vim.inspect(vim.lsp.buf.code_action()))<CR>
-  nnoremap <silent> <leader>lf :lua vim.lsp.buf.formatting()<CR>
-
-  nnoremap <silent> <C-LeftMouse> <LeftMouse>:lua vim.lsp.buf.definition()<CR>
-  nnoremap <silent> <RightMouse> <LeftMouse>:lua vim.inspect(vim.lsp.buf.code_action())<CR>
-
-  " treesitter
-  lua <<EOF
-  require'nvim-treesitter.configs'.setup {
-    ensure_installed = 'maintained',
-    highlight = {
-      enable = true,
-    },
-  }
-EOF
-
-  " snippets
-  imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-  smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-  imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-  smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-else
-  if enable_coc
-    " https://github.com/neoclide/coc.nvim#example-vim-configuration
-    let g:coc_disable_startup_warning = 1
-    set nobackup
-    set nowritebackup
-    set shortmess+=c
-
-    if has('nvim-0.5.0') || has('patch-8.1.1564')
-      set signcolumn=number
-    else
-      set signcolumn=yes
-    endif
-
-    nmap <silent> [d <Plug>(coc-diagnostic-prev)
-    nmap <silent> ]d <Plug>(coc-diagnostic-next)
-
-    nmap <silent> gd <Plug>(coc-definition)
-    nmap <silent> gy <Plug>(coc-type-definition)
-    nmap <silent> gi <Plug>(coc-implementation)
-    nmap <silent> gr <Plug>(coc-references)
-
-    nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-    function! s:show_documentation()
-      if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-      elseif (coc#rpc#ready())
-        call CocActionAsync('doHover')
-      else
-        execute '!' . &keywordprg . ' ' . expand('<cword>')
-      endif
-    endfunction
-
-    autocmd CursorHold * silent call CocActionAsync('highlight')
-
-    nmap <leader>rn <Plug>(coc-rename)
-    nmap <leader>ca <Plug>(coc-codeaction)
-    nmap <leader>qf <Plug>(coc-fix-current)
-    xmap <leader>lf <Plug>(coc-format-selected)
-    nmap <leader>lf <Plug>(coc-format-selected)
-    xmap <leader>a  <Plug>(coc-codeaction-selected)
-    nmap <leader>a  <Plug>(coc-codeaction-selected)
-    " nnoremap <silent><nowait> <leader>d  :<C-u>CocList diagnostics<cr>
-    nnoremap <silent><nowait> <leader>s  :<C-u>CocList outline<cr>
-
-    augroup coc_sth_group
-      autocmd!
-      autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-      autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-    augroup end
-
-    command! -nargs=0 Format :call CocAction('format')
-    command! -nargs=? Fold   :call CocAction('fold', <f-args>)
-    command! -nargs=0 OR     :call CocAction('runCommand', 'editor.action.organizeImport')
-
-    " Add (Neo)Vim's native statusline support.
-    " NOTE: Please see `:h coc-status` for integrations with external plugins that
-    " provide custom statusline: lightline.vim, vim-airline.
-    " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-    " coc and fzf integration
-    let g:coc_fzf_preview = ''
-    let g:coc_fzf_opts = []
-    nnoremap <silent> <leader>d :CocFzfList diagnostics<CR>
-  endif
-  " vim-polyglot syntax highlighting
-  " golang
-  let g:go_highlight_chan_whitespace_error = 1
-  let g:go_highlight_extra_types = 1
-  let g:go_highlight_space_tab_error = 1
-  let g:go_highlight_trailing_whitespace_error = 1
-  let g:go_highlight_operators = 1
-  let g:go_highlight_functions = 1
-  let g:go_highlight_function_parameters = 1
-  let g:go_highlight_function_calls = 1
-  let g:go_highlight_types = 1
-  let g:go_highlight_fields = 1
-  let g:go_highlight_build_constraints = 1
-  let g:go_highlight_generate_tags = 1
-  let g:go_highlight_string_spellcheck = 1
-  let g:go_highlight_format_strings = 1
-  let g:go_highlight_variable_declarations = 0
-  let g:go_highlight_variable_assignments = 0
-  let g:go_highlight_diagnostic_errors = 1
-  let g:go_highlight_diagnostic_warnings = 1
-endif
 
