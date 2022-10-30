@@ -26,7 +26,9 @@ packer.startup(function()
   use 'wbthomason/packer.nvim'
   use 'joshdick/onedark.vim'
   use 'neovim/nvim-lspconfig'
-  use { 'hrsh7th/nvim-cmp', requires = { 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-path', 'hrsh7th/cmp-buffer', 'hrsh7th/cmp-vsnip', 'hrsh7th/vim-vsnip', 'rafamadriz/friendly-snippets' } }
+  use { 'hrsh7th/nvim-cmp',
+    requires = { 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-path', 'hrsh7th/cmp-buffer', 'hrsh7th/cmp-vsnip',
+      'hrsh7th/vim-vsnip', 'rafamadriz/friendly-snippets' } }
   use { 'williamboman/mason.nvim' }
   use { "williamboman/mason-lspconfig.nvim" }
   use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' }
@@ -251,10 +253,14 @@ vim.api.nvim_create_autocmd('FileType', {
 -- VSNIP
 ----------------------------------------------------------------
 
-vim.api.nvim_set_keymap('i', '<Tab>', 'vsnip#jumpable(1) ? "<Plug>(vsnip-jump-next)" : "<Tab>"', { expr = true, noremap = false, silent = true })
-vim.api.nvim_set_keymap('s', '<Tab>', 'vsnip#jumpable(1) ? "<Plug>(vsnip-jump-next)" : "<Tab>"', { expr = true, noremap = false, silent = true })
-vim.api.nvim_set_keymap('i', '<S-Tab>', 'vsnip#jumpable(-1) ? "<Plug>(vsnip-jump-prev)" : "<S-Tab>"', { expr = true, noremap = false, silent = true })
-vim.api.nvim_set_keymap('s', '<S-Tab>', 'vsnip#jumpable(-1) ? "<Plug>(vsnip-jump-prev)" : "<S-Tab>"', { expr = true, noremap = false, silent = true })
+vim.api.nvim_set_keymap('i', '<Tab>', 'vsnip#jumpable(1) ? "<Plug>(vsnip-jump-next)" : "<Tab>"',
+  { expr = true, noremap = false, silent = true })
+vim.api.nvim_set_keymap('s', '<Tab>', 'vsnip#jumpable(1) ? "<Plug>(vsnip-jump-next)" : "<Tab>"',
+  { expr = true, noremap = false, silent = true })
+vim.api.nvim_set_keymap('i', '<S-Tab>', 'vsnip#jumpable(-1) ? "<Plug>(vsnip-jump-prev)" : "<S-Tab>"',
+  { expr = true, noremap = false, silent = true })
+vim.api.nvim_set_keymap('s', '<S-Tab>', 'vsnip#jumpable(-1) ? "<Plug>(vsnip-jump-prev)" : "<S-Tab>"',
+  { expr = true, noremap = false, silent = true })
 
 
 ----------------------------------------------------------------
@@ -287,18 +293,30 @@ require('telescope').setup {
 }
 require('telescope').load_extension('fzf')
 
-vim.api.nvim_set_keymap('n', '<leader>a', '<Cmd>lua require("telescope.builtin").builtin()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>a', '<Cmd>lua require("telescope.builtin").builtin()<CR>',
+  { noremap = true, silent = true })
 -- files and finders
-vim.api.nvim_set_keymap('n', '<C-f>', '<Cmd>lua require("telescope.builtin").find_files({ find_command = {"rg", "--files", "--hidden", "-g", "!{.git,node_modules}"} })<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>f', '<Cmd>lua require("telescope.builtin").find_files({ find_command = {"rg", "--files", "--hidden", "-g", "!{.git,node_modules}"} })<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>b', '<Cmd>lua require("telescope.builtin").buffers()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>g', '<Cmd>lua require("telescope.builtin").live_grep()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-f>',
+  '<Cmd>lua require("telescope.builtin").find_files({ find_command = {"rg", "--files", "--hidden", "-g", "!{.git,node_modules}"} })<CR>'
+  , { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>f',
+  '<Cmd>lua require("telescope.builtin").find_files({ find_command = {"rg", "--files", "--hidden", "-g", "!{.git,node_modules}"} })<CR>'
+  , { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>b', '<Cmd>lua require("telescope.builtin").buffers()<CR>',
+  { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>g', '<Cmd>lua require("telescope.builtin").live_grep()<CR>',
+  { noremap = true, silent = true })
 -- lsp
-vim.api.nvim_set_keymap('n', 'gr', '<Cmd>lua require("telescope.builtin").lsp_references()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>ca', '<Cmd>lua require("telescope.builtin").lsp_code_actions()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>s', '<Cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>d', '<Cmd>lua require("telescope.builtin").diagnostics()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', 'gi', '<Cmd>lua require("telescope.builtin").lsp_implementations()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'gr', '<Cmd>lua require("telescope.builtin").lsp_references()<CR>',
+  { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>ca', '<Cmd>lua require("telescope.builtin").lsp_code_actions()<CR>',
+  { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>s', '<Cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols()<CR>',
+  { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>d', '<Cmd>lua require("telescope.builtin").diagnostics()<CR>',
+  { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'gi', '<Cmd>lua require("telescope.builtin").lsp_implementations()<CR>',
+  { noremap = true, silent = true })
 
 
 ----------------------------------------------------------------
@@ -477,7 +495,8 @@ gls.left[5] = {
   },
 }
 gls.left[6] = { DiagnosticError = { provider = 'DiagnosticError', icon = '  ', highlight = { colors.red, colors.grey } } }
-gls.left[7] = { DiagnosticWarn = { provider = 'DiagnosticWarn', icon = '  ', highlight = { colors.yellow, colors.grey } } }
+gls.left[7] = { DiagnosticWarn = { provider = 'DiagnosticWarn', icon = '  ',
+  highlight = { colors.yellow, colors.grey } } }
 gls.left[8] = { DiagnosticHint = { provider = 'DiagnosticHint', icon = '  ', highlight = { colors.cyan, colors.grey } } }
 gls.left[9] = { DiagnosticInfo = { provider = 'DiagnosticInfo', icon = '  ', highlight = { colors.blue, colors.grey } } }
 
