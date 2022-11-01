@@ -30,7 +30,7 @@ packer.startup(function()
     requires = { 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-path', 'hrsh7th/cmp-buffer', 'hrsh7th/cmp-vsnip',
       'hrsh7th/vim-vsnip', 'rafamadriz/friendly-snippets' } }
   use { 'williamboman/mason.nvim' }
-  use { "williamboman/mason-lspconfig.nvim" }
+  use { 'williamboman/mason-lspconfig.nvim' }
   use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' }
   use { 'nvim-telescope/telescope.nvim', requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } } }
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
@@ -43,6 +43,7 @@ packer.startup(function()
   use 'justinmk/vim-sneak'
   use 'liuchengxu/vista.vim'
   use 'onsails/lspkind-nvim'
+  use 'SmiteshP/nvim-navic'
   use 'folke/neodev.nvim'
   use 'editorconfig/editorconfig-vim'
   use { 'scalameta/nvim-metals', requires = { 'nvim-lua/plenary.nvim' } }
@@ -173,6 +174,11 @@ vim.fn.sign_define('LspDiagnosticsSignHint', {
   texthl = 'LspDiagnosticsSignHint'
 })
 
+local navic = require('nvim-navic')
+navic.setup {
+  highlight = false,
+}
+
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
@@ -205,6 +211,10 @@ local on_attach = function(client, bufnr)
     autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
     augroup END
     ]])
+  end
+
+  if client.server_capabilities.documentSymbolProvider then
+    navic.attach(client, bufnr)
   end
 
 end
@@ -490,16 +500,12 @@ gls.left[4] = {
 }
 gls.left[5] = {
   Function = {
+    condition = navic.is_available(),
     provider = function()
-      local fn_name = vim.api.nvim_eval('get(b:, "vista_nearest_method_or_function", "")')
-      if fn_name == '' then
-        return ''
-      end
-      return ': ' .. fn_name
+      return navic.get_location()
     end,
     separator = ' ',
     separator_highlight = { 'NONE', colors.grey },
-    highlight = { colors.foreground, colors.grey },
   },
 }
 gls.left[6] = { DiagnosticError = { provider = 'DiagnosticError', icon = '  ', highlight = { colors.red, colors.grey } } }
