@@ -194,11 +194,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '[d', '<Cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<Cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 
-  if client.server_capabilities.documentFormattingProvider then
-    buf_set_keymap('n', '<leader>lf', '<Cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-  elseif client.server_capabilities.documentRangeFormattingProvider then
-    buf_set_keymap('n', '<leader>lf', '<Cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
-  end
+  buf_set_keymap('n', '<leader>lf', '<Cmd>lua vim.lsp.buf.format({ async = true })<CR>', opts)
 
   if client.server_capabilities.documentHighlightProvider then
     vim.cmd([[
