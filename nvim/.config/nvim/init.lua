@@ -214,7 +214,7 @@ local on_attach = function(client, bufnr)
 end
 
 -- install language servers
-local servers = { 'sumneko_lua', 'gopls', 'clangd', 'pyright' }
+local servers = { 'lua_ls', 'gopls', 'clangd', 'pyright' }
 require('mason').setup()
 require('mason-lspconfig').setup {
   ensure_installed = servers,
