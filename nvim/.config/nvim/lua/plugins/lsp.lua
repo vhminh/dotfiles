@@ -5,73 +5,73 @@ vim.g.completion_matching_strategy_list = { 'exact', 'substring', 'fuzzy' }
 vim.g.completion_trigger_on_delete = true
 local cmp = require('cmp')
 cmp.setup({
-	sources = {
-		{ name = 'nvim_lsp' },
-		{ name = 'path' },
-		{ name = 'vsnip' },
-		{ name = 'buffer' },
-	},
-	mapping = cmp.mapping.preset.insert({
-		['<CR>'] = cmp.mapping.confirm({
-			behavior = cmp.ConfirmBehavior.Replace,
-			select = true,
-		})
-	}),
-	snippet = {
-		expand = function(args)
-			vim.fn["vsnip#anonymous"](args.body)
-		end,
-	},
-	formatting = {
-		format = lspkind.cmp_format({
-			mode = 'symbol_text',
-		})
-	},
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'path' },
+    { name = 'vsnip' },
+    { name = 'buffer' },
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<CR>'] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    })
+  }),
+  snippet = {
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body)
+    end,
+  },
+  formatting = {
+    format = lspkind.cmp_format({
+      mode = 'symbol_text',
+    })
+  },
 })
 
 -- define lsp signs
 vim.fn.sign_define('LspDiagnosticsSignError', {
-	text = '',
-	texthl = 'LspDiagnosticsSignError',
+  text = '',
+  texthl = 'LspDiagnosticsSignError',
 })
 
 vim.fn.sign_define('LspDiagnosticsSignWarning', {
-	text = '',
-	texthl = 'LspDiagnosticsSignWarning',
+  text = '',
+  texthl = 'LspDiagnosticsSignWarning',
 })
 
 vim.fn.sign_define('LspDiagnosticsSignInformation', {
-	text = '',
-	texthl = 'LspDiagnosticsSignInformation',
+  text = '',
+  texthl = 'LspDiagnosticsSignInformation',
 })
 
 vim.fn.sign_define('LspDiagnosticsSignHint', {
-	text = '',
-	texthl = 'LspDiagnosticsSignHint'
+  text = '',
+  texthl = 'LspDiagnosticsSignHint'
 })
 
 local navic = require('nvim-navic')
 navic.setup {
-	highlight = false,
+  highlight = false,
 }
 
 local on_attach = function(client, bufnr)
 
-	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-	local bufopts = { remap = false, silent = false, buffer = bufnr }
-	vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-	vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-	vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-	vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-	vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-	vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, bufopts)
-	vim.keymap.set('n', ']d', vim.diagnostic.goto_next, bufopts)
+  local bufopts = { remap = false, silent = false, buffer = bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, bufopts)
+  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, bufopts)
 
-	vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format, bufopts)
+  vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format, bufopts)
 
-	if client.server_capabilities.documentHighlightProvider then
-		vim.cmd([[
+  if client.server_capabilities.documentHighlightProvider then
+    vim.cmd([[
     hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
     hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
     hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
@@ -81,11 +81,11 @@ local on_attach = function(client, bufnr)
     autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
     augroup END
     ]])
-	end
+  end
 
-	if client.server_capabilities.documentSymbolProvider then
-		navic.attach(client, bufnr)
-	end
+  if client.server_capabilities.documentSymbolProvider then
+    navic.attach(client, bufnr)
+  end
 
 end
 
@@ -93,7 +93,7 @@ end
 local servers = { 'lua_ls', 'gopls', 'clangd', 'pyright' }
 require('mason').setup()
 require('mason-lspconfig').setup {
-	ensure_installed = servers,
+  ensure_installed = servers,
 }
 
 -- neodev for init.lua
@@ -101,28 +101,28 @@ require('neodev').setup({})
 
 -- setup language servers
 for _, server in pairs(servers) do
-	local opt = {
-		on_attach = on_attach,
-		flags = {
-			debounce_text_changes = 150,
-		}
-	}
-	require('lspconfig')[server].setup(opt)
+  local opt = {
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = 150,
+    }
+  }
+  require('lspconfig')[server].setup(opt)
 end
 
 -- metals
 local metals_config = require('metals').bare_config()
 metals_config.settings = {
-	showImplicitArguments = true,
-	excludedPackages = { 'akka.actor.typed.javadsl', 'com.github.swagger.akka.javadsl' },
+  showImplicitArguments = true,
+  excludedPackages = { 'akka.actor.typed.javadsl', 'com.github.swagger.akka.javadsl' },
 }
 metals_config.capabilities = require('cmp_nvim_lsp').default_capabilities()
 metals_config.on_attach = on_attach
 local nvim_metals_group = vim.api.nvim_create_augroup('nvim-metals', { clear = true })
 vim.api.nvim_create_autocmd('FileType', {
-	pattern = { 'scala', 'sbt', 'java' },
-	callback = function()
-		require('metals').initialize_or_attach(metals_config)
-	end,
-	group = nvim_metals_group,
+  pattern = { 'scala', 'sbt', 'java' },
+  callback = function()
+    require('metals').initialize_or_attach(metals_config)
+  end,
+  group = nvim_metals_group,
 })

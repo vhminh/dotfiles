@@ -3,13 +3,10 @@ vim.keymap.set('', '<C-c>', '<ESC>', { remap = true })
 vim.keymap.set('i', '<C-c>', '<ESC>', { remap = true })
 
 -- indent
--- vim.opt.expandtab = false
--- vim.opt.tabstop = 4
--- vim.opt.shiftwidth = 4
--- vim.opt.smartindent = true
-vim.opt.expandtab = true
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
+vim.opt.expandtab = false
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.smartindent = true
 
 -- visual
 vim.opt.termguicolors = true
