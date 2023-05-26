@@ -139,7 +139,7 @@ gls.right[7] = {
   DiffAdd = {
     provider = 'DiffAdd',
     condition = condition.hide_in_width,
-    icon = '  ',
+    icon = '  ',
     separator = ' ',
     separator_highlight = { 'NONE', colors.grey },
     highlight = { colors.green, colors.grey },
@@ -149,7 +149,7 @@ gls.right[8] = {
   DiffModified = {
     provider = 'DiffModified',
     condition = condition.hide_in_width,
-    icon = ' 柳',
+    icon = '  ',
     highlight = { colors.yellow, colors.grey },
   }
 }
@@ -157,7 +157,7 @@ gls.right[9] = {
   DiffRemove = {
     provider = 'DiffRemove',
     condition = condition.hide_in_width,
-    icon = '  ',
+    icon = '  ',
     highlight = { colors.red, colors.grey },
   }
 }
