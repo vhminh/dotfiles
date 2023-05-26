@@ -1,6 +1,5 @@
 local telescope = require('telescope')
 local get_status = require('telescope.state').get_status
-local Path = require "plenary.path"
 
 telescope.setup {
   defaults = {
@@ -16,6 +15,7 @@ telescope.setup {
       '-g',
       '!{.git,node_modules}',
     },
+    dynamic_preview_title = true,
   },
   extensions = {
     fzf = {
@@ -88,6 +88,8 @@ local intellij_style_path_display = function(opts, filepath)
   return filename .. string.rep(' ', padding) .. parent_dir
 end
 
+vim.cmd "autocmd User TelescopePreviewerLoaded setlocal number"
+
 vim.keymap.set('n', '<leader>a', telescope_builtin.builtin)
 -- files and finders
 vim.keymap.set('n', '<C-f>', function()
@@ -105,7 +107,7 @@ end)
 vim.keymap.set('n', '<leader>b', telescope_builtin.buffers)
 vim.keymap.set('n', '<leader>g', function()
   telescope_builtin.live_grep({
-    path_display = { 'smart' },
+    path_display = { 'tail' },
   })
 end)
 -- lsp
