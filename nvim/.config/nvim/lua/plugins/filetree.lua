@@ -6,4 +6,4 @@ require 'nvim-tree'.setup {
 		group_empty = true,
 	},
 }
-vim.keymap.set('n', '<leader>e', '<Cmd>NvimTreeToggle<CR>')
+vim.keymap.set('n', '<leader>e', '<Cmd>NvimTreeFindFile<CR>')
