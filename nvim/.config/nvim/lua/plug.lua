@@ -39,6 +39,7 @@ packer.startup(function()
   use 'onsails/lspkind-nvim'
   use 'SmiteshP/nvim-navic'
   use 'folke/neodev.nvim'
+  use 'tpope/vim-sleuth'
   use 'editorconfig/editorconfig-vim'
   use { 'scalameta/nvim-metals', requires = { 'nvim-lua/plenary.nvim' } }
 end)
