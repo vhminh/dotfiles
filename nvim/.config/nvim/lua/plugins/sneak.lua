@@ -1,4 +1,4 @@
-local colors = require('theme').colors
+local colors = require('colors').gui
 
 vim.g['sneak#label'] = true
 vim.g['sneak#prompt'] = ' '

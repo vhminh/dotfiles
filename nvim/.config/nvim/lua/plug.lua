@@ -49,6 +49,7 @@ if need_install_plugin then
 end
 vim.api.nvim_command 'PackerInstall'
 
+require('plugins.theme')
 require('plugins.filetree')
 require('plugins.lsp')
 require('plugins.fuzzyfinder')

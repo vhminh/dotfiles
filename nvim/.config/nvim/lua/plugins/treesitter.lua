@@ -1,4 +1,4 @@
-local colors = require('theme').colors
+local colors = require('colors').gui
 
 vim.cmd('autocmd ColorScheme * highlight TSTypeBuiltin guifg=' .. colors.purple)
 vim.cmd('autocmd ColorScheme * highlight TSFuncBuiltin guifg=' .. colors.cyan)

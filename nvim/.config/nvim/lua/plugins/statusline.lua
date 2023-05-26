@@ -1,4 +1,4 @@
-local colors = require('theme').colors
+local colors = require('colors').gui
 local navic = require('nvim-navic')
 
 local colors_by_mode = {
