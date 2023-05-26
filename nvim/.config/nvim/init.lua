@@ -289,10 +289,18 @@ local telescope_builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>a', telescope_builtin.builtin)
 -- files and finders
 vim.keymap.set('n', '<C-f>', function()
-  telescope_builtin.find_files({ find_command = { "rg", "--files", "--hidden", "-g", "!{.git,node_modules}" } })
+  telescope_builtin.find_files({
+    shorten_path = true,
+    path_display = { 'smart' },
+    find_command = { 'fd', '--type', 'file', '--hidden', '--exclude', '.git' },
+  })
 end)
 vim.keymap.set('n', '<leader>f', function()
-  telescope_builtin.find_files({ find_command = { "rg", "--files", "--hidden", "-g", "!{.git,node_modules}" } })
+  telescope_builtin.find_files({
+    shorten_path = true,
+    path_display = { 'smart' },
+    find_command = { 'fd', '--type', 'file', '--hidden', '--exclude', '.git' },
+  })
 end)
 vim.keymap.set('n', '<leader>b', telescope_builtin.buffers)
 vim.keymap.set('n', '<leader>g', telescope_builtin.live_grep)
