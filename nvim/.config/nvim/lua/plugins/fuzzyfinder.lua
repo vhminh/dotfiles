@@ -31,7 +31,15 @@ local telescope_builtin = require('telescope.builtin')
 
 local get_entry_width = function()
   local status = get_status(vim.api.nvim_get_current_buf())
-  return vim.api.nvim_win_get_width(status.results_win) - status.picker.selection_caret:len() - 2
+  return vim.api.nvim_win_get_width(status.results_win) - status.picker.selection_caret:len()
+end
+
+local reverse = function(list)
+  local result = {}
+  for i = #list, 1, -1 do
+    result[#result + 1] = list[i]
+  end
+  return result
 end
 
 local intellij_style_shorten_path = function(dirs, max_len)
@@ -64,6 +72,7 @@ local intellij_style_shorten_path = function(dirs, max_len)
       right_start = right_start - 1
     end
   end
+  rights = reverse(rights)
   local parts = {}
   for _, v in ipairs(lefts) do
     table.insert(parts, v)
@@ -77,15 +86,18 @@ local intellij_style_shorten_path = function(dirs, max_len)
   return table.concat(parts, '/')
 end
 
-local intellij_style_path_display = function(opts, filepath)
-  local parents = vim.split(filepath, '/')
-  local filename = table.remove(parents, #parents)
-  local min_padding = 8
-  local entry_width = get_entry_width()
-  local remain = entry_width - #filename - min_padding
-  local parent_dir = intellij_style_shorten_path(parents, remain)
-  local padding = entry_width - #filename - #parent_dir
-  return filename .. string.rep(' ', padding) .. parent_dir
+local intellij_style_path_display = function(prefix_size)
+  ---@diagnostic disable-next-line: unused-local
+  return function(opts, filepath)
+    local parents = vim.split(filepath, '/')
+    local filename = table.remove(parents, #parents)
+    local min_padding = 8
+    local entry_width = get_entry_width()
+    local remain = entry_width - prefix_size - #filename - min_padding
+    local parent_dir = intellij_style_shorten_path(parents, remain)
+    local padding = entry_width - prefix_size - #filename - #parent_dir
+    return filename .. string.rep(' ', padding) .. parent_dir
+  end
 end
 
 vim.cmd "autocmd User TelescopePreviewerLoaded setlocal number"
@@ -93,18 +105,19 @@ vim.cmd "autocmd User TelescopePreviewerLoaded setlocal number"
 vim.keymap.set('n', '<leader>a', telescope_builtin.builtin)
 vim.keymap.set('n', '<C-f>', function()
   telescope_builtin.find_files({
-    path_display = intellij_style_path_display,
+    path_display = intellij_style_path_display(2), -- 2 for devicon
     find_command = { 'fd', '--type', 'file', '--hidden', '--exclude', '.git' },
   })
 end)
 vim.keymap.set('n', '<leader>f', function()
   telescope_builtin.find_files({
-    path_display = intellij_style_path_display,
-    find_command = { 'fd', '--type', 'file', '--hidden', '--exclude', '.git' }, })
+    path_display = intellij_style_path_display(2), -- 2 for devicon
+    find_command = { 'fd', '--type', 'file', '--hidden', '--exclude', '.git' },
+  })
 end)
 vim.keymap.set('n', '<leader>b', function()
   telescope_builtin.buffers({
-    path_display = intellij_style_path_display, -- TODO: fix bug get entry width
+    path_display = intellij_style_path_display(9), -- 7 for file status and 2 for devicon
   })
 end)
 vim.keymap.set('n', '<leader>g', function()
