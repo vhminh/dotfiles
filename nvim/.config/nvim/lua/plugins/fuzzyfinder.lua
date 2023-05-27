@@ -91,7 +91,6 @@ end
 vim.cmd "autocmd User TelescopePreviewerLoaded setlocal number"
 
 vim.keymap.set('n', '<leader>a', telescope_builtin.builtin)
--- files and finders
 vim.keymap.set('n', '<C-f>', function()
   telescope_builtin.find_files({
     path_display = intellij_style_path_display,
@@ -101,17 +100,19 @@ end)
 vim.keymap.set('n', '<leader>f', function()
   telescope_builtin.find_files({
     path_display = intellij_style_path_display,
-    find_command = { 'fd', '--type', 'file', '--hidden', '--exclude', '.git' },
+    find_command = { 'fd', '--type', 'file', '--hidden', '--exclude', '.git' }, })
+end)
+vim.keymap.set('n', '<leader>b', function()
+  telescope_builtin.buffers({
+    path_display = intellij_style_path_display, -- TODO: fix bug get entry width
   })
 end)
-vim.keymap.set('n', '<leader>b', telescope_builtin.buffers)
 vim.keymap.set('n', '<leader>g', function()
   telescope_builtin.live_grep({
     path_display = { 'tail' },
   })
 end)
--- lsp
-vim.keymap.set('n', 'gr', telescope_builtin.lsp_references)
+
 vim.keymap.set('n', '<leader>s', telescope_builtin.lsp_dynamic_workspace_symbols)
 vim.keymap.set('n', '<leader>d', telescope_builtin.diagnostics)
 vim.keymap.set('n', 'gi', telescope_builtin.lsp_implementations)

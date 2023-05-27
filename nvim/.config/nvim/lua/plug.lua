@@ -41,6 +41,14 @@ packer.startup(function()
   use 'folke/neodev.nvim'
   use 'tpope/vim-sleuth'
   use { 'scalameta/nvim-metals', requires = { 'nvim-lua/plenary.nvim' } }
+  use { 'nvimdev/lspsaga.nvim',
+    -- after = { 'neovim/nvim-lspconfig' },
+    opt = true,
+    event = 'LspAttach',
+    config = function()
+      require('lspsaga').setup({})
+    end,
+    requires = { 'neovim/nvim-lspconfig', 'nvim-tree/nvim-web-devicons', 'nvim-treesitter/nvim-treesitter', } }
 end)
 
 if need_install_plugin then
