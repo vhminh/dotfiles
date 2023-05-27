@@ -50,11 +50,6 @@ vim.fn.sign_define('LspDiagnosticsSignHint', {
   texthl = 'LspDiagnosticsSignHint'
 })
 
-local navic = require('nvim-navic')
-navic.setup {
-  highlight = false,
-}
-
 local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -66,15 +61,19 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'K', '<cmd>Lspsaga hover_doc<CR>', bufopts)
   vim.keymap.set('n', '<leader>rn', '<cmd>Lspsaga rename<CR>', bufopts)
   vim.keymap.set('n', '<leader>ca', '<cmd>Lspsaga code_action<CR>', bufopts)
+  vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format, bufopts)
+  vim.keymap.set('n', '<leader>d', '<cmd>Lspsaga show_buf_diagnostics<CR>')
   vim.keymap.set('n', '[d', '<cmd>Lspsaga diagnostic_jump_prev<CR>', bufopts)
   vim.keymap.set('n', ']d', '<cmd>Lspsaga diagnostic_jump_next<CR>', bufopts)
+
+  -- I don't know why putting keymaps after these 2 mapping does not work
+  -- so please keep these 2 at the bottom
   vim.kepmap.set('n', '[e', function()
     require('lspsaga.diagnostic'):goto_prev({ severity = vim.diagnostic.severity.ERROR })
-  end)
+  end, bufopts)
   vim.keymap.set('n', ']e', function()
     require('lspsaga.diagnostic'):goto_next({ severity = vim.diagnostic.severity.ERROR })
-  end)
-  vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format, bufopts)
+  end, bufopts)
 
   if client.server_capabilities.documentHighlightProvider then
     vim.cmd([[
@@ -88,11 +87,9 @@ local on_attach = function(client, bufnr)
     augroup END
     ]])
   end
-
-  if client.server_capabilities.documentSymbolProvider then
-    navic.attach(client, bufnr)
-  end
 end
+
+vim.keymap.set('n', '<leader>t', '<cmd>Lspsaga outline<CR>') -- don't put in lsp attached buffer because it will not work in outline buffer
 
 -- install language servers
 local servers = { 'lua_ls', 'gopls', 'clangd', 'pyright' }

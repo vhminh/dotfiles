@@ -114,5 +114,4 @@ vim.keymap.set('n', '<leader>g', function()
 end)
 
 vim.keymap.set('n', '<leader>s', telescope_builtin.lsp_dynamic_workspace_symbols)
-vim.keymap.set('n', '<leader>d', telescope_builtin.diagnostics)
 vim.keymap.set('n', 'gi', telescope_builtin.lsp_implementations)

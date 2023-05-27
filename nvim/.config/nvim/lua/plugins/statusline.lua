@@ -1,5 +1,4 @@
 local colors = require('colors').gui
-local navic = require('nvim-navic')
 
 local colors_by_mode = {
   n = colors.blue, i = colors.green, v = colors.yellow,
@@ -61,21 +60,11 @@ gls.left[4] = {
     highlight = { colors.purple, colors.grey }
   }
 }
-gls.left[5] = {
-  Function = {
-    condition = navic.is_available(),
-    provider = function()
-      return navic.get_location()
-    end,
-    separator = ' ',
-    separator_highlight = { 'NONE', colors.grey },
-  },
-}
-gls.left[6] = { DiagnosticError = { provider = 'DiagnosticError', icon = '  ', highlight = { colors.red, colors.grey } } }
-gls.left[7] = { DiagnosticWarn = { provider = 'DiagnosticWarn', icon = '  ',
+gls.left[5] = { DiagnosticError = { provider = 'DiagnosticError', icon = '  ', highlight = { colors.red, colors.grey } } }
+gls.left[6] = { DiagnosticWarn = { provider = 'DiagnosticWarn', icon = '  ',
   highlight = { colors.yellow, colors.grey } } }
-gls.left[8] = { DiagnosticHint = { provider = 'DiagnosticHint', icon = '  ', highlight = { colors.cyan, colors.grey } } }
-gls.left[9] = { DiagnosticInfo = { provider = 'DiagnosticInfo', icon = '  ', highlight = { colors.blue, colors.grey } } }
+gls.left[7] = { DiagnosticHint = { provider = 'DiagnosticHint', icon = '  ', highlight = { colors.cyan, colors.grey } } }
+gls.left[8] = { DiagnosticInfo = { provider = 'DiagnosticInfo', icon = '  ', highlight = { colors.blue, colors.grey } } }
 
 gls.right[1] = {
   TotalLines = {

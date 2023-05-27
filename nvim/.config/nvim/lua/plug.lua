@@ -35,9 +35,7 @@ packer.startup(function()
   use { 'NTBBloodbath/galaxyline.nvim', requires = 'kyazdani42/nvim-web-devicons' }
   use { 'lewis6991/gitsigns.nvim', requires = 'nvim-lua/plenary.nvim' }
   use 'justinmk/vim-sneak'
-  use 'liuchengxu/vista.vim'
   use 'onsails/lspkind-nvim'
-  use 'SmiteshP/nvim-navic'
   use 'folke/neodev.nvim'
   use 'tpope/vim-sleuth'
   use { 'scalameta/nvim-metals', requires = { 'nvim-lua/plenary.nvim' } }
@@ -65,4 +63,3 @@ require('plugins.git')
 require('plugins.treesitter')
 require('plugins.sneak')
 require('plugins.statusline')
-require('plugins.tags')
