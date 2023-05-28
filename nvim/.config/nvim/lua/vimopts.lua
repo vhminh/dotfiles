@@ -2,6 +2,12 @@
 vim.keymap.set('', '<C-c>', '<ESC>', { remap = true })
 vim.keymap.set('i', '<C-c>', '<ESC>', { remap = true })
 
+-- indent
+vim.opt.expandtab = false
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.smartindent = true
+
 -- visual
 vim.opt.termguicolors = true
 vim.opt.listchars = { tab = '» ', trail = '~', }
