@@ -61,7 +61,11 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'K', '<cmd>Lspsaga hover_doc<CR>', bufopts)
   vim.keymap.set('n', '<leader>rn', '<cmd>Lspsaga rename<CR>', bufopts)
   vim.keymap.set('n', '<leader>ca', '<cmd>Lspsaga code_action<CR>', bufopts)
-  vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format, bufopts)
+  if client.name == 'lua_ls' and vim.fn.executable('stylua') then
+    vim.keymap.set('n', '<leader>lf', require('stylua-nvim').format_file)
+  else
+    vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format, bufopts)
+  end
   vim.keymap.set('n', '<leader>d', '<cmd>Lspsaga show_buf_diagnostics<CR>')
   vim.keymap.set('n', '[d', '<cmd>Lspsaga diagnostic_jump_prev<CR>', bufopts)
   vim.keymap.set('n', ']d', '<cmd>Lspsaga diagnostic_jump_next<CR>', bufopts)

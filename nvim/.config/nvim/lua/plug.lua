@@ -38,6 +38,7 @@ packer.startup(function()
   use 'justinmk/vim-sneak'
   use 'onsails/lspkind-nvim'
   use 'folke/neodev.nvim'
+  use 'ckipp01/stylua-nvim'
   use 'tpope/vim-sleuth'
   use { 'scalameta/nvim-metals', requires = { 'nvim-lua/plenary.nvim' } }
   use { 'nvimdev/lspsaga.nvim',
