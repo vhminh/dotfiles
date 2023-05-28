@@ -27,7 +27,6 @@ telescope.setup {
   },
 }
 require('telescope').load_extension('fzf')
-local telescope_builtin = require('telescope.builtin')
 
 local get_entry_width = function()
   local status = get_status(vim.api.nvim_get_current_buf())
@@ -100,21 +99,14 @@ local intellij_style_path_display = function(prefix_size)
   end
 end
 
-vim.cmd "autocmd User TelescopePreviewerLoaded setlocal number"
+vim.cmd 'autocmd User TelescopePreviewerLoaded setlocal number'
+
+local telescope_builtin = require('telescope.builtin')
+local pickers = require('better-telescope-builtins')
 
 vim.keymap.set('n', '<leader>a', telescope_builtin.builtin)
-vim.keymap.set('n', '<C-f>', function()
-  telescope_builtin.find_files({
-    path_display = intellij_style_path_display(2), -- 2 for devicon
-    find_command = { 'fd', '--type', 'file', '--hidden', '--exclude', '.git' },
-  })
-end)
-vim.keymap.set('n', '<leader>f', function()
-  telescope_builtin.find_files({
-    path_display = intellij_style_path_display(2), -- 2 for devicon
-    find_command = { 'fd', '--type', 'file', '--hidden', '--exclude', '.git' },
-  })
-end)
+vim.keymap.set('n', '<C-f>', pickers.find_files)
+vim.keymap.set('n', '<leader>f', pickers.find_files)
 vim.keymap.set('n', '<leader>b', function()
   telescope_builtin.buffers({
     path_display = intellij_style_path_display(9), -- 7 for file status and 2 for devicon

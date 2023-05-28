@@ -28,6 +28,7 @@ packer.startup(function()
   use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' }
   use { 'nvim-telescope/telescope.nvim', requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } } }
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use { 'vhminh/better-telescope-builtins.nvim', requires = 'nvim-telescope/telescope.nvim' }
   use 'windwp/nvim-autopairs'
   use 'tpope/vim-commentary'
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
