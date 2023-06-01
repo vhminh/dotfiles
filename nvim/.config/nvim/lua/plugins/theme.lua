@@ -1,6 +1,13 @@
-local colors = require('colors').raw
+local colors = require('colors')
 
-vim.g['onedark_color_overrides'] = colors
+vim.g['onedark_color_overrides'] = {
+  background = colors.raw.background,
+  comment_grey = colors.raw.light_grey,
+  cursor_grey = colors.raw.slightly_light_grey,
+  visual_grey = colors.raw.grey,
+  menu_grey = colors.raw.grey,
+  vertsplit = colors.raw.light_grey,
+}
 
 vim.cmd([[
 if (has('autocmd') && !has('gui_running'))
