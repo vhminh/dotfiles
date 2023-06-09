@@ -15,6 +15,7 @@ augroup colorextend
 autocmd!
 let colors = onedark#GetColors()
 autocmd ColorScheme * call onedark#extend_highlight('Keyword', { 'fg': colors.purple })
+autocmd ColorScheme * call onedark#extend_highlight('Identifier', { 'fg': colors.white })
 augroup END
 endif
 ]])
