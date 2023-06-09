@@ -70,6 +70,16 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '[d', '<cmd>Lspsaga diagnostic_jump_prev<CR>', bufopts)
   vim.keymap.set('n', ']d', '<cmd>Lspsaga diagnostic_jump_next<CR>', bufopts)
 
+  -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
+  if client.name == 'gopls' and not client.server_capabilities.semanticTokensProvider then
+    local semantic = client.config.capabilities.textDocument.semanticTokens
+    client.server_capabilities.semanticTokensProvider = {
+      full = true,
+      legend = {tokenModifiers = semantic.tokenModifiers, tokenTypes = semantic.tokenTypes},
+      range = true,
+    }
+  end
+
   -- I don't know why putting keymaps after these 2 mapping does not work
   -- so please keep these 2 at the bottom
   vim.kepmap.set('n', '[e', function()
@@ -105,13 +115,23 @@ require('mason-lspconfig').setup {
 -- neodev for init.lua
 require('neodev').setup({})
 
+-- server specific settings
+local server_settings = {
+  ['gopls'] = {
+    semanticTokens = true,
+  },
+}
+
 -- setup language servers
 for _, server in pairs(servers) do
+  local settings = {}
+  settings[server] = server_settings[server] or nil
   local opt = {
     on_attach = on_attach,
     flags = {
       debounce_text_changes = 150,
-    }
+    },
+    settings = settings,
   }
   require('lspconfig')[server].setup(opt)
 end
@@ -120,6 +140,7 @@ end
 local metals_config = require('metals').bare_config()
 metals_config.settings = {
   showImplicitArguments = true,
+  enableSemanticHighlighting = true,
   excludedPackages = { 'akka.actor.typed.javadsl', 'com.github.swagger.akka.javadsl' },
 }
 metals_config.capabilities = require('cmp_nvim_lsp').default_capabilities()
