@@ -1,4 +1,4 @@
-require('gitsigns').setup {
+require('gitsigns').setup({
   signs = {
     add = { hl = 'GitGutterAdd', text = '+' },
     change = { hl = 'GitGutterChange', text = '~' },
@@ -7,17 +7,38 @@ require('gitsigns').setup {
     changedelete = { hl = 'GitGutterChange', text = '~' },
   },
   current_line_blame = true,
-  keymaps = {
-    noremap = true,
-    ['n ]c'] = { expr = true, "&diff ? ']c' : '<Cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'" },
-    ['n [c'] = { expr = true, "&diff ? '[c' : '<Cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'" },
-    ['n <leader>hs'] = '<Cmd>lua require"gitsigns".stage_hunk()<CR>',
-    ['v <leader>hs'] = '<Cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-    ['n <leader>hu'] = '<Cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
-    ['n <leader>hr'] = '<Cmd>lua require"gitsigns".reset_hunk()<CR>',
-    ['v <leader>hr'] = '<Cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-    ['n <leader>hR'] = '<Cmd>lua require"gitsigns".reset_buffer()<CR>',
-    ['n <leader>hp'] = '<Cmd>lua require"gitsigns".preview_hunk()<CR>',
-    ['n <leader>hb'] = '<Cmd>lua require"gitsigns".blame_line(true)<CR>',
-  },
-}
+  on_attach = function(bufnr)
+    local gs = package.loaded.gitsigns
+
+    local function map(mode, lhs, rhs, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, lhs, rhs, opts)
+    end
+
+    map('n', ']c', function()
+      if vim.wo.diff then
+        return ']c'
+      end
+      vim.schedule(function()
+        gs.next_hunk()
+      end)
+      return '<Ignore>'
+    end, { expr = true })
+
+    map('n', '[c', function()
+      if vim.wo.diff then
+        return '[c'
+      end
+      vim.schedule(function()
+        gs.prev_hunk()
+      end)
+      return '<Ignore>'
+    end, { expr = true })
+
+    map('n', '<leader>hp', gs.preview_hunk)
+    map('n', '<leader>hr', gs.reset_hunk)
+    map('n', '<leader>hs', gs.stage_hunk)
+    map('n', '<leader>hu', gs.undo_stage_hunk)
+  end,
+})
