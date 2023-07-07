@@ -31,7 +31,11 @@
     viAlias = true;
     vimAlias = true;
   };
-  environment.variables.EDITOR = "nvim";
+  environment.variables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+    TERMINAL = "alacritty";
+  };
   fonts.fonts = with pkgs; [
     (nerdfonts.override { fonts = [ "Noto" ]; })
   ];

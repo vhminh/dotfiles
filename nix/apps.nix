@@ -15,6 +15,11 @@ in
 {
   environment.systemPackages = with pkgs; [
     firefox
+    albert
     telegram-desktop-with-ibus
   ];
+
+  environment.variables = {
+    BROWSER = "firefox";
+  };
 }
