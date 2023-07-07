@@ -6,10 +6,10 @@ vim.cmd('autocmd ColorScheme * highlight TSPackageName guifg=' .. colors.white)
 
 local treesitter_ensure_installed = { 'bash', 'c', 'c_sharp', 'cmake', 'comment', 'cpp', 'css', 'cuda', 'dart', 'diff',
   'dockerfile', 'fish', 'gdscript', 'gitattributes', 'gitignore', 'go', 'godot_resource', 'gomod', 'gowork', 'graphql',
-  'haskell', 'help', 'hjson', 'html', 'java', 'javascript', 'jsdoc', 'json', 'json5', 'kotlin', 'latex', 'llvm', 'lua',
+  'haskell', 'hjson', 'html', 'java', 'javascript', 'jsdoc', 'json', 'json5', 'kotlin', 'latex', 'llvm', 'lua',
   'make', 'markdown', 'markdown_inline', 'meson', 'ninja', 'nix', 'pascal', 'perl', 'php', 'phpdoc', 'proto', 'python',
-  'r', 'regex', 'ruby', 'rust', 'scala', 'scss', 'sql', 'swift', 'toml', 'tsx', 'typescript', 'vala', 'vim', 'yaml',
-  'zig' }
+  'r', 'regex', 'ruby', 'rust', 'scala', 'scss', 'sql', 'swift', 'toml', 'tsx', 'typescript', 'vala', 'vim', 'vimdoc',
+  'yaml', 'zig' }
 
 require 'nvim-treesitter.configs'.setup {
   ensure_installed = treesitter_ensure_installed,
