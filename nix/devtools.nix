@@ -15,6 +15,7 @@
     ripgrep
     fd
     fzf
+    xclip
 
     gcc
     cmake
