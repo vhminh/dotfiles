@@ -7,6 +7,7 @@
 {
   imports = [
     ./ibus.nix
+    ./zsh.nix
     ./devtools.nix
     ./apps.nix
     ./users.nix
