@@ -13,8 +13,8 @@ alias vim='nvim'
 alias vi='nvim'
 alias v='nvim'
 alias ls='ls --color=auto'
-export EDITOR=/usr/bin/nvim
-export VISUAL=/usr/bin/nvim
+export EDITOR=$(which nvim)
+export VISUAL=$(which nvim)
 
 export GOBIN=$HOME/go/bin
 export PATH=$PATH:$GOBIN
