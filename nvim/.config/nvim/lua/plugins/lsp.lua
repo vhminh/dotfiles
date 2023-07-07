@@ -106,7 +106,7 @@ end
 vim.keymap.set('n', '<leader>t', '<cmd>Lspsaga outline<CR>') -- don't put in lsp attached buffer because it will not work in outline buffer
 
 -- install language servers
-local servers = { 'lua_ls', 'gopls', 'clangd', 'pyright' }
+local servers = { 'lua_ls', 'gopls', 'clangd', 'pyright', 'nil_ls' }
 require('mason').setup()
 require('mason-lspconfig').setup {
   ensure_installed = servers,
