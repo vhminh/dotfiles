@@ -23,6 +23,7 @@
     go
     nodejs
     rustup
+    tree-sitter
   ];
 
   programs.neovim = {
