@@ -3,7 +3,7 @@
 {
   users.users.minh = {
     isNormalUser = true;
-    description = "it's me";
+    description = "Minh";
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
