@@ -6,11 +6,12 @@
 
 {
   imports = [
-    ./ibus.nix
-    ./zsh.nix
-    ./devtools.nix
-    ./apps.nix
-    ./users.nix
+    ./modules/ibus.nix
+    ./modules/zsh.nix
+    ./modules/devtools.nix
+    ./modules/desktop.nix
+    ./modules/apps.nix
+    ./modules/users.nix
     /etc/nixos/hardware-configuration.nix
   ];
 
@@ -45,18 +46,6 @@
     LC_TELEPHONE = "en_GB.UTF-8";
     LC_TIME = "en_GB.UTF-8";
   };
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the KDE Plasma Desktop Environment.
-  # services.xserver.displayManager.sddm.enable = true;
-  # services.xserver.desktopManager.plasma5.enable = true;
-
-  # Enable xfce
-  services.xserver.desktopManager.xfce.enable = true;
-  services.xserver.displayManager.startx.enable = true;
-  services.xserver.displayManager.defaultSession = "none+xfce";
 
   # Configure keymap in X11
   services.xserver = {

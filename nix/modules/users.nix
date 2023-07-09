@@ -3,12 +3,12 @@
 {
   users.users.minh = {
     isNormalUser = true;
-    description = "minh";
+    description = "it's me";
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
   security.sudo.extraRules = [{
-    users = ["minh"];
+    users = [ "minh" ];
     commands = [{
       command = "ALL";
       options = ["NOPASSWD"];
