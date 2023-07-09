@@ -43,8 +43,8 @@ packer.startup(function()
   use { 'scalameta/nvim-metals', requires = { 'nvim-lua/plenary.nvim' } }
   use { 'nvimdev/lspsaga.nvim',
     -- after = { 'neovim/nvim-lspconfig' },
-    opt = true,
-    event = 'LspAttach',
+    -- opt = true,
+    -- event = 'LspAttach',
     config = function()
       require('lspsaga').setup({})
     end,
