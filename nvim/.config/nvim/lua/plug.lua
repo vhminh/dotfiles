@@ -1,5 +1,7 @@
 local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
+local is_nixos = vim.fn.filereadable('/etc/NIXOS') ~= 0
+
 local need_install_plugin = false
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   need_install_plugin = true
@@ -23,8 +25,10 @@ packer.startup(function()
   use { 'hrsh7th/nvim-cmp',
     requires = { 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-path', 'hrsh7th/cmp-buffer', 'hrsh7th/cmp-vsnip',
       'hrsh7th/vim-vsnip', 'rafamadriz/friendly-snippets' } }
-  use { 'williamboman/mason.nvim' }
-  use { 'williamboman/mason-lspconfig.nvim' }
+  if not is_nixos then
+    use { 'williamboman/mason.nvim' }
+    use { 'williamboman/mason-lspconfig.nvim' }
+  end
   use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' }
   use { 'nvim-telescope/telescope.nvim', requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } } }
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }

@@ -24,6 +24,11 @@
     nodejs
     rustup
     tree-sitter
+    lua-language-server
+    gopls
+    clang-tools
+    pyright
+    nil
   ];
 
   programs.neovim = {

@@ -1,3 +1,5 @@
+local is_nixos = vim.fn.filereadable('/etc/NIXOS') ~= 0
+
 -- completion with lspkind
 local lspkind = require('lspkind')
 vim.opt.completeopt = { 'menuone', 'noinsert', 'noselect' }
@@ -107,10 +109,12 @@ vim.keymap.set('n', '<leader>t', '<cmd>Lspsaga outline<CR>') -- don't put in lsp
 
 -- install language servers
 local servers = { 'lua_ls', 'gopls', 'clangd', 'pyright', 'nil_ls' }
-require('mason').setup()
-require('mason-lspconfig').setup {
-  ensure_installed = servers,
-}
+if not is_nixos then
+  require('mason').setup()
+  require('mason-lspconfig').setup {
+    ensure_installed = servers,
+  }
+end
 
 -- neodev for init.lua
 require('neodev').setup({})
