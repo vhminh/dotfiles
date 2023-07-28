@@ -435,7 +435,7 @@ shell:
   args:
     - --login
     - -c
-    - "which tmux && tmux attach || tmux"
+    - "which tmux &> /dev/null && { tmux attach || tmux; } || zsh"
 
 # Startup directory
 #
