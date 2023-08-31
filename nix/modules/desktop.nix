@@ -8,6 +8,9 @@
   services.xserver.desktopManager.xfce.enable = true;
   services.xserver.displayManager.startx.enable = true;
   services.xserver.displayManager.defaultSession = "none+xfce";
+  services.xserver.autoRepeatDelay = 250;
+  services.xserver.autoRepeatInterval = 30;
+  services.xserver.xkbOptions = "ctrl:nocaps";
 
   services.gnome.gnome-keyring.enable = true;
 
@@ -63,6 +66,8 @@
         "panels" = [ 1 ];
         "panels/panel-1/icon-size" = 16;
         "panels/panel-1/size" = 32;
+        "panels/panel-1/mode" = 0;
+        "panels/panel-1/output-name" = "Primary";
         "panels/panel-1/length" = 100.0;
         "panels/panel-1/position" = "p=4;x=0;y=0";
         "panels/panel-1/enable-struts" = true;
