@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ username }: { config, pkgs, ... }:
 
 {
   imports = [ <home-manager/nixos> ];
@@ -20,7 +20,7 @@
     xfce.xfce4-pulseaudio-plugin
   ];
 
-  home-manager.users.minh = { pkgs, ... }: {
+  home-manager.users.${username} = { pkgs, ... }: {
     gtk = {
       enable = true;
       theme = {

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ username }: { config, pkgs, ... }:
 
 let
   telegram-desktop-with-ibus =
@@ -20,7 +20,7 @@ in
     telegram-desktop-with-ibus
   ];
 
-  home-manager.users.minh = { pkgs, ... }: {
+  home-manager.users.${username} = { pkgs, ... }: {
     # Nix User Repository
     nixpkgs.config.packageOverrides = pkgs: {
       nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
@@ -29,7 +29,7 @@ in
     };
 
     programs.firefox.enable = true;
-    programs.firefox.profiles.minh = {
+    programs.firefox.profiles.${username} = {
       bookmarks = [
         {
           name = "Search NixOS packages";
@@ -42,6 +42,12 @@ in
           tags = [ "nix" "nixos" "home-manager" ];
           keyword = "home-manager";
           url = "https://nix-community.github.io/home-manager/options.html";
+        }
+        {
+          name = "Nix language";
+          tags = [ "nix" ];
+          keyword = "nix";
+          url = "https://nixos.org/manual/nix/stable/language";
         }
       ];
       extensions = with pkgs.nur.repos.rycee.firefox-addons; [

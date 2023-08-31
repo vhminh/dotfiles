@@ -1,8 +1,7 @@
-{ config, pkgs, ... }:
+{ displayName, email }: { config, pkgs, ... }:
 
 {
   environment.systemPackages = with pkgs; [
-    git
     wget
     curl
     unzip
@@ -45,4 +44,14 @@
   fonts.fonts = with pkgs; [
     (nerdfonts.override { fonts = [ "Noto" ]; })
   ];
+
+  programs.git = {
+    enable = true;
+    config = {
+      user = {
+        name = "${displayName}";
+        email = "${email}";
+      };
+    };
+  };
 }

@@ -1,14 +1,14 @@
-{ config, pkgs, ... }:
+{ username, displayName }: { config, pkgs, ... }:
 
 {
-  users.users.minh = {
+  users.users.${username} = {
     isNormalUser = true;
-    description = "Minh";
+    description = "${displayName}";
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
   security.sudo.extraRules = [{
-    users = [ "minh" ];
+    users = [ "${username}" ];
     commands = [{
       command = "ALL";
       options = ["NOPASSWD"];

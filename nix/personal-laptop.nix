@@ -4,14 +4,19 @@
 
 { config, pkgs, ... }:
 
+let
+  username = "minh";
+  displayName = "Minh Vu";
+  email = "minhvh99@gmail.com";
+in
 {
   imports = [
     ./modules/ibus.nix
     ./modules/zsh.nix
-    ./modules/devtools.nix
-    ./modules/desktop.nix
-    ./modules/apps.nix
-    ./modules/users.nix
+    (import ./modules/devtools.nix { displayName = "${displayName}"; email = "${email}"; })
+    (import ./modules/desktop.nix { username = "${username}"; })
+    (import ./modules/apps.nix { username = "${username}"; })
+    (import ./modules/users.nix { username = "${username}"; displayName = "${displayName}"; })
     /etc/nixos/hardware-configuration.nix
   ];
 
@@ -114,7 +119,7 @@
   system.stateVersion = "23.05"; # Did you read the comment?
 
 
-  home-manager.users.minh = { pkgs, ... }: {
+  home-manager.users.${username} = { pkgs, ... }: {
     home.stateVersion = "23.05";
   };
 }
