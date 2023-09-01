@@ -23,6 +23,7 @@
     nodejs
     rustup
     tree-sitter
+    stylua
     lua-language-server
     gopls
     clang-tools
