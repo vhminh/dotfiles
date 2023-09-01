@@ -66,6 +66,10 @@ vim.keymap.set('n', '<C-w><C-j>', '<Cmd>resize -2<CR>')
 vim.keymap.set('n', '<C-w><C-k>', '<Cmd>resize +2<CR>')
 vim.keymap.set('n', '<C-w><C-l>', '<Cmd>vertical resize +2<CR>')
 
+-- quickfix
+vim.keymap.set('n', '[q', vim.cmd.cprevious)
+vim.keymap.set('n', ']q', vim.cmd.cnext)
+
 -- others
 vim.opt.hidden = true
 vim.opt.encoding = 'utf-8'
