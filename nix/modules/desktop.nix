@@ -54,7 +54,7 @@
       xfwm4 = {
         "general/button_layout" = "O|HMC"; # disable "shade"(S) button
         "general/theme" = "Materia-dark-compact";
-        "general/title_font" = "Noto Sans Bold 10";
+        "general/title_font" = "Noto Sans Bold 11";
         "general/mousewheel_rollup" = false;
         "general/move_opacity" = 80;
         "general/resize_opacity" = 80;
@@ -81,7 +81,7 @@
         "plugins/plugin-1/show-menu-icons" = true;
         # Windows
         "plugins/plugin-2" = "tasklist";
-        "plugins/plugin-2/grouping" = 1;
+        "plugins/plugin-2/grouping" = false;
         "plugins/plugin-2/show-handle" = true;
         "plugins/plugin-2/show-labels" = false;
         "plugins/plugin-2/include-all-monitors" = true;
