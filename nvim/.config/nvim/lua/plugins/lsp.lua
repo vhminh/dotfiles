@@ -121,6 +121,11 @@ require('neodev').setup({})
 
 -- server specific settings
 local server_settings = {
+  ['Lua'] = {
+    workspace = {
+      checkThirdParty = false,
+    },
+  },
   ['gopls'] = {
     semanticTokens = true,
   },
@@ -128,14 +133,12 @@ local server_settings = {
 
 -- setup language servers
 for _, server in pairs(servers) do
-  local settings = {}
-  settings[server] = server_settings[server] or nil
   local opt = {
     on_attach = on_attach,
     flags = {
       debounce_text_changes = 150,
     },
-    settings = settings,
+    settings = server_settings,
   }
   require('lspconfig')[server].setup(opt)
 end
