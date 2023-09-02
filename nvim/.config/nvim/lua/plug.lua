@@ -39,18 +39,14 @@ packer.startup(function()
   use 'nvim-treesitter/playground'
   use { 'NTBBloodbath/galaxyline.nvim', requires = 'kyazdani42/nvim-web-devicons' }
   use { 'lewis6991/gitsigns.nvim', requires = 'nvim-lua/plenary.nvim' }
+  use 'liuchengxu/vista.vim'
   use 'justinmk/vim-sneak'
   use 'onsails/lspkind-nvim'
+  use 'SmiteshP/nvim-navic'
   use 'folke/neodev.nvim'
   use 'ckipp01/stylua-nvim'
   use 'tpope/vim-sleuth'
   use { 'scalameta/nvim-metals', requires = { 'nvim-lua/plenary.nvim' } }
-  use { 'nvimdev/lspsaga.nvim',
-    after = { 'nvim-lspconfig' },
-    config = function()
-      require('lspsaga').setup({})
-    end,
-  }
 end)
 
 if need_install_plugin then
@@ -67,3 +63,5 @@ require('plugins.git')
 require('plugins.treesitter')
 require('plugins.sneak')
 require('plugins.statusline')
+require('plugins.winbar')
+require('plugins.tags')

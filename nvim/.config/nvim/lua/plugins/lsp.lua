@@ -57,20 +57,22 @@ local on_attach = function(client, bufnr)
 
   local bufopts = { remap = false, silent = false, buffer = bufnr }
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', '<cmd>Lspsaga goto_definition<CR>', bufopts)
-  vim.keymap.set('n', 'gr', '<cmd>Lspsaga finder ref<CR>', bufopts)
-  vim.keymap.set('n', 'gi', '<cmd>Lspsaga finder imp<CR>', bufopts)
-  vim.keymap.set('n', 'K', '<cmd>Lspsaga hover_doc<CR>', bufopts)
-  vim.keymap.set('n', '<leader>rn', '<cmd>Lspsaga rename<CR>', bufopts)
-  vim.keymap.set('n', '<leader>ca', '<cmd>Lspsaga code_action<CR>', bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
   if client.name == 'lua_ls' and vim.fn.executable('stylua') then
     vim.keymap.set('n', '<leader>lf', require('stylua-nvim').format_file)
   else
     vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format, bufopts)
   end
-  vim.keymap.set('n', '<leader>d', '<cmd>Lspsaga show_buf_diagnostics<CR>')
-  vim.keymap.set('n', '[d', '<cmd>Lspsaga diagnostic_jump_prev<CR>', bufopts)
-  vim.keymap.set('n', ']d', '<cmd>Lspsaga diagnostic_jump_next<CR>', bufopts)
+  vim.keymap.set('n', '<leader>d', require('telescope.builtin').diagnostics)
+  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, bufopts)
+  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, bufopts)
+  vim.keymap.set('n', '[e', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, bufopts)
+  vim.keymap.set('n', ']e', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, bufopts)
 
   -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
   if client.name == 'gopls' and not client.server_capabilities.semanticTokensProvider then
@@ -81,15 +83,6 @@ local on_attach = function(client, bufnr)
       range = true,
     }
   end
-
-  -- I don't know why putting keymaps after these 2 mapping does not work
-  -- so please keep these 2 at the bottom
-  vim.kepmap.set('n', '[e', function()
-    require('lspsaga.diagnostic'):goto_prev({ severity = vim.diagnostic.severity.ERROR })
-  end, bufopts)
-  vim.keymap.set('n', ']e', function()
-    require('lspsaga.diagnostic'):goto_next({ severity = vim.diagnostic.severity.ERROR })
-  end, bufopts)
 
   if client.server_capabilities.documentHighlightProvider then
     vim.cmd([[
@@ -104,8 +97,6 @@ local on_attach = function(client, bufnr)
     ]])
   end
 end
-
-vim.keymap.set('n', '<leader>t', '<cmd>Lspsaga outline<CR>') -- don't put in lsp attached buffer because it will not work in outline buffer
 
 -- install language servers
 local servers = { 'lua_ls', 'gopls', 'clangd', 'pyright', 'nil_ls' }
