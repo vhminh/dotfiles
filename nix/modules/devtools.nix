@@ -19,6 +19,8 @@
     gcc
     cmake
     gnumake
+    sbt
+    openjdk17
     go
     nodejs
     rustup
@@ -29,6 +31,8 @@
     clang-tools
     pyright
     nil
+
+    jetbrains.idea-ultimate
   ];
 
   programs.neovim = {
