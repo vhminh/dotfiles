@@ -65,7 +65,7 @@
         "panels/dark-mode" = true;
         "panels" = [ 1 ];
         "panels/panel-1/icon-size" = 16;
-        "panels/panel-1/size" = 32;
+        "panels/panel-1/size" = 36;
         "panels/panel-1/mode" = 0;
         "panels/panel-1/output-name" = "Primary";
         "panels/panel-1/length" = 100.0;

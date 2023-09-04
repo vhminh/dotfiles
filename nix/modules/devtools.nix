@@ -2,6 +2,7 @@
 
 {
   environment.systemPackages = with pkgs; [
+    gitFull # gitk
     wget
     curl
     unzip
