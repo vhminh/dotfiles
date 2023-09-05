@@ -18,6 +18,7 @@ in
   environment.systemPackages = with pkgs; [
     albert
     telegram-desktop-with-ibus
+    gparted
   ];
 
   home-manager.users.${username} = { pkgs, ... }: {
