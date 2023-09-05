@@ -39,6 +39,13 @@ packer.startup(function()
   use 'nvim-treesitter/playground'
   use { 'NTBBloodbath/galaxyline.nvim', requires = 'kyazdani42/nvim-web-devicons' }
   use { 'lewis6991/gitsigns.nvim', requires = 'nvim-lua/plenary.nvim' }
+  use {
+    'j-hui/fidget.nvim',
+    tag = 'legacy',
+    config = function()
+      require("fidget").setup {}
+    end,
+  }
   use 'liuchengxu/vista.vim'
   use 'justinmk/vim-sneak'
   use 'onsails/lspkind-nvim'
