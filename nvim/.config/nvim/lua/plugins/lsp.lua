@@ -101,6 +101,12 @@ end
 -- install language servers
 local servers = { 'lua_ls', 'gopls', 'clangd', 'pyright', 'nil_ls' }
 if not is_nixos then
+  for k, v in ipairs(servers) do
+    if v == 'nil_ls' then
+      table.remove(servers, k)
+      break
+    end
+  end
   require('mason').setup()
   require('mason-lspconfig').setup {
     ensure_installed = servers,
