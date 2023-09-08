@@ -9,9 +9,8 @@ autoload -U colors && colors
 PS1="%{$fg[green]%}> %{$reset_color%}"
 RPROMPT="%~"
 
+alias vi='\vim'
 alias vim='nvim'
-alias vi='nvim'
-alias v='nvim'
 alias ls='ls --color=auto'
 export EDITOR=$(which nvim)
 export VISUAL=$(which nvim)

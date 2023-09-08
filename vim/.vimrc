@@ -2,20 +2,12 @@ set nocompatible
 let mapleader=' '
 set termguicolors
 
-let use_treesitter = has('nvim-0.5')
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" VIM PLUG
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" auto install vimplug
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" plugins
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 Plug 'joshdick/onedark.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -26,39 +18,27 @@ Plug 'airblade/vim-gitgutter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 Plug 'preservim/tagbar'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'antoinemadec/coc-fzf'
-if use_treesitter
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-else
-  Plug 'sheerun/vim-polyglot'
-endif
 call plug#end()
 
-" auto install missing plugin
 autocmd VimEnter *
   \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
   \|   PlugInstall --sync | q
   \| endif
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ONE DARK
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" use cterm color for gui (except for dark_red, cyan, and special_grey)
+  " \ 'red': { 'gui': '#ff5f87', 'cterm': '204', 'cterm16': '1' },
+  " \ 'dark_red': { 'gui': '#be5046', 'cterm': '196', 'cterm16': '9' },
+  " \ 'green': { 'gui': '#87d787', 'cterm': '114', 'cterm16': '2' },
+  " \ 'yellow': { 'gui': '#d7af87', 'cterm': '180', 'cterm16': '3' },
+  " \ 'dark_yellow': { 'gui': '#d7875f', 'cterm': '173', 'cterm16': '11' },
+  " \ 'blue': { 'gui': '#00afff', 'cterm': '39', 'cterm16': '4' },
+  " \ 'purple': { 'gui': '#d75fd7', 'cterm': '170', 'cterm16': '5' },
+  " \ 'cyan': { 'gui': '#56b6c2', 'cterm': '38', 'cterm16': '6' },
+  " \ 'white': { 'gui': '#afafaf', 'cterm': '145', 'cterm16': '15' },
+  " \ 'black': { 'gui': '#262626', 'cterm': '235', 'cterm16': '0' },
+  " \ 'foreground': { 'gui': '#afafaf', 'cterm': '145', 'cterm16': 'NONE' },
+  " \ 'background': { 'gui': '#262626', 'cterm': '235', 'cterm16': 'NONE' },
 let g:onedark_color_overrides = {
-  \ 'red': { 'gui': '#ff5f87', 'cterm': '204', 'cterm16': '1' },
-  \ 'dark_red': { 'gui': '#be5046', 'cterm': '196', 'cterm16': '9' },
-  \ 'green': { 'gui': '#87d787', 'cterm': '114', 'cterm16': '2' },
-  \ 'yellow': { 'gui': '#d7af87', 'cterm': '180', 'cterm16': '3' },
-  \ 'dark_yellow': { 'gui': '#d7875f', 'cterm': '173', 'cterm16': '11' },
-  \ 'blue': { 'gui': '#00afff', 'cterm': '39', 'cterm16': '4' },
-  \ 'purple': { 'gui': '#d75fd7', 'cterm': '170', 'cterm16': '5' },
-  \ 'cyan': { 'gui': '#56b6c2', 'cterm': '38', 'cterm16': '6' },
-  \ 'white': { 'gui': '#afafaf', 'cterm': '145', 'cterm16': '15' },
   \ 'black': { 'gui': '#262626', 'cterm': '235', 'cterm16': '0' },
-  \ 'foreground': { 'gui': '#afafaf', 'cterm': '145', 'cterm16': 'NONE' },
   \ 'background': { 'gui': '#262626', 'cterm': '235', 'cterm16': 'NONE' },
   \ 'comment_grey': { 'gui': '#5f5f5f', 'cterm': '59', 'cterm16': '7' },
   \ 'gutter_fg_grey': { 'gui': '#444444', 'cterm': '238', 'cterm16': '8' },
@@ -74,21 +54,6 @@ augroup colorextend
   autocmd ColorScheme * call onedark#extend_highlight('Keyword', { 'fg': colors.purple })
   autocmd ColorScheme * call onedark#extend_highlight('goDeclType', { 'fg': colors.purple })
 augroup end
-
-augroup go_highlight
-  autocmd!
-  let colors = onedark#GetColors()
-  autocmd ColorScheme * execute 'highlight goType guifg=' colors.purple.gui 'ctermfg=' colors.purple.cterm
-  autocmd ColorScheme * execute 'highlight goSignedInts guifg=' colors.purple.gui 'ctermfg=' colors.purple.cterm
-  autocmd ColorScheme * execute 'highlight goUnsignedInts guifg=' colors.purple.gui 'ctermfg=' colors.purple.cterm
-  autocmd ColorScheme * execute 'highlight goFloats guifg=' colors.purple.gui 'ctermfg=' colors.purple.cterm
-  autocmd ColorScheme * execute 'highlight goComplexes guifg=' colors.purple.gui 'ctermfg=' colors.purple.cterm
-augroup end
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" FZF
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 nnoremap <silent> <C-f> :Files<CR>
 nnoremap <silent> <leader>f :Files<CR>
@@ -112,13 +77,7 @@ elseif executable('ag')
   nnoremap <silent> <leader>g :Ag<CR>
 endif
 
-" settings for bat
 let $BAT_THEME = 'TwoDark'
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NETRW
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:NetrwIsOpen=0
 function! ToggleNetrw()
@@ -145,18 +104,11 @@ augroup netrw_mapping
   autocmd filetype netrw call NetrwMapping()
 augroup end
 
-" don't auto change dir when open another buffer
-" since we need netrw to open the working directory
 set noautochdir
 
 function! NetrwMapping()
   nmap <buffer> o <CR>
 endfunction
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SNEAK
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:sneak#label = 1
 let g:sneak#prompt = '> '
@@ -164,7 +116,6 @@ map f <Plug>Sneak_f
 map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
-
 
 augroup sneak_highlight
   autocmd!
@@ -174,11 +125,6 @@ augroup sneak_highlight
   autocmd ColorScheme * execute 'highlight SneakLabel guifg=' background_color.gui 'guibg=' colors.yellow.gui 'ctermfg=' background_color.cterm 'ctermbg=' colors.yellow.cterm
 augroup end
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CURSOR
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 if has('nvim')
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 else
@@ -187,132 +133,17 @@ else
   let &t_EI = "\e[2 q"
 endif
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" TAGBAR
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 if executable('ctags')
   nnoremap <silent> <C-t> :TagbarToggle<CR>
   nnoremap <silent> <leader>t :TagbarToggle<CR>
 endif
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" STATUS LINE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-function! StatusLineSetHighlightGroup()
-  let colors = onedark#GetColors()
-  let stl_color_active = {
-    \ 'guibg': synIDattr(synIDtrans(hlID('StatusLine')), 'bg', 'gui'),
-    \ 'ctermbg': synIDattr(synIDtrans(hlID('StatusLine')), 'bg', 'cterm'),
-    \ 'guifg': synIDattr(synIDtrans(hlID('StatusLine')), 'fg', 'gui'),
-    \ 'ctermfg': synIDattr(synIDtrans(hlID('StatusLine')), 'fg', 'cterm'),
-    \ }
-  execute 'highlight' 'StatusLineHighlightRed'  'guibg=' colors.red.gui 'ctermbg=' colors.red.cterm  'guifg=' stl_color_active.guibg 'ctermfg=' stl_color_active.ctermbg
-  execute 'highlight' 'StatusLineHighlightGreen' 'guibg=' colors.green.gui 'ctermbg=' colors.green.cterm 'guifg=' stl_color_active.guibg 'ctermfg=' stl_color_active.ctermbg
-  execute 'highlight' 'StatusLineHighlightBlue' 'guibg=' colors.blue.gui 'ctermbg=' colors.blue.cterm 'guifg=' stl_color_active.guibg 'ctermfg=' stl_color_active.ctermbg
-  execute 'highlight' 'StatusLineHighlightYellow' 'guibg=' colors.yellow.gui 'ctermbg=' colors.yellow.cterm 'guifg=' stl_color_active.guibg 'ctermfg=' stl_color_active.ctermbg
-  execute 'highlight' 'StatusLineHighlightPurple' 'guibg=' colors.purple.gui 'ctermbg=' colors.purple.cterm 'guifg=' stl_color_active.guibg 'ctermfg=' stl_color_active.ctermbg
-  execute 'highlight' 'StatusLineHighlightGray' 'guibg=' colors.special_grey.gui 'ctermbg=' colors.special_grey.cterm 'guifg=' stl_color_active.guibg 'ctermfg=' stl_color_active.ctermbg
-  execute 'highlight' 'StatusLineHighlightGitBranchActive' 'guibg=' stl_color_active.guibg 'ctermbg=' stl_color_active.ctermbg 'guifg=' colors.purple.gui 'ctermfg=' colors.purple.cterm
-  execute 'highlight' 'StatusLineHighlightGitAdd' 'guibg=' stl_color_active.guibg 'ctermbg=' stl_color_active.ctermbg 'guifg=' colors.green.gui 'ctermfg=' colors.green.cterm
-  execute 'highlight' 'StatusLineHighlightGitChange' 'guibg=' stl_color_active.guibg 'ctermbg=' stl_color_active.ctermbg 'guifg=' colors.yellow.gui 'ctermfg=' colors.yellow.cterm
-  execute 'highlight' 'StatusLineHighlightGitDelete' 'guibg=' stl_color_active.guibg 'ctermbg=' stl_color_active.ctermbg 'guifg=' colors.red.gui 'ctermfg=' colors.red.cterm
-endfunction
-
-augroup stl_hi_colors
-  autocmd!
-  autocmd ColorScheme * call StatusLineSetHighlightGroup()
-augroup end
-
-let g:name_by_mode = {
-  \ 'n': 'NORMAL',
-  \ 'v': 'VISUAL',
-  \ 'V': 'V-LINE',
-  \ '': 'V-BLOCK',
-  \ 's': 'SELECT',
-  \ 'S': 'S-LINE',
-  \ '': 'S_BLOCK',
-  \ 'i': 'INSERT',
-  \ 'R': 'REPLACE',
-  \ 'c': 'COMMAND',
-  \ 'r': 'ENTER?',
-  \ '!': 'SHELL',
-  \ 't': 'TERM',
-  \}
-
-let g:color_by_mode = {
-  \ 'n': 'Blue',
-  \ 'v': 'Yellow',
-  \ 'V': 'Yellow',
-  \ '': 'Yellow',
-  \ 's': 'Yellow',
-  \ 'S': 'Yellow',
-  \ '': 'Yellow',
-  \ 'i': 'Green',
-  \ 'R': 'Red',
-  \}
-
-augroup sl_active
-  autocmd!
-  autocmd WinEnter * setlocal statusline=%!StatusLine(1)
-  autocmd VimEnter * setlocal statusline=%!StatusLine(1)
-  autocmd BufWinEnter * setlocal statusline=%!StatusLine(1)
-  autocmd WinLeave * setlocal statusline=%!StatusLine(0)
-augroup end
-
-augroup sl_git_branch
-  autocmd!
-  autocmd WinEnter * let w:git_branch = GetGitBranch()
-  autocmd VimEnter * let w:git_branch = GetGitBranch()
-  autocmd BufWinEnter * let w:git_branch = GetGitBranch()
-augroup end
-
-function! StatusLineMode(is_active)
-  if !a:is_active
-    return '%#StatusLineHighlightGray# INACTIVE %*'
-  endif
-  let m = mode(1)
-  let color = has_key(g:color_by_mode, m) ? get(g:color_by_mode, m) : 'Purple'
-  return '%#StatusLineHighlight' . color . '# ' . get(g:name_by_mode, m, 'UNKNOWN') . ' %*'
-endfunction
-
-function! GetGitBranch()
-  if !executable('git')
-    " git not installed
-    return ''
-  endif
-  silent! exe 'git rev-parse --is-inside-work-tree &>/dev/null'
-  if v:shell_error != 0
-    " not inside a git repo
-    return ''
-  endif
-  return system('git symbolic-ref --short HEAD')
-endfunction
-
-function! StatusLineGitBranch()
-  if !exists('w:git_branch')
-    let w:git_branch = GetGitBranch()
-  endif
-  return w:git_branch
-endfunction
-
-function! StatusLine(is_active)
-  let result = StatusLineMode(a:is_active) . ' %t %y %m%< %r %h %w%=%l / %L [%{&fileencoding?&fileencoding:&encoding}] [%{&fileformat}] '
-  if a:is_active
-    let result = result . '%#StatusLineHighlightGitBranchActive# ' . StatusLineGitBranch() . '  '
-  else
-    let result = result . '%#StatusLineNC# ' . StatusLineGitBranch() . '  '
-  endif
+set statusline=%!StatusLine()
+function! StatusLine()
+  let result = '%#Visual# ' .. mode(1) .. ' %*' .. ' %t %y %m%< %r %h %w%=%l / %L [%{&fileencoding?&fileencoding:&encoding}] [%{&fileformat}] '
   let [a,m,r] = GitGutterGetHunkSummary()
   if a + m + r > 0
-    if a:is_active
-      let result = result . printf('%%#StatusLineHighlightGitAdd#+%d %%#StatusLineHighlightGitChange#~%d %%#StatusLineHighlightGitDelete#-%d', a, m, r) . ' '
-    else
-      let result = result . printf('%%#StatusLineNC#+%d %%#StatusLineNC#~%d %%#StatusLineNC#-%d', a, m, r) . ' '
-    endif
+    let result = result . printf('%%#GitGutterAdd#+%d %%#GitGutterChange#~%d %%#GitGutterDelete#-%d', a, m, r) . ' '
   endif
   return result
 endfunction
@@ -324,122 +155,13 @@ set laststatus=2
 set noshowcmd
 set cmdheight=1
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" GIT GUTTER
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 autocmd BufWritePost * GitGutter
 let g:gitgutter_map_keys = 1
 let g:gitgutter_preview_win_floating = 1
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" LSP
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" https://github.com/neoclide/coc.nvim#example-vim-configuration
-set nobackup
-set nowritebackup
-set shortmess+=c
-set signcolumn=yes
-
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-nmap <silent> [d <Plug>(coc-diagnostic-prev)
-nmap <silent> ]d <Plug>(coc-diagnostic-next)
-
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . ' ' . expand('<cword>')
-  endif
-endfunction
-
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-nmap <leader>rn <Plug>(coc-rename)
-nmap <leader>ca <Plug>(coc-codeaction)
-nmap <leader>qf <Plug>(coc-fix-current)
-xmap <leader>lf <Plug>(coc-format-selected)
-nmap <leader>lf :call CocAction('format')<CR>
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-nnoremap <silent><nowait> <leader>s  :<C-u>CocList outline<cr>
-
-augroup coc_sth_group
-  autocmd!
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-command! -nargs=0 Format :call CocAction('format')
-command! -nargs=? Fold   :call CocAction('fold', <f-args>)
-command! -nargs=0 OR     :call CocAction('runCommand', 'editor.action.organizeImport')
-
-" coc and fzf integration
-let g:coc_fzf_preview = ''
-let g:coc_fzf_opts = []
-nnoremap <silent> <leader>d :CocFzfList diagnostics<CR>
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CODE HIGHLIGHTING
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-if use_treesitter
-  lua <<EOF
-  require'nvim-treesitter.configs'.setup {
-    ensure_installed = 'all',
-    highlight = {
-      enable = true,
-    },
-    indent = {
-      enable = true,
-    },
-  }
-EOF
-else
-  syntax on
-  let g:go_highlight_chan_whitespace_error = 1
-  let g:go_highlight_extra_types = 1
-  let g:go_highlight_space_tab_error = 1
-  let g:go_highlight_trailing_whitespace_error = 1
-  let g:go_highlight_operators = 1
-  let g:go_highlight_functions = 1
-  let g:go_highlight_function_parameters = 1
-  let g:go_highlight_function_calls = 1
-  let g:go_highlight_types = 1
-  let g:go_highlight_fields = 1
-  let g:go_highlight_build_constraints = 1
-  let g:go_highlight_generate_tags = 1
-  let g:go_highlight_string_spellcheck = 1
-  let g:go_highlight_format_strings = 1
-  let g:go_highlight_variable_declarations = 0
-  let g:go_highlight_variable_assignments = 0
-  let g:go_highlight_diagnostic_errors = 1
-  let g:go_highlight_diagnostic_warnings = 1
-endif
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" VIM OPTS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 filetype plugin indent on
 
-" tab stuffs
 set autoindent
 set tabstop=4
 set softtabstop=4
@@ -448,17 +170,14 @@ set noexpandtab
 set listchars=tab:»\ ,trail:~
 set list
 
-" line numbers
 set number
 set relativenumber
 
-" searching
 set incsearch
 set hlsearch
 set ignorecase
 set smartcase
 
-" useful mappings
 map <C-c> <ESC>
 imap <C-c> <ESC>
 map <silent> <C-c> :nohlsearch<CR>
@@ -478,11 +197,9 @@ nnoremap <silent> <C-w><C-j> :resize -2<CR>
 nnoremap <silent> <C-w><C-k> :resize +2<CR>
 nnoremap <silent> <C-w><C-l> :vertical resize +2<CR>
 
-" fold
 set foldmethod=indent
 set foldlevelstart=99
 
-" other
 set updatetime=300
 set encoding=utf-8
 set wildmenu
@@ -492,9 +209,6 @@ set autowriteall
 set cursorline
 set lazyredraw
 set showmatch
-if !has('nvim')
-  set ttymouse=xterm2 " set this to have smooth mouse selection in tmux
-end
 set mouse=a
 set splitbelow
 set splitright
