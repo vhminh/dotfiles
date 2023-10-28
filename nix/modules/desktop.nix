@@ -92,7 +92,7 @@
         "plugins/plugin-3/style" = 0; # transparent
         "plugins/plugin-3/expand" = true;
         # Workspaces
-        "plugin/plugin-4" = "pager";
+        "plugins/plugin-4" = "pager";
         # Separator
         "plugins/plugin-5" = "separator";
         "plugins/plugin-5/style" = 0; # transparent
