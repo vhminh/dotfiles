@@ -53,6 +53,12 @@ packer.startup(function()
   use 'folke/neodev.nvim'
   use 'ckipp01/stylua-nvim'
   use 'tpope/vim-sleuth'
+  use {
+    'lukas-reineke/indent-blankline.nvim',
+    config = function()
+      require('ibl').setup { indent = { char = '│'} }
+    end,
+  }
   use { 'scalameta/nvim-metals', requires = { 'nvim-lua/plenary.nvim' } }
 end)
 
