@@ -41,9 +41,8 @@ packer.startup(function()
   use { 'lewis6991/gitsigns.nvim', requires = 'nvim-lua/plenary.nvim' }
   use {
     'j-hui/fidget.nvim',
-    tag = 'legacy',
     config = function()
-      require("fidget").setup {}
+      require('fidget').setup {}
     end,
   }
   use 'liuchengxu/vista.vim'
