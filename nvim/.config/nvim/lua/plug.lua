@@ -33,7 +33,12 @@ packer.startup(function()
   use { 'nvim-telescope/telescope.nvim', requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } } }
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   use { 'vhminh/better-telescope-builtins.nvim', requires = 'nvim-telescope/telescope.nvim' }
-  use 'windwp/nvim-autopairs'
+  use {
+    'windwp/nvim-autopairs',
+    config = function()
+      require('nvim-autopairs').setup {}
+    end,
+  }
   use 'tpope/vim-commentary'
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use 'nvim-treesitter/playground'
@@ -45,10 +50,29 @@ packer.startup(function()
       require('fidget').setup {}
     end,
   }
-  use 'liuchengxu/vista.vim'
+  use {
+    'liuchengxu/vista.vim',
+    config = function()
+      vim.g.vista_default_executive = 'nvim_lsp'
+      vim.keymap.set('n', '<leader>t', '<Cmd>Vista!!<CR>')
+    end,
+  }
   use 'justinmk/vim-sneak'
   use 'onsails/lspkind-nvim'
-  use 'SmiteshP/nvim-navic'
+  use {
+    'SmiteshP/nvim-navic',
+    config = function()
+      local navic = require('nvim-navic')
+      navic.setup({
+        lsp = {
+          auto_attach = true,
+        },
+        highlight = true,
+        safe_output = true,
+      })
+      vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
+    end,
+  }
   use 'folke/neodev.nvim'
   use 'ckipp01/stylua-nvim'
   use 'tpope/vim-sleuth'
@@ -70,10 +94,7 @@ require('plugins.theme')
 require('plugins.filetree')
 require('plugins.lsp')
 require('plugins.fuzzyfinder')
-require('plugins.autopairs')
 require('plugins.git')
 require('plugins.treesitter')
 require('plugins.sneak')
 require('plugins.statusline')
-require('plugins.winbar')
-require('plugins.tags')

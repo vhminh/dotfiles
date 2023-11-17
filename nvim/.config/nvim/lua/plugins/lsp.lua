@@ -99,7 +99,7 @@ local on_attach = function(client, bufnr)
 end
 
 -- install language servers
-local servers = { 'lua_ls', 'gopls', 'clangd', 'pyright', 'nil_ls' }
+local servers = { 'lua_ls', 'rust_analyzer', 'gopls', 'clangd', 'pyright', 'nil_ls' }
 if not is_nixos then
   for k, v in ipairs(servers) do
     if v == 'nil_ls' then
