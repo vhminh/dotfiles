@@ -19,6 +19,9 @@ in
     albert
     telegram-desktop-with-ibus
     gparted
+    transmission-gtk
+    vlc
+    anki
   ];
 
   home-manager.users.${username} = { pkgs, ... }: {

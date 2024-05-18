@@ -4,7 +4,7 @@
   users.users.${username} = {
     isNormalUser = true;
     description = "${displayName}";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
   };
 
   security.sudo.extraRules = [{

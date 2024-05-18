@@ -1,6 +1,8 @@
 { displayName, email }: { config, pkgs, ... }:
 
 {
+  virtualisation.docker.enable = true;
+
   environment.systemPackages = with pkgs; [
     gitFull # gitk
     wget
@@ -20,6 +22,7 @@
     gcc
     cmake
     gnumake
+    coursier
     sbt
     openjdk17
     go
@@ -33,7 +36,14 @@
     pyright
     nil
 
+    docker
+    docker-compose
+
     jetbrains.idea-ultimate
+    jetbrains.jdk
+
+    wabt
+    wasmtime
   ];
 
   programs.neovim = {
