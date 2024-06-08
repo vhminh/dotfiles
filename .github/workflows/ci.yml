@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+      - uses: actions/checkout@v4
+
+      - name: set up stylua
+      - uses: JohnnyMorganz/stylua-action@v4
+        token: ${{ secrets.GITHUB_TOKEN }}
+        version: latest
+
+      - name: run stylua
+        run: |
+          stylua --allow-hidden --verify --check --glob '**/*.lua' -- .
+
