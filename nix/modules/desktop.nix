@@ -7,10 +7,10 @@
 
   services.xserver.desktopManager.xfce.enable = true;
   services.xserver.displayManager.startx.enable = true;
-  services.xserver.displayManager.defaultSession = "none+xfce";
+  services.displayManager.defaultSession = "none+xfce";
   services.xserver.autoRepeatDelay = 250;
   services.xserver.autoRepeatInterval = 30;
-  services.xserver.xkbOptions = "ctrl:nocaps";
+  services.xserver.xkb.options = "ctrl:nocaps";
 
   services.gnome.gnome-keyring.enable = true;
 
