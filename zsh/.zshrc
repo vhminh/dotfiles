@@ -1,4 +1,3 @@
-HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 setopt extendedglob nomatch notify
@@ -12,9 +11,15 @@ RPROMPT="%~"
 alias vi='\vim'
 alias vim='nvim'
 alias ls='ls --color=auto'
+alias sudo='sudo '
+alias k='kubectl'
 export EDITOR=$(which nvim)
 export VISUAL=$(which nvim)
 
 export GOBIN=$HOME/go/bin
 export PATH=$PATH:$GOBIN
 
+# source machine specific rc
+if [ -f ~/.zshcustomrc ]; then
+  source ~/.zshcustomrc
+fi
