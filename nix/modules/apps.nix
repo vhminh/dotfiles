@@ -57,6 +57,7 @@ in
       extensions = with pkgs.nur.repos.rycee.firefox-addons; [
         bitwarden
         ublock-origin
+        darkreader
       ];
     };
   };
