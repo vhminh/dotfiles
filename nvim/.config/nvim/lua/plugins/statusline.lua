@@ -67,13 +67,14 @@ gls.left[1] = {
     highlight = { colors.red, colors.background },
   },
 }
-gls.left[2] =
-  { Separator = {
+gls.left[2] = {
+  Separator = {
     provider = function()
       return ' '
     end,
     highlight = { colors.foreground, colors.grey },
-  } }
+  },
+}
 gls.left[3] = {
   FileIcon = {
     provider = 'FileIcon',
@@ -185,13 +186,14 @@ gls.right[9] = {
     highlight = { colors.red, colors.grey },
   },
 }
-gls.right[10] =
-  { RainbowBlue = {
+gls.right[10] = {
+  RainbowBlue = {
     provider = function()
       return ' ▊'
     end,
     highlight = { colors.blue, colors.grey },
-  } }
+  },
+}
 
 gls.short_line_left[1] = {
   FileIcon = {
