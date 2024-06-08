@@ -16,10 +16,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Run stylua
+      - name: Set up stylua
         uses: JohnnyMorganz/stylua-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
-          args: --allow-hidden --verify --check --glob '**/*.lua' -- .
+          args: --version # don't run stylua here
+
+      - name: Run stylua
+        run: |
+          stylua --allow-hidden --verify --check --glob '**/*.lua' -- .
 
