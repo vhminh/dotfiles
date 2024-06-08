@@ -8,7 +8,7 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   print('Cloning packer.nvim')
   vim.fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
   print('Packadd packer.nvim')
-  vim.api.nvim_command 'packadd packer.nvim'
+  vim.api.nvim_command('packadd packer.nvim')
   print('Done')
 end
 
@@ -19,47 +19,55 @@ end
 local packer = require('packer')
 local use = packer.use
 packer.startup(function()
-  use 'wbthomason/packer.nvim'
-  use 'joshdick/onedark.vim'
-  use 'neovim/nvim-lspconfig'
-  use { 'hrsh7th/nvim-cmp',
-    requires = { 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-path', 'hrsh7th/cmp-buffer', 'hrsh7th/cmp-vsnip',
-      'hrsh7th/vim-vsnip', 'rafamadriz/friendly-snippets' } }
+  use('wbthomason/packer.nvim')
+  use('joshdick/onedark.vim')
+  use('neovim/nvim-lspconfig')
+  use({
+    'hrsh7th/nvim-cmp',
+    requires = {
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-vsnip',
+      'hrsh7th/vim-vsnip',
+      'rafamadriz/friendly-snippets',
+    },
+  })
   if not is_nixos then
-    use { 'williamboman/mason.nvim' }
-    use { 'williamboman/mason-lspconfig.nvim' }
+    use({ 'williamboman/mason.nvim' })
+    use({ 'williamboman/mason-lspconfig.nvim' })
   end
-  use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' }
-  use { 'nvim-telescope/telescope.nvim', requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } } }
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-  use { 'vhminh/better-telescope-builtins.nvim', requires = 'nvim-telescope/telescope.nvim' }
-  use {
+  use({ 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' })
+  use({ 'nvim-telescope/telescope.nvim', requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } } })
+  use({ 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' })
+  use({ 'vhminh/better-telescope-builtins.nvim', requires = 'nvim-telescope/telescope.nvim' })
+  use({
     'windwp/nvim-autopairs',
     config = function()
-      require('nvim-autopairs').setup {}
+      require('nvim-autopairs').setup({})
     end,
-  }
-  use 'tpope/vim-commentary'
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-  use 'nvim-treesitter/playground'
-  use { 'NTBBloodbath/galaxyline.nvim', requires = 'kyazdani42/nvim-web-devicons' }
-  use { 'lewis6991/gitsigns.nvim', requires = 'nvim-lua/plenary.nvim' }
-  use {
+  })
+  use('tpope/vim-commentary')
+  use({ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' })
+  use('nvim-treesitter/playground')
+  use({ 'NTBBloodbath/galaxyline.nvim', requires = 'kyazdani42/nvim-web-devicons' })
+  use({ 'lewis6991/gitsigns.nvim', requires = 'nvim-lua/plenary.nvim' })
+  use({
     'j-hui/fidget.nvim',
     config = function()
-      require('fidget').setup {}
+      require('fidget').setup({})
     end,
-  }
-  use {
+  })
+  use({
     'liuchengxu/vista.vim',
     config = function()
       vim.g.vista_default_executive = 'nvim_lsp'
       vim.keymap.set('n', '<leader>t', '<Cmd>Vista!!<CR>')
     end,
-  }
-  use 'justinmk/vim-sneak'
-  use 'onsails/lspkind-nvim'
-  use {
+  })
+  use('justinmk/vim-sneak')
+  use('onsails/lspkind-nvim')
+  use({
     'SmiteshP/nvim-navic',
     config = function()
       local navic = require('nvim-navic')
@@ -72,23 +80,23 @@ packer.startup(function()
       })
       vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
     end,
-  }
-  use 'folke/neodev.nvim'
-  use 'ckipp01/stylua-nvim'
-  use 'tpope/vim-sleuth'
-  use {
+  })
+  use('folke/neodev.nvim')
+  use('ckipp01/stylua-nvim')
+  use('tpope/vim-sleuth')
+  use({
     'lukas-reineke/indent-blankline.nvim',
     config = function()
-      require('ibl').setup { indent = { char = '│'} }
+      require('ibl').setup({ indent = { char = '│' } })
     end,
-  }
-  use { 'scalameta/nvim-metals', requires = { 'nvim-lua/plenary.nvim' } }
+  })
+  use({ 'scalameta/nvim-metals', requires = { 'nvim-lua/plenary.nvim' } })
 end)
 
 if need_install_plugin then
-  vim.api.nvim_command 'PackerSync'
+  vim.api.nvim_command('PackerSync')
 end
-vim.api.nvim_command 'PackerInstall'
+vim.api.nvim_command('PackerInstall')
 
 require('plugins.theme')
 require('plugins.filetree')

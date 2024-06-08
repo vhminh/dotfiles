@@ -17,17 +17,17 @@ cmp.setup({
     ['<CR>'] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
-    })
+    }),
   }),
   snippet = {
     expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
+      vim.fn['vsnip#anonymous'](args.body)
     end,
   },
   formatting = {
     format = lspkind.cmp_format({
       mode = 'symbol_text',
-    })
+    }),
   },
 })
 
@@ -49,7 +49,7 @@ vim.fn.sign_define('LspDiagnosticsSignInformation', {
 
 vim.fn.sign_define('LspDiagnosticsSignHint', {
   text = '',
-  texthl = 'LspDiagnosticsSignHint'
+  texthl = 'LspDiagnosticsSignHint',
 })
 
 local on_attach = function(client, bufnr)
@@ -71,15 +71,19 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<leader>d', require('telescope.builtin').diagnostics)
   vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, bufopts)
   vim.keymap.set('n', ']d', vim.diagnostic.goto_next, bufopts)
-  vim.keymap.set('n', '[e', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, bufopts)
-  vim.keymap.set('n', ']e', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, bufopts)
+  vim.keymap.set('n', '[e', function()
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+  end, bufopts)
+  vim.keymap.set('n', ']e', function()
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+  end, bufopts)
 
   -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
   if client.name == 'gopls' and not client.server_capabilities.semanticTokensProvider then
     local semantic = client.config.capabilities.textDocument.semanticTokens
     client.server_capabilities.semanticTokensProvider = {
       full = true,
-      legend = {tokenModifiers = semantic.tokenModifiers, tokenTypes = semantic.tokenTypes},
+      legend = { tokenModifiers = semantic.tokenModifiers, tokenTypes = semantic.tokenTypes },
       range = true,
     }
   end
@@ -94,14 +98,14 @@ local on_attach = function(client, bufnr)
       buffer = bufnr,
       callback = function()
         vim.lsp.buf.document_highlight()
-      end
+      end,
     })
     vim.api.nvim_create_autocmd('CursorMoved', {
       group = lsp_doc_hl_group,
       buffer = bufnr,
       callback = function()
         vim.lsp.buf.clear_references()
-      end
+      end,
     })
   end
 end
@@ -116,9 +120,9 @@ if not is_nixos then
     end
   end
   require('mason').setup()
-  require('mason-lspconfig').setup {
+  require('mason-lspconfig').setup({
     ensure_installed = servers,
-  }
+  })
 end
 
 -- neodev for init.lua

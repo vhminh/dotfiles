@@ -10,9 +10,9 @@ vim.opt.smartindent = true
 
 -- visual
 vim.opt.termguicolors = true
-vim.opt.listchars = { tab = '» ', trail = '~', }
+vim.opt.listchars = { tab = '» ', trail = '~' }
 vim.opt.list = true
-vim.opt.fillchars = { vert = '|', }
+vim.opt.fillchars = { vert = '|' }
 vim.opt.number = true
 vim.opt.relativenumber = false
 vim.opt.cursorline = true
@@ -33,7 +33,7 @@ vim.keymap.set('v', '>', '>gv')
 vim.keymap.set('n', 'j', 'v:count == 0 ? "gj" : "j"', { expr = true })
 vim.keymap.set('n', 'k', 'v:count == 0 ? "gk" : "k"', { expr = true })
 
-vim.opt.shortmess:remove { 'S' } -- show number of matches
+vim.opt.shortmess:remove({ 'S' }) -- show number of matches
 
 -- fold
 vim.opt.foldmethod = 'indent'

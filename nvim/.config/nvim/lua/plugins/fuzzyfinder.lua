@@ -1,6 +1,6 @@
 local telescope = require('telescope')
 
-telescope.setup {
+telescope.setup({
   defaults = {
     vimgrep_arguments = {
       'rg',
@@ -24,12 +24,12 @@ telescope.setup {
       case_mode = 'smart_case',
     },
   },
-}
+})
 require('telescope').load_extension('fzf')
 
 vim.api.nvim_create_autocmd('User', {
   pattern = 'TelescopePreviewerLoaded',
-  command = 'setlocal number'
+  command = 'setlocal number',
 })
 
 local telescope_builtin = require('telescope.builtin')
