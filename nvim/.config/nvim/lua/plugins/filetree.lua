@@ -10,6 +10,13 @@ require('nvim-tree').setup({
       resize_window = false,
     },
   },
+  git = {
+    ignore = false,
+  },
+  filters = {
+    dotfiles = false,
+    custom = { '.DS_Store' },
+  },
 })
 
 local view = require('nvim-tree.view')
