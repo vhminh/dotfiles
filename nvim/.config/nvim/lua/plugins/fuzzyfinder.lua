@@ -27,7 +27,10 @@ telescope.setup {
 }
 require('telescope').load_extension('fzf')
 
-vim.cmd 'autocmd User TelescopePreviewerLoaded setlocal number'
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'TelescopePreviewerLoaded',
+  command = 'setlocal number'
+})
 
 local telescope_builtin = require('telescope.builtin')
 local pickers = require('better-telescope-builtins')

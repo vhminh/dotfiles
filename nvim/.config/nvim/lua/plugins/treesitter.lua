@@ -1,9 +1,3 @@
-local colors = require('colors').gui
-
-vim.cmd('autocmd ColorScheme * highlight TSTypeBuiltin guifg=' .. colors.purple)
-vim.cmd('autocmd ColorScheme * highlight TSFuncBuiltin guifg=' .. colors.cyan)
-vim.cmd('autocmd ColorScheme * highlight TSPackageName guifg=' .. colors.white)
-
 local treesitter_ensure_installed = { 'bash', 'c', 'c_sharp', 'cmake', 'comment', 'cpp', 'css', 'cuda', 'dart', 'diff',
   'dockerfile', 'fish', 'gdscript', 'gitattributes', 'gitignore', 'go', 'godot_resource', 'gomod', 'gowork', 'graphql',
   'haskell', 'hjson', 'html', 'java', 'javascript', 'jsdoc', 'json', 'json5', 'kotlin', 'latex', 'llvm', 'lua',
