@@ -18,8 +18,9 @@ jobs:
 
       - name: set up stylua
       - uses: JohnnyMorganz/stylua-action@v4
-        token: ${{ secrets.GITHUB_TOKEN }}
-        version: latest
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version: latest
 
       - name: run stylua
       - run: |
