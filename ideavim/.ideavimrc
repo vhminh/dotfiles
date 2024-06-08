@@ -32,6 +32,15 @@ nmap <leader>rn <Action>(RenameElement)
 nmap <leader>lf <Action>(ReformatCode)
 nmap <leader>ca <Action>(ShowIntentionActions)
 
+nmap ma <Action>(ToggleBookmarkA)
+nmap 'a <Action>(GotoBookmarkA)
+nmap ms <Action>(ToggleBookmarkS)
+nmap 's <Action>(GotoBookmarkS)
+nmap md <Action>(ToggleBookmarkD)
+nmap 'd <Action>(GotoBookmarkD)
+nmap mf <Action>(ToggleBookmarkF)
+nmap 'f <Action>(GotoBookmarkF)
+
 nmap <leader>e :NERDTreeToggle<CR>
 
 map s <Plug>(easymotion-bd-f2)
