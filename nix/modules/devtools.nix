@@ -18,6 +18,7 @@
     fd
     fzf
     xclip
+    sqlite
 
     gcc
     cmake
@@ -51,6 +52,16 @@
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
+    configure = {
+      # add sqlite3 path for kkharji/sqlite.lua
+      customRC = ''
+        let g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.so'
+        let init_lua_path = stdpath('config') . '/init.lua'
+        if filereadable(init_lua_path)
+          execute 'luafile ' . init_lua_path
+        endif
+      '';
+    };
   };
   environment.variables = {
     EDITOR = "nvim";
