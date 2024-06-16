@@ -64,8 +64,8 @@
       xfce4-panel = {
         "panels/dark-mode" = true;
         "panels" = [ 1 ];
-        "panels/panel-1/icon-size" = 16;
-        "panels/panel-1/size" = 36;
+        "panels/panel-1/icon-size" = 20;
+        "panels/panel-1/size" = 42;
         "panels/panel-1/mode" = 0;
         "panels/panel-1/output-name" = "Primary";
         "panels/panel-1/length" = 100.0;
@@ -107,13 +107,13 @@
         "plugins/plugin-9" = "notification-plugin";
         # Clock
         "plugins/plugin-10" = "clock";
-        "plugins/plugin-10/digital-time-font" = "Noto Sans 10";
+        "plugins/plugin-10/digital-time-font" = "Noto Sans 12";
         "plugins/plugin-10/digital-layout" = 3; # time only
         "plugins/plugin-10/mode" = 2; # digital
         "plugins/plugin-11" = "separator";
         "plugins/plugin-11/style" = 0; # transparent
         "plugins/plugin-12" = "clock";
-        "plugins/plugin-12/digital-date-font" = "Noto Sans 10";
+        "plugins/plugin-12/digital-date-font" = "Noto Sans 12";
         "plugins/plugin-12/digital-date-format" = "%a, %d %b %Y";
         "plugins/plugin-12/digital-layout" = 2; # date only
         "plugins/plugin-12/mode" = 2; # digital
