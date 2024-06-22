@@ -22,7 +22,15 @@ in
     transmission-gtk
     vlc
     anki
+    xkeysnail
   ];
+
+  programs.firefox = {
+    enable = true;
+    preferences = {
+      "ui.key.menuAccessKeyFocuses" = false;
+    };
+  };
 
   home-manager.users.${username} = { pkgs, ... }: {
     # Nix User Repository

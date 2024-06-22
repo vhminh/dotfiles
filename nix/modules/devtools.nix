@@ -19,6 +19,7 @@
     fzf
     xclip
     sqlite
+    htop
 
     gcc
     cmake
@@ -31,6 +32,7 @@
     rustup
     tree-sitter
     stylua
+    luajitPackages.luacheck
     lua-language-server
     gopls
     clang-tools
