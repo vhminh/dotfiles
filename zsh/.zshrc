@@ -16,6 +16,10 @@ alias k='kubectl'
 export EDITOR=$(which nvim)
 export VISUAL=$(which nvim)
 
+if [[ $(uname -s) == "Linux" ]]; then
+  alias open='xdg-open'
+fi
+
 export GOBIN=$HOME/go/bin
 export PATH=$PATH:$GOBIN
 
