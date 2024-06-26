@@ -1,4 +1,4 @@
-{ username }: { config, pkgs, ... }:
+{ username, has4kMonitor }: { config, pkgs, ... }:
 
 {
   imports = [ <home-manager/nixos> ];
@@ -34,7 +34,7 @@
       cursorTheme = {
         name = "macOS-Monterey-White";
         package = pkgs.apple-cursor;
-        size = 18;
+        size = if has4kMonitor then 36 else 18;
       };
       font = {
         name = "Noto Sans";
@@ -47,13 +47,13 @@
         "Net/ThemeName" = "Materia-dark-compact";
         "Net/IconThemeName" = "Flat-Remix-Blue-Dark";
         "Gtk/CursorThemeName" = "macOS-Monterey-White";
-        "Gtk/CursorThemeSize" = 18;
+        "Gtk/CursorThemeSize" = if has4kMonitor then 36 else 18;
         "Gtk/FontName" = "Noto Sans Regular 11";
         "Gtk/MonospaceFontName" = "NotoSansM Nerd Font 10";
       };
       xfwm4 = {
         "general/button_layout" = "O|HMC"; # disable "shade"(S) button
-        "general/theme" = "Materia-dark-compact";
+        "general/theme" = if has4kMonitor then "Default-hdpi" else "Materia-dark-compact";
         "general/title_font" = "Noto Sans Bold 11";
         "general/mousewheel_rollup" = false;
         "general/move_opacity" = 80;
@@ -64,8 +64,8 @@
       xfce4-panel = {
         "panels/dark-mode" = true;
         "panels" = [ 1 ];
-        "panels/panel-1/icon-size" = 20;
-        "panels/panel-1/size" = 42;
+        "panels/panel-1/icon-size" = if has4kMonitor then 32 else 20;
+        "panels/panel-1/size" = if has4kMonitor then 56 else 42;
         "panels/panel-1/mode" = 0;
         "panels/panel-1/output-name" = "Primary";
         "panels/panel-1/length" = 100.0;
