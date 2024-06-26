@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.9.4
+Type=Application
+Name=xkeysnail
+Comment=
+Exec=sudo xkeysnail --watch --quiet /home/minh/.config/xkeysnail/config.py
+OnlyShowIn=XFCE;
+RunHook=0
+StartupNotify=true
+Terminal=false
+Hidden=false
+
