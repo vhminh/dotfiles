@@ -24,6 +24,7 @@ gui_remaps = {
     K("M-v"): K("C-v"), # paste
     K("M-a"): K("C-a"), # select-all
     K("M-f"): K("C-f"), # search
+    K("M-r"): K("C-r"), # reload
     K("C-n"): K("down"), # next
     K("C-p"): K("up"), # previous
     **global_remaps,
