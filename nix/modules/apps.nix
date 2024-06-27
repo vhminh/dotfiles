@@ -16,7 +16,7 @@ in
   imports = [ <home-manager/nixos> ];
 
   environment.systemPackages = with pkgs; [
-    albert
+    # albert
     telegram-desktop-with-ibus
     gparted
     transmission-gtk

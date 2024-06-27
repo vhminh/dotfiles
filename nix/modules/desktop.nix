@@ -61,6 +61,10 @@
         "general/workspace_count" = 2;
         "general/workspace_names" = [ "1" "2" ];
       };
+      xfce4-keyboard-shortcuts = {
+        "commands/custom/<Alt>space" = "xfce4-appfinder";
+        "commands/custom/<Alt>space/startup-notify" = true;
+      };
       xfce4-panel = {
         "panels/dark-mode" = true;
         "panels" = [ 1 ];
