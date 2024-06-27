@@ -7,11 +7,16 @@ define_modmap({
     Key.CAPSLOCK: Key.LEFT_CTRL
 })
 
+global_remaps = {
+    K("M-q"): K("M-f4"), # close app
+}
+
 terminal_apps = ("Alacritty", "Xfce4-terminal")
 
 terminal_remaps = {
     K("M-c"): K("C-Shift-c"), # copy
     K("M-v"): K("C-Shift-v"), # paste
+    **global_remaps,
 }
 
 gui_remaps = {
@@ -21,6 +26,7 @@ gui_remaps = {
     K("M-f"): K("C-f"), # search
     K("C-n"): K("down"), # next
     K("C-p"): K("up"), # previous
+    **global_remaps,
 }
 
 define_keymap(lambda wm_class: wm_class not in terminal_apps, gui_remaps, "gui apps")
