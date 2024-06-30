@@ -1,0 +1,6 @@
+[
+    {
+        "key": "alt+p",
+        "command": "workbench.action.showCommands"
+    },
+]

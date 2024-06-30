@@ -47,6 +47,7 @@
 
     wabt
     wasmtime
+    vscode
   ];
 
   programs.neovim = {
