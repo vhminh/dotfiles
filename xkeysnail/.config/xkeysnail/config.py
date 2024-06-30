@@ -21,9 +21,11 @@ terminal_remaps = {
 
 gui_remaps = {
     K("M-c"): K("C-c"), # copy
+    K("M-x"): K("C-x"), # cut
     K("M-v"): K("C-v"), # paste
     K("M-a"): K("C-a"), # select-all
-    K("M-f"): K("C-f"), # search
+    K("M-f"): K("C-f"), # find
+    K("M-Shift-f"): K("C-Shift-f"), # find all
     K("M-r"): K("C-r"), # reload
     K("C-n"): K("down"), # next
     K("C-p"): K("up"), # previous
