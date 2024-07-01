@@ -3,6 +3,7 @@
     "files.autoSaveDelay": 1000,
     "editor.fontFamily": "NotoSansM Nerd Font",
     "editor.fontSize": 16,
+    "terminal.integrated.fontSize": 16,
     "window.menuBarVisibility": "hidden",
     "keyboard.dispatch": "keyCode",
     "vim.foldfix": true,
@@ -71,5 +72,7 @@
     ],
     "extensions.experimental.affinity": {
         "vscodevim.vim": 1,
-    }
+    },
+    "rust-analyzer.completion.autoimport.enable": true,
+    "rust-analyzer.inlayHints.typeHints.enable": false,
 }
