@@ -53,7 +53,7 @@ family = "NotoSansM Nerd Font"
 style = "Medium"
 
 [font.offset]
-x = -1
+x = -2
 y = 0
 
 [[keyboard.bindings]]
