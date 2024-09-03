@@ -6,6 +6,7 @@ require('gitsigns').setup({
     topdelete = { text = '‾' },
     changedelete = { text = '~' },
   },
+  signs_staged_enable = false,
   current_line_blame = true,
   on_attach = function(bufnr)
     local gs = package.loaded.gitsigns

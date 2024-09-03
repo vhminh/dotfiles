@@ -1,43 +1,45 @@
-local colors = require('colors').raw
+require('onedark').setup({
+  style = 'warm',
+  code_style = {
+    comments = 'none',
+  },
+  highlights = {
+    ['TelescopeBorder'] = { fg = '$fg' },
+    ['TelescopePromptBorder'] = { fg = '$fg' },
+    ['TelescopePreviewBorder'] = { fg = '$fg' },
+    ['TelescopeResultsBorder'] = { fg = '$fg' },
 
-vim.g['onedark_color_overrides'] = {
-  background = colors.background,
-  comment_grey = colors.light_grey,
-  cursor_grey = colors.slightly_light_grey,
-  visual_grey = colors.grey,
-  menu_grey = colors.grey,
-  vertsplit = colors.light_grey,
-}
+    ['GitGutterChange'] = { fg = '$yellow' },
+    ['GitSignsChange'] = { fg = '$yellow' },
+    ['GitSignsChangeLn'] = { fg = '$yellow' },
+    ['GitSignsChangeNr'] = { fg = '$yellow' },
 
-local function onedark_set_color(hl_group, color)
-  vim.fn['onedark#extend_highlight'](hl_group, { fg = color })
-end
+    ['WinBar'] = { fg = '$fg', bg = '$bg0' },
+    ['WinBarNC'] = { fg = '$fg', bg = '$bg0' },
 
-vim.api.nvim_create_autocmd('ColorScheme', {
-  pattern = '*',
-  callback = function()
-    onedark_set_color('Identifier', colors.white)
-    onedark_set_color('Function', colors.blue)
-    onedark_set_color('Keyword', colors.purple)
-    onedark_set_color('PreProc', colors.purple)
-    onedark_set_color('Include', colors.purple)
-    onedark_set_color('PreCondit', colors.purple)
-    onedark_set_color('Type', colors.white)
-    onedark_set_color('StorageClass', colors.purple)
-    onedark_set_color('Structure', colors.purple)
-    onedark_set_color('Typedef', colors.cyan)
+    ['Structure'] = { fg = '$purple' },
+    ['Type'] = { fg = '$fg' },
+    ['@type'] = { fg = '$fg' },
+    ['@type.qualifier'] = { fg = '$purple' },
+    ['@lsp.type'] = { fg = '$fg' },
+    ['@lsp.type.class'] = { fg = '$fg' },
+    ['@lsp.type.enum'] = { fg = '$fg' },
+    ['@lsp.type.interface'] = { fg = '$fg' },
+    ['@lsp.type.namespace'] = { fg = '$fg' },
+    ['@lsp.type.struct'] = { fg = '$fg' },
+    ['@lsp.type.type'] = { fg = '$fg' },
+    ['@type.builtin'] = { fg = '$purple' },
 
-    -- vim.api.nvim_set_hl(0, '@lsp.type.class', { fg = colors.yellow.gui })
-    vim.api.nvim_set_hl(0, '@lsp.type.class', { link = 'Identifier' })
-    vim.api.nvim_set_hl(0, '@lsp.type.enum', { link = 'Identifier' })
-    -- vim.api.nvim_set_hl(0, '@lsp.type.interface', { fg = colors.yellow.gui })
-    vim.api.nvim_set_hl(0, '@lsp.type.interface', { link = 'Identifier' })
-    vim.api.nvim_set_hl(0, '@lsp.type.namespace', { link = 'Identifier' })
-    vim.api.nvim_set_hl(0, '@lsp.type.struct', { link = 'Identifier' })
-    -- vim.api.nvim_set_hl(0, '@lsp.type.type', { fg = colors.yellow.gui })
-    vim.api.nvim_set_hl(0, '@lsp.type.type', { link = 'Identifier' })
-    vim.api.nvim_set_hl(0, '@type.builtin', { link = 'Keyword' })
+    ['Identifier'] = { fg = '$fg' },
+    ['@lsp.type.parameter'] = { fg = '$fg' },
+    ['@property'] = { fg = '$fg' },
+    ['@lsp.type.property'] = { fg = '$fg' },
+    ['@variable'] = { fg = '$fg' },
+    ['@variable.member'] = { fg = '$fg' },
+    ['@variable.parameter'] = { fg = '$fg' },
+    ['@variable.builtin'] = { fg = '$fg' },
+    ['@lsp.typemod.variable.defaultLibrary'] = { fg = '$fg' },
 
-    vim.api.nvim_set_hl(0, 'vertsplit', { fg = 'Gray' })
-  end,
+    ['@constructor'] = { fg = '$fg', fmt = 'none' },
+  },
 })

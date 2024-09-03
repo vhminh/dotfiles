@@ -1,5 +1,4 @@
 require('pre')
 require('plug')
-require('highlights')
 require('vimopts')
 require('post')

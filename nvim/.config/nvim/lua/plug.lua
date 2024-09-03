@@ -20,7 +20,7 @@ local packer = require('packer')
 local use = packer.use
 packer.startup(function()
   use('wbthomason/packer.nvim')
-  use('joshdick/onedark.vim')
+  use('navarasu/onedark.nvim')
   use('neovim/nvim-lspconfig')
   use({
     'hrsh7th/nvim-cmp',
