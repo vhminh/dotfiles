@@ -23,6 +23,8 @@ in
     vlc
     anki
     xkeysnail
+    chromium
+    onlyoffice-bin
   ];
 
   programs.firefox = {
