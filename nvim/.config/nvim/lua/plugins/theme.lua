@@ -28,6 +28,8 @@ require('onedark').setup({
     ['@lsp.type.namespace'] = { fg = '$fg' },
     ['@lsp.type.struct'] = { fg = '$fg' },
     ['@lsp.type.type'] = { fg = '$fg' },
+    ['@lsp.type.modifier'] = { fg = '$purple' },
+    ['@lsp.type.string'] = { fg = '$green' },
     ['@type.builtin'] = { fg = '$purple' },
 
     ['Identifier'] = { fg = '$fg' },
