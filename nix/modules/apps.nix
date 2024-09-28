@@ -25,6 +25,7 @@ in
     xkeysnail
     chromium
     onlyoffice-bin
+    openscad
   ];
 
   programs.firefox = {
