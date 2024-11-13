@@ -1,6 +1,7 @@
 -- <C-c> as <ESC>
 vim.keymap.set('', '<C-c>', '<ESC>', { remap = true })
 vim.keymap.set('i', '<C-c>', '<ESC>', { remap = true })
+vim.g.omni_sql_no_default_maps = true -- tell builtin sql plugin to not add <C-c>... mappings
 
 -- indent
 vim.opt.expandtab = false
