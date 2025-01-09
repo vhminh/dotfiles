@@ -64,6 +64,7 @@
       xfce4-keyboard-shortcuts = {
         "commands/custom/<Alt>space" = "xfce4-appfinder";
         "commands/custom/<Alt>space/startup-notify" = true;
+        "xfwm4/custom/<Alt>grave" = "switch_window_key";
       };
       xfce4-panel = {
         "panels/dark-mode" = true;
