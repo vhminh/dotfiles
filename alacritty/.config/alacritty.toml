@@ -62,7 +62,7 @@ key = "N"
 mods = "Command"
 
 [scrolling]
-history = 1000
+history = 10000
 multiplier = 3
 
 [shell]
