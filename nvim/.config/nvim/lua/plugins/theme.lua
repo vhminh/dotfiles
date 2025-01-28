@@ -4,6 +4,8 @@ require('onedark').setup({
     comments = 'none',
   },
   highlights = {
+    ['NvimTreeFolderIcon'] = { fg = '$blue' },
+
     ['TelescopeBorder'] = { fg = '$fg' },
     ['TelescopePromptBorder'] = { fg = '$fg' },
     ['TelescopePreviewBorder'] = { fg = '$fg' },

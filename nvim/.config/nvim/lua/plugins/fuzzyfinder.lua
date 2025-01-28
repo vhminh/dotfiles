@@ -1,48 +1,63 @@
-local telescope = require('telescope')
+local fzf = require('fzf-lua')
 
-telescope.setup({
-  defaults = {
-    vimgrep_arguments = {
-      'rg',
-      '--color=never',
-      '--no-heading',
-      '--with-filename',
-      '--line-number',
-      '--column',
-      '--smart-case',
-      '--hidden',
-      '-g',
-      '!{.git,node_modules}',
+local grep_rg_opts = '--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e'
+
+fzf.setup({
+  winopts = {
+    preview = {
+      layout = 'vertical',
     },
-    dynamic_preview_title = true,
   },
-  extensions = {
-    fzf = {
-      fuzzy = true,
-      override_generic_sorter = true,
-      override_file_sorter = true,
-      case_mode = 'smart_case',
+  files = {
+    previewer = false,
+    formatter = 'path.filename_first',
+    git_icons = true,
+    rg_opts = [[--color=never --hidden --files -g '!.git']],
+    fd_opts = [[--color=never --hidden --type f --type l --exclude .git]],
+  },
+  buffers = {
+    formatter = 'path.filename_first',
+  },
+  grep = {
+    grep_opts = '--binary-files=without-match --line-number --recursive --color=auto --perl-regexp -e',
+    rg_opts = grep_rg_opts,
+    path_shorten = 1,
+  },
+  lsp = {
+    symbols = {
+      path_shorten = 1,
     },
   },
 })
-require('telescope').load_extension('fzf')
 
-vim.api.nvim_create_autocmd('User', {
-  pattern = 'TelescopePreviewerLoaded',
-  command = 'setlocal number',
-})
+vim.keymap.set('n', '<C-f>', fzf.files)
 
-local telescope_builtin = require('telescope.builtin')
-local pickers = require('better-telescope-builtins')
+vim.keymap.set('n', '<leader>f', fzf.files)
 
-vim.keymap.set('n', '<leader>a', telescope_builtin.builtin)
-vim.keymap.set('n', '<C-f>', pickers.find_files)
-vim.keymap.set('n', '<leader>f', pickers.find_files)
-vim.keymap.set('n', '<leader>b', pickers.buffers)
-vim.keymap.set('n', '<leader>g', function()
-  telescope_builtin.live_grep({
-    path_display = { 'tail' },
-  })
+vim.keymap.set('n', '<leader>g', fzf.grep)
+
+vim.keymap.set('v', '<leader>g', function()
+  local s = vim.fn.getpos('v')
+  local e = vim.fn.getpos('.')
+  local selected_lines = vim.fn.getregion(s, e, { type = vim.fn.mode() })
+  if #selected_lines == 1 then
+    fzf.grep({ search = selected_lines[1] })
+  else
+    local selected = table.concat(selected_lines, '\n')
+    fzf.grep({
+      search = selected,
+      rg_opts = '--multiline ',
+      multiline = 1,
+    })
+  end
 end)
 
-vim.keymap.set('n', '<leader>s', telescope_builtin.lsp_dynamic_workspace_symbols)
+vim.keymap.set('n', '<leader>b', fzf.buffers)
+
+vim.keymap.set('n', '<leader>rs', fzf.resume)
+
+vim.keymap.set('n', '<leader>d', fzf.lsp_workspace_diagnostics)
+
+vim.keymap.set('n', '<leader>s', fzf.lsp_live_workspace_symbols)
+
+vim.keymap.set('n', '<leader>a', fzf.builtin)

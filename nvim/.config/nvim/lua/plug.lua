@@ -37,10 +37,11 @@ packer.startup(function()
     use({ 'williamboman/mason.nvim' })
     use({ 'williamboman/mason-lspconfig.nvim' })
   end
-  use({ 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' })
+  use({ 'nvim-tree/nvim-tree.lua', requires = 'nvim-tree/nvim-web-devicons' })
   use({ 'nvim-telescope/telescope.nvim', requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } } })
   use({ 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' })
   use({ 'vhminh/better-telescope-builtins.nvim', requires = 'nvim-telescope/telescope.nvim' })
+  use({ 'ibhagwan/fzf-lua', requires = 'nvim-tree/nvim-web-devicons' })
   use({
     'windwp/nvim-autopairs',
     config = function()
@@ -50,7 +51,7 @@ packer.startup(function()
   use('tpope/vim-commentary')
   use({ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' })
   use('nvim-treesitter/playground')
-  use({ 'NTBBloodbath/galaxyline.nvim', requires = 'kyazdani42/nvim-web-devicons' })
+  use({ 'NTBBloodbath/galaxyline.nvim', requires = 'nvim-tree/nvim-web-devicons' })
   use({ 'lewis6991/gitsigns.nvim', requires = 'nvim-lua/plenary.nvim' })
   use({
     'j-hui/fidget.nvim',
