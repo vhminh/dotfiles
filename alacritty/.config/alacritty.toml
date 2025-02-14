@@ -1,3 +1,4 @@
+[general]
 live_config_reload = true
 
 [colors]
@@ -65,7 +66,7 @@ mods = "Command"
 history = 10000
 multiplier = 3
 
-[shell]
+[terminal.shell]
 args = ["--login", "-c", "which tmux &> /dev/null && { tmux attach || tmux; } || zsh"]
 program = "zsh"
 
