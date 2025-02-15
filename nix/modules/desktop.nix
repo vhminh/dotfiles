@@ -31,16 +31,18 @@
         name = "Flat-Remix-Blue-Dark";
         package = pkgs.flat-remix-icon-theme;
       };
-      cursorTheme = {
-        name = "macOS-Monterey-White";
-        package = pkgs.apple-cursor;
-        size = if has4kMonitor then 36 else 18;
-      };
       font = {
         name = "Noto Sans";
         package = pkgs.noto-fonts;
         size = 11;
       };
+    };
+    home.pointerCursor = {
+      name = "Banana";
+      package = pkgs.banana-cursor;
+      size = if has4kMonitor then 40 else 18;
+      x11.enable = true;
+      gtk.enable = true;
     };
     xfconf.settings = {
       xsettings = {
