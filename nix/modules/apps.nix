@@ -19,7 +19,7 @@ in
     # albert
     telegram-desktop-with-ibus
     gparted
-    transmission-gtk
+    transmission_3-gtk
     vlc
     anki
     xkeysnail
