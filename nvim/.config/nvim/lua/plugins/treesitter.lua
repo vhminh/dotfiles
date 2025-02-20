@@ -14,6 +14,7 @@ local treesitter_ensure_installed = {
   'gdscript',
   'gitattributes',
   'gitignore',
+  'glsl',
   'go',
   'godot_resource',
   'gomod',
