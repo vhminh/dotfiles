@@ -29,6 +29,7 @@ gui_remaps = {
     K("M-f"): K("C-f"), # find
     K("M-Shift-f"): K("C-Shift-f"), # find all
     K("M-r"): K("C-r"), # reload
+    K("M-w"): K("C-w"), # close tab
     K("C-n"): K("down"), # next
     K("C-p"): K("up"), # previous
     **global_remaps,
