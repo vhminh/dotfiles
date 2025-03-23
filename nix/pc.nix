@@ -14,7 +14,7 @@ in
     ./modules/ibus.nix
     ./modules/zsh.nix
     (import ./modules/devtools.nix { displayName = "${displayName}"; email = "${email}"; })
-    (import ./modules/desktop.nix { username = "${username}"; has4kMonitor = true; })
+    (import ./modules/kde.nix { username = "${username}"; })
     (import ./modules/apps.nix { username = "${username}"; })
     (import ./modules/users.nix { username = "${username}"; displayName = "${displayName}"; })
     ./modules/nvidia.nix
