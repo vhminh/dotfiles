@@ -26,6 +26,7 @@ in
     chromium
     onlyoffice-bin
     openscad
+    blender
   ];
 
   programs.firefox = {
