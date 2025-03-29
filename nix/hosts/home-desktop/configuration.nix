@@ -2,30 +2,24 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ ... }:
 
-let
-  username = "minh";
-  displayName = "Minh Vu";
-  email = "minhvh99@gmail.com";
-in
 {
   imports = [
-    ./modules/ibus.nix
-    ./modules/zsh.nix
-    (import ./modules/devtools.nix { displayName = "${displayName}"; email = "${email}"; })
-    (import ./modules/kde.nix { username = "${username}"; })
-    (import ./modules/apps.nix { username = "${username}"; })
-    (import ./modules/users.nix { username = "${username}"; displayName = "${displayName}"; })
-    ./modules/nvidia.nix
-    /etc/nixos/hardware-configuration.nix
+    ./nvidia.nix
+    ./hardware-configuration.nix
+    ../../nixos/locale.nix
+    ../../nixos/nix-gc.nix
+    ../../nixos/programs
+    ../../nixos/user.nix
   ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "nixos-desktop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -35,29 +29,6 @@ in
   # Enable networking
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
-  time.timeZone = "Asia/Ho_Chi_Minh";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_GB.UTF-8";
-    LC_IDENTIFICATION = "en_GB.UTF-8";
-    LC_MEASUREMENT = "en_GB.UTF-8";
-    LC_MONETARY = "en_GB.UTF-8";
-    LC_NAME = "en_GB.UTF-8";
-    LC_NUMERIC = "en_GB.UTF-8";
-    LC_PAPER = "en_GB.UTF-8";
-    LC_TELEPHONE = "en_GB.UTF-8";
-    LC_TIME = "en_GB.UTF-8";
-  };
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -119,7 +90,6 @@ in
   system.stateVersion = "23.05"; # Did you read the comment?
 
 
-  home-manager.users.${username} = { pkgs, ... }: {
-    home.stateVersion = "23.05";
-  };
+  # Enable flake support
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 }

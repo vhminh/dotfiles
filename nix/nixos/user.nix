@@ -1,9 +1,9 @@
-{ username, displayName }: { config, pkgs, ... }:
+{ username, fullname, ... }:
 
 {
   users.users.${username} = {
     isNormalUser = true;
-    description = "${displayName}";
+    description = "${fullname}";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
   };
 
