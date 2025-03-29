@@ -11,18 +11,23 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    ibus-bamboo = {
+      url = "github:BambooEngine/ibus-bamboo";
+    };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, nur, ... }: {
+  outputs = inputs@{ nixpkgs, home-manager, nur, ibus-bamboo, ... }: {
     nixosConfigurations = {
       nixos-desktop = let
         username = "minh";
         fullname = "Minh Vu";
         email = "minhvh99@gmail.com";
-        specialArgs =  { inherit username; inherit fullname; inherit email; };
-      in nixpkgs.lib.nixosSystem {
-        inherit specialArgs;
         system = "x86_64-linux";
+        specialArgs =  { inherit inputs; inherit username; inherit fullname; inherit email; inherit system; };
+      in nixpkgs.lib.nixosSystem {
+        inherit system;
+        inherit specialArgs;
         modules = [
           ./hosts/home-desktop/configuration.nix
 
