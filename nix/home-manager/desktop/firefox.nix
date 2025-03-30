@@ -2,9 +2,15 @@
 {
   programs.firefox = {
     enable = true;
-    # preferences = {
-    #   "ui.key.menuAccessKeyFocuses" = false;
-    # };
+    policies = {
+      Preferences = {
+        "ui.key.menuAccessKeyFocuses" = false; # don't focus menu when pressing Alt
+        "sidebar.revamp" = true;
+        "sidebar.revamp.round-content-area" = true;
+        "sidebar.main.tools" = "history";
+        "sidebar.verticalTabs" = true;
+      };
+    };
   };
 
   # Nix User Repository
