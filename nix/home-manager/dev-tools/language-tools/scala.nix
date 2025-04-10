@@ -7,5 +7,6 @@
     pyright
     nil
     jetbrains.idea-ultimate
+    scala-cli
   ];
 }
