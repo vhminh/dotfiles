@@ -10,5 +10,6 @@
     onlyoffice-bin
     openscad
     blender
+    jq
   ];
 }
