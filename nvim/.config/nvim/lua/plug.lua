@@ -48,6 +48,7 @@ packer.startup(function()
   use('tpope/vim-commentary')
   use({ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' })
   use('nvim-treesitter/playground')
+  use('nvim-treesitter/nvim-treesitter-context')
   use({ 'NTBBloodbath/galaxyline.nvim', requires = 'nvim-tree/nvim-web-devicons' })
   use({ 'lewis6991/gitsigns.nvim', requires = 'nvim-lua/plenary.nvim' })
   use({
