@@ -28,6 +28,16 @@
         "when": "sideBarFocus",
     },
     {
+        "key": "ctrl+c",
+        "command": "closeReferenceSearch",
+        "when": "editorTextFocus && referenceSearchVisible && !config.editor.stablePeek || referenceSearchVisible && !config.editor.stablePeek && !inputFocus"
+    },
+    {
+        "key": "ctrl+c",
+        "command": "closeMarkersNavigation",
+        "when": "editorFocus && markersNavigationVisible"
+    },
+    {
         "key": "ctrl+w k",
         "command": "workbench.action.focusActiveEditorGroup",
         "when": "terminalFocus"

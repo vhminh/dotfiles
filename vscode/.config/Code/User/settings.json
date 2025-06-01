@@ -30,7 +30,7 @@
             ],
             "commands": [
                 "editor.action.format"
-            ],
+            ]
         },
         {
             "before": [
@@ -39,6 +39,32 @@
             ],
             "commands": [
                 "workbench.action.quickOpen"
+            ]
+        },
+        {
+            "before": [
+                "g",
+                "r"
+            ],
+            "commands": [
+                "editor.action.findReferences"
+            ],
+        },
+        {
+            "before": [
+                "g",
+                "i"
+            ],
+            "commands": [
+                "editor.action.goToImplementation"
+            ],
+        },
+        {
+            "before": [
+                "K"
+            ],
+            "commands": [
+                "editor.action.showHover"
             ],
         },
     ],
