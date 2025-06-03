@@ -1,5 +1,14 @@
 return {
   {
+    'folke/lazydev.nvim',
+    ft = 'lua',
+    opts = {
+      library = {
+        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+      },
+    },
+  },
+  {
     'hrsh7th/nvim-cmp',
     dependencies = {
       'hrsh7th/cmp-nvim-lsp',
@@ -24,6 +33,7 @@ return {
           { name = 'path' },
           { name = 'vsnip' },
           { name = 'buffer' },
+          { name = 'lazydev', group_index = 0 },
         },
         mapping = cmp.mapping.preset.insert({
           ['<CR>'] = cmp.mapping.confirm({

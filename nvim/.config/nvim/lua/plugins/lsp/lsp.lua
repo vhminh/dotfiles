@@ -58,7 +58,6 @@ return {
           automatic_enable = false,
         },
       },
-      { 'folke/neodev.nvim', opts = {} },
     },
     config = function()
       for _, server in pairs(servers) do
