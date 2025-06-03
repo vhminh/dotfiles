@@ -68,13 +68,17 @@ local on_attach = function(client, bufnr)
   else
     vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format, bufopts)
   end
-  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, bufopts)
-  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, bufopts)
+  vim.keymap.set('n', '[d', function()
+    vim.diagnostic.jump({ count = -1, float = true })
+  end, bufopts)
+  vim.keymap.set('n', ']d', function()
+    vim.diagnostic.jump({ count = 1, float = true })
+  end, bufopts)
   vim.keymap.set('n', '[e', function()
-    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+    vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR })
   end, bufopts)
   vim.keymap.set('n', ']e', function()
-    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+    vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR })
   end, bufopts)
 
   -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
@@ -110,7 +114,7 @@ local on_attach = function(client, bufnr)
 end
 
 -- install language servers
-local servers = { 'lua_ls', 'rust_analyzer', 'gopls', 'clangd', 'pyright', 'nil_ls', 'jdtls' }
+local servers = { 'lua_ls', 'rust_analyzer', 'gopls', 'clangd', 'pyright', 'nil_ls', 'jdtls', 'protols' }
 if not is_nixos then
   for k, v in ipairs(servers) do
     if v == 'nil_ls' then
