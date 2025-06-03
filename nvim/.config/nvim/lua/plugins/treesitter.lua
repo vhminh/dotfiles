@@ -1,4 +1,4 @@
-local treesitter_ensure_installed = {
+local ensure_installed = {
   'bash',
   'c',
   'c_sharp',
@@ -62,8 +62,8 @@ local treesitter_ensure_installed = {
   'zig',
 }
 
-require('nvim-treesitter.configs').setup({
-  ensure_installed = treesitter_ensure_installed,
+local ts_opts = {
+  ensure_installed = ensure_installed,
   highlight = {
     enable = true,
     custom_captures = {
@@ -91,4 +91,17 @@ require('nvim-treesitter.configs').setup({
       show_help = '?',
     },
   },
-})
+}
+
+return {
+  {
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    opts = ts_opts,
+    config = function(_, opts)
+      require('nvim-treesitter.configs').setup(opts)
+    end,
+  },
+  { 'nvim-treesitter/playground' },
+  { 'nvim-treesitter/nvim-treesitter-context' },
+}
