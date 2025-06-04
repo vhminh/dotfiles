@@ -72,5 +72,5 @@ return {
       end
     end,
   },
-  { 'j-hui/fidget.nvim' },
+  { 'j-hui/fidget.nvim', opts = {} },
 }
