@@ -48,11 +48,18 @@ return {
       end,
     },
     init = function()
-      vim.api.nvim_set_hl(0, 'GitSignsAdd', { link = 'GitGutterAdd' })
-      vim.api.nvim_set_hl(0, 'GitSignsChange', { link = 'GitGutterChange' })
-      vim.api.nvim_set_hl(0, 'GitSignsChangedelete', { link = 'GitGutterChange' })
-      vim.api.nvim_set_hl(0, 'GitSignsDelete', { link = 'GitGutterDelete' })
-      vim.api.nvim_set_hl(0, 'GitSignsTopdelete', { link = 'GitGutterDelete' })
+      local group = vim.api.nvim_create_augroup('gitsigns_highlight', { clear = true })
+      vim.api.nvim_create_autocmd('ColorScheme', {
+        pattern = '*',
+        group = group,
+        callback = function()
+          vim.api.nvim_set_hl(0, 'GitSignsAdd', { link = 'GitGutterAdd' })
+          vim.api.nvim_set_hl(0, 'GitSignsChange', { link = 'GitGutterChange' })
+          vim.api.nvim_set_hl(0, 'GitSignsChangedelete', { link = 'GitGutterChange' })
+          vim.api.nvim_set_hl(0, 'GitSignsDelete', { link = 'GitGutterDelete' })
+          vim.api.nvim_set_hl(0, 'GitSignsTopdelete', { link = 'GitGutterDelete' })
+        end,
+      })
     end,
   },
 }

@@ -1,32 +1,6 @@
 local colors = require('colors')
 local stl_bg = colors.bg3
 
-local colors_by_mode = {
-  n = colors.blue,
-  i = colors.green,
-  v = colors.yellow,
-  [''] = colors.yellow,
-  V = colors.yellow,
-  c = colors.purple,
-  no = colors.blue,
-  s = colors.yellow,
-  S = colors.yellow,
-  [''] = colors.yellow,
-  ic = colors.green,
-  R = colors.red,
-  Rv = colors.red,
-  cv = colors.fg,
-  ce = colors.fg,
-  r = colors.fg,
-  rm = colors.fg,
-  ['r?'] = colors.fg,
-  ['!'] = colors.purple,
-  t = colors.purple,
-}
-local get_mode_color = function(mode)
-  return colors_by_mode[mode]
-end
-
 local text_by_mode = {
   n = 'NORMAL',
   i = 'INSERT',
@@ -50,13 +24,59 @@ local text_by_mode = {
   t = 'TERM',
 }
 
+local highlight_by_mode = {
+  n = 'StatusLineModeNormal',
+  i = 'StatusLineModeInsert',
+  v = 'StatusLineModeVisual',
+  [''] = 'StatusLineModeVisual',
+  V = 'StatusLineModeVisual',
+  c = 'StatusLineModeTerm',
+  no = 'StatusLineModeNormal',
+  s = 'StatusLineModeVisual',
+  S = 'StatusLineModeVisual',
+  [''] = 'StatusLineModeVisual',
+  ic = 'StatusLineModeInsert',
+  R = 'StatusLineModeReplace',
+  Rv = 'StatusLineModeReplace',
+  cv = 'StatusLineModeOther',
+  ce = 'StatusLineModeOther',
+  r = 'StatusLineModeOther',
+  rm = 'StatusLineModeOther',
+  ['r?'] = 'StatusLineModeOther',
+  ['!'] = 'StatusLineModeTerm',
+  t = 'StatusLineModeTerm',
+}
+
+local group = vim.api.nvim_create_augroup('statusline.highlight', { clear = true })
+vim.api.nvim_create_autocmd('ColorScheme', {
+  pattern = '*',
+  group = group,
+  callback = function()
+    vim.api.nvim_set_hl(0, 'StatusLineBlue', { fg = colors.blue })
+    vim.api.nvim_set_hl(0, 'StatusLineGreen', { fg = colors.green })
+    vim.api.nvim_set_hl(0, 'StatusLineYellow', { fg = colors.yellow })
+    vim.api.nvim_set_hl(0, 'StatusLineRed', { fg = colors.red })
+    vim.api.nvim_set_hl(0, 'StatusLinePurple', { fg = colors.purple })
+    vim.api.nvim_set_hl(0, 'StatusLineCyan', { fg = colors.cyan })
+
+    vim.api.nvim_set_hl(0, 'StatusLineModeNormal', { fg = stl_bg, bg = colors.blue })
+    vim.api.nvim_set_hl(0, 'StatusLineModeInsert', { fg = stl_bg, bg = colors.green })
+    vim.api.nvim_set_hl(0, 'StatusLineModeVisual', { fg = stl_bg, bg = colors.yellow })
+    vim.api.nvim_set_hl(0, 'StatusLineModeReplace', { fg = stl_bg, bg = colors.red })
+    vim.api.nvim_set_hl(0, 'StatusLineModeTerm', { fg = stl_bg, bg = colors.purple })
+    vim.api.nvim_set_hl(0, 'StatusLineModeOther', { fg = s, bg = colors.fg })
+  end,
+})
+
 local short_stl_filetypes = { 'NvimTree', 'Vista' }
 
 local components = {}
 
 components.mode = function()
   local mode = vim.fn.mode(1)
-  return text_by_mode[mode]
+  local text = text_by_mode[mode]
+  local hi = highlight_by_mode[mode]
+  return string.format('%%#%s# %s %%*', hi, text)
 end
 
 components.buf_flags = function()
@@ -108,16 +128,16 @@ components.lsp_diagnostics = function()
   local hint = nil_safe(diagnostics[vim.diagnostic.severity.HINT], 0)
   local strs = {}
   if error > 0 then
-    table.insert(strs, string.format(' %d', error))
+    table.insert(strs, string.format('%%#StatusLineRed# %d%%*', error))
   end
   if warn > 0 then
-    table.insert(strs, string.format(' %d', warn))
+    table.insert(strs, string.format('%%#StatusLineYellow# %d%%*', warn))
   end
   if info > 0 then
-    table.insert(strs, string.format(' %d', info))
+    table.insert(strs, string.format('%%#StatusLineBlue# %d%%*', info))
   end
   if hint > 0 then
-    table.insert(strs, string.format(' %d', hint))
+    table.insert(strs, string.format('%%#StatusLineCyan# %d%%*', hint))
   end
   return table.concat(strs, ' ')
 end
@@ -164,23 +184,23 @@ components.lsp_clients = function()
   if str == vim.NIL or str == nil or str == '' then
     return ''
   end
-  return string.format(' %s', str)
+  return string.format(' %%#StatusLineCyan#%s%%*', str)
 end
 
 components.git = function()
   local dict = vim.b.gitsigns_status_dict or {}
   local t = {}
   if dict['head'] ~= nil then
-    table.insert(t, string.format(' %s', dict['head']))
+    table.insert(t, string.format('%%#StatusLinePurple# %s%%*', dict['head']))
   end
   if dict['added'] and dict['added'] ~= 0 then
-    table.insert(t, string.format('+%d', dict['added']))
+    table.insert(t, string.format('%%#StatusLineGreen#+%d%%*', dict['added']))
   end
   if dict['changed'] and dict['changed'] ~= 0 then
-    table.insert(t, string.format('~%d', dict['changed']))
+    table.insert(t, string.format('%%#StatusLineYellow#~%d%%*', dict['changed']))
   end
   if dict['removed'] and dict['removed'] ~= 0 then
-    table.insert(t, string.format('-%d', dict['removed']))
+    table.insert(t, string.format('%%#StatusLineRed#-%d%%*', dict['removed']))
   end
   if next(t) == nil then
     return ''
@@ -192,7 +212,7 @@ _G.statusline = {}
 
 statusline.active = function()
   return string.format(
-    ' %s %%t %s %s %%= %%= %%l / %%L %s %s%s%s ▊',
+    '%s %%#StatusLinePurple#%%t %s%%*  %s %%= %%= %%l / %%L %%#StatusLineGreen#%s %s%%*%s%s %%#StatusLineBlue#▊%%*',
     components.mode(),
     components.buf_flags(),
     components.lsp_diagnostics(),
