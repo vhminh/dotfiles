@@ -64,11 +64,11 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     vim.api.nvim_set_hl(0, 'StatusLineModeVisual', { fg = stl_bg, bg = colors.yellow })
     vim.api.nvim_set_hl(0, 'StatusLineModeReplace', { fg = stl_bg, bg = colors.red })
     vim.api.nvim_set_hl(0, 'StatusLineModeTerm', { fg = stl_bg, bg = colors.purple })
-    vim.api.nvim_set_hl(0, 'StatusLineModeOther', { fg = s, bg = colors.fg })
+    vim.api.nvim_set_hl(0, 'StatusLineModeOther', { fg = stl_bg, bg = colors.fg })
   end,
 })
 
-local short_stl_filetypes = { 'NvimTree', 'Vista' }
+local short_stl_filetypes = { 'NvimTree', 'vista_kind' }
 
 local components = {}
 
@@ -77,6 +77,17 @@ components.mode = function()
   local text = text_by_mode[mode]
   local hi = highlight_by_mode[mode]
   return string.format('%%#%s# %s %%*', hi, text)
+end
+
+local devicons = require('nvim-web-devicons')
+components.file_icon = function()
+  local filename = vim.fn.expand('%:t')
+  local ext = vim.fn.expand('%:e')
+  local icon, hi = devicons.get_icon(filename, ext, { default = true })
+  if icon == nil then
+    return ''
+  end
+  return string.format('%%#%s#%s%%*', hi, icon)
 end
 
 components.buf_flags = function()
@@ -212,8 +223,9 @@ _G.statusline = {}
 
 statusline.active = function()
   return string.format(
-    '%s %%#StatusLinePurple#%%t %s%%*  %s %%= %%= %%l / %%L %%#StatusLineGreen#%s %s%%*%s%s %%#StatusLineBlue#▊%%*',
+    '%s %s %%#StatusLinePurple#%%t %s%%*  %s %%= %%= %%l / %%L %%#StatusLineGreen#%s %s%%*%s%s %%#StatusLineBlue#▊%%*',
     components.mode(),
+    components.file_icon(),
     components.buf_flags(),
     components.lsp_diagnostics(),
     components.fileencoding(),
@@ -225,10 +237,10 @@ statusline.active = function()
 end
 
 statusline.inactive = function()
-  return '%t %m %r'
+  return ' %t %m %r'
 end
 statusline.short = function()
-  return '%t %m %r'
+  return ' %t %m %r'
 end
 
 local augroup = vim.api.nvim_create_augroup('statusline', { clear = true })
@@ -237,7 +249,7 @@ vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter', 'FileType' }, {
   pattern = '*',
   callback = function()
     if vim.tbl_contains(short_stl_filetypes, vim.bo.filetype) then
-      vim.o.statusline = '%!v:lua.statusline.short()'
+      vim.wo.statusline = '%!v:lua.statusline.short()'
     else
       vim.wo.statusline = '%!v:lua.statusline.active()'
     end
