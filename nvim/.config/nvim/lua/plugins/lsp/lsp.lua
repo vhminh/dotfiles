@@ -21,7 +21,7 @@ vim.fn.sign_define('LspDiagnosticsSignHint', {
 })
 
 local on_attach = function(client, bufnr)
-  require('plugins.lsp.keymaps').set_lsp_keymaps(client, bufnr)
+  require('plugins.lsp.keymaps').set_buf_keymaps(client, bufnr)
   require('plugins.lsp.highlights').set_lsp_highlights(client, bufnr)
 end
 
@@ -59,6 +59,9 @@ return {
         },
       },
     },
+    init = function()
+      require('plugins.lsp.keymaps').set_global_keymaps()
+    end,
     config = function()
       for _, server in pairs(servers) do
         local opt = {
