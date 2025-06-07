@@ -15,9 +15,23 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
+  defaults = {
+    lazy = false, -- use lazy.nvim only for lockfile support :)
+  },
   spec = {
     { import = 'plugins' },
   },
-  install = { colorscheme = { 'onedark' } },
-  checker = { enabled = true },
+  install = {
+    missing = true,
+    colorscheme = { 'onedark' },
+  },
+  checker = {
+    enabled = true,
+    notify = false,
+    frequency = 25200, -- check every week
+  },
+  change_detection = {
+    enabled = false,
+    notify = false,
+  },
 })
