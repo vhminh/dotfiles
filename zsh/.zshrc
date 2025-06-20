@@ -22,6 +22,20 @@ fi
 
 export GOBIN=$HOME/go/bin
 export PATH=$PATH:$GOBIN
+export PATH=$(brew --prefix rustup)/bin:$PATH
+
+function code() {
+  dir=$(ls -d ~/Code/*/ | fzf)
+  if [ $? -eq 0 ]; then
+    cd $dir
+  fi
+}
+
+if [[ $(uname -s) == "Darwin" ]]; then
+  function intellij() {
+    ls -d ~/Code/*/ | fzf | xargs /Applications/IntelliJ\ IDEA.app/Contents/MacOS/idea > /dev/null 2>&1
+  }
+fi
 
 # source machine specific rc
 if [ -f ~/.zshcustomrc ]; then
