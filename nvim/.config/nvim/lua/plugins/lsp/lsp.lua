@@ -36,7 +36,7 @@ local server_settings = {
   },
 }
 
-local servers = { 'lua_ls', 'rust_analyzer', 'gopls', 'clangd', 'pyright', 'nil_ls', 'jdtls', 'protols' }
+local servers = { 'lua_ls', 'rust_analyzer', 'gopls', 'clangd', 'pyright', 'nil_ls', 'jdtls', 'protols', 'zls' }
 if not is_nixos then
   for k, v in ipairs(servers) do
     if v == 'nil_ls' then
