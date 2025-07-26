@@ -36,6 +36,7 @@ return {
     config = function(_, opts)
       local fzf = require('fzf-lua')
       fzf.setup(opts)
+      fzf.register_ui_select()
 
       vim.keymap.set('n', '<C-f>', fzf.files)
       vim.keymap.set('n', '<leader>f', fzf.files)
