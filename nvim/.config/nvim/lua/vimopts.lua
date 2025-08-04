@@ -22,6 +22,7 @@ vim.opt.wrap = false
 vim.opt.showmatch = true
 vim.opt.showcmd = true
 vim.opt.showmode = false
+vim.opt.winborder = 'bold'
 
 -- behavior
 vim.opt.backspace = { 'indent', 'eol', 'start' }
