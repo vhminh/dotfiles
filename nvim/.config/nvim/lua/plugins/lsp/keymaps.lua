@@ -4,7 +4,7 @@ M.set_global_keymaps = function()
   local fzf = require('fzf-lua')
   vim.keymap.set('n', 'gD', fzf.lsp_declarations)
   vim.keymap.set('n', 'gd', fzf.lsp_definitions)
-  vim.keymap.set('n', 'gr', fzf.lsp_references)
+  vim.keymap.set('n', 'gr', fzf.lsp_references, { nowait = true }) -- disable nvim 0.11 default gr* keymaps
   vim.keymap.set('n', 'gi', fzf.lsp_implementations)
   vim.keymap.set('n', '<leader>d', fzf.lsp_workspace_diagnostics)
   vim.keymap.set('n', '<leader>s', fzf.lsp_live_workspace_symbols)
