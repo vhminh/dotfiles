@@ -33,10 +33,17 @@ local server_settings = {
   },
   ['gopls'] = {
     semanticTokens = true,
+    hints = {
+      compositeLiteralFields = true,
+      constantValues = true,
+      functionTypeParameters = true,
+      ignoredError = true,
+    },
   },
 }
 
-local servers = { 'lua_ls', 'rust_analyzer', 'gopls', 'clangd', 'pyright', 'nil_ls', 'jdtls', 'protols', 'zls', 'ts_ls' }
+local servers =
+  { 'lua_ls', 'rust_analyzer', 'gopls', 'clangd', 'pyright', 'nil_ls', 'jdtls', 'protols', 'zls', 'ts_ls' }
 if not is_nixos then
   for k, v in ipairs(servers) do
     if v == 'nil_ls' then
@@ -61,6 +68,7 @@ return {
     },
     init = function()
       require('plugins.lsp.keymaps').set_global_keymaps()
+      vim.lsp.inlay_hint.enable()
     end,
     config = function()
       for _, server in pairs(servers) do
