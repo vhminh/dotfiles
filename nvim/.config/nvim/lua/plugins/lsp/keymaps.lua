@@ -17,7 +17,7 @@ M.set_buf_keymaps = function(client, bufnr)
   local bufopts = { remap = false, silent = false, buffer = bufnr }
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-  if client.name == 'lua_ls' and vim.fn.executable('stylua') then
+  if client.name == 'lua_ls' then
     vim.keymap.set('n', '<leader>lf', require('stylua-nvim').format_file)
   else
     vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format, bufopts)
