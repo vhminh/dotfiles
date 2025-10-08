@@ -67,7 +67,7 @@ history = 10000
 multiplier = 3
 
 [terminal.shell]
-args = ["--login", "-c", "which tmux &> /dev/null && { tmux attach || tmux; } || zsh"]
+args = ["--login", "-i", "-c", "which tmux &> /dev/null && tmux new-session -A || zsh"]
 program = "zsh"
 
 [window]
