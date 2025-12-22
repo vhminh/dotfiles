@@ -25,23 +25,6 @@ local on_attach = function(client, bufnr)
   require('plugins.lsp.highlights').set_lsp_highlights(client, bufnr)
 end
 
-local server_settings = {
-  ['Lua'] = {
-    workspace = {
-      checkThirdParty = false,
-    },
-  },
-  ['gopls'] = {
-    semanticTokens = true,
-    hints = {
-      compositeLiteralFields = true,
-      constantValues = true,
-      functionTypeParameters = true,
-      ignoredError = true,
-    },
-  },
-}
-
 local servers =
   { 'lua_ls', 'rust_analyzer', 'gopls', 'clangd', 'pyright', 'nil_ls', 'jdtls', 'protols', 'zls', 'ts_ls' }
 if not is_nixos then
@@ -62,7 +45,7 @@ return {
         'mason-org/mason-lspconfig.nvim',
         opts = {
           ensure_installed = servers,
-          automatic_enable = false,
+          automatic_enable = true,
         },
       },
     },
@@ -71,17 +54,12 @@ return {
       vim.lsp.inlay_hint.enable()
     end,
     config = function()
-      for _, server in pairs(servers) do
-        local opt = {
-          on_attach = on_attach,
-          flags = {
-            debounce_text_changes = 150,
-          },
-          settings = server_settings,
-        }
-        vim.lsp.config(server, opt);
-        vim.lsp.enable(server);
-      end
+      vim.lsp.config('*', {
+        on_attach = on_attach,
+        flags = {
+          debounce_text_changes = 150,
+        },
+      })
     end,
   },
   { 'j-hui/fidget.nvim', opts = {} },
