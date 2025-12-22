@@ -79,7 +79,8 @@ return {
           },
           settings = server_settings,
         }
-        require('lspconfig')[server].setup(opt)
+        vim.lsp.config(server, opt);
+        vim.lsp.enable(server);
       end
     end,
   },
