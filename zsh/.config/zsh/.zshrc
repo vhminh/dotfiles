@@ -1,5 +1,6 @@
 autoload -Uz compinit
-compinit -d "$XDG_CACHE_HOME/zsh/.zcompdump"
+[ -d "$XDG_CACHE_HOME"/zsh ] || mkdir -p "$XDG_CACHE_HOME"/zsh
+compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-$ZSH_VERSION
 
 for file in $ZDOTDIR/rc/*.zsh; do
   source $file
