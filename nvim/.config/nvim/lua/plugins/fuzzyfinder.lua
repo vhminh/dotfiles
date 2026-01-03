@@ -69,6 +69,8 @@ return {
         })
       end)
 
+      vim.keymap.set('n', '<leader>m', fzf.marks)
+
       vim.keymap.set('n', '<leader>a', fzf.builtin)
     end,
   },
