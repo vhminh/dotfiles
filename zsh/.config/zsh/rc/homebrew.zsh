@@ -11,10 +11,5 @@ if [[ -x /opt/homebrew/bin/brew ]]; then
     export SDKMAN_DIR=$HOMEBREW_PREFIX/opt/sdkman-cli/libexec
     [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
   fi
-
-  # mise
-  if echo $brew_installed_formulas | grep -q mise; then
-    eval "$(mise activate zsh)"
-  fi
 fi
 
