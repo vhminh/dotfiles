@@ -40,9 +40,10 @@ return {
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      { 'mason-org/mason.nvim', opts = {} },
+      { 'mason-org/mason.nvim', enabled = not is_nixos, opts = {} },
       {
         'mason-org/mason-lspconfig.nvim',
+        enabled = not is_nixos,
         opts = {
           ensure_installed = servers,
           automatic_enable = true,

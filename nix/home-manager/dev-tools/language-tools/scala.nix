@@ -6,7 +6,7 @@
     openjdk17
     pyright
     nil
-    jetbrains.idea-ultimate
+    jetbrains.idea
     scala-cli
   ];
 }

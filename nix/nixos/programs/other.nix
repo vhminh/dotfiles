@@ -1,13 +1,14 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
+    stow
     gparted
-    transmission_3-gtk
+    transmission_4-gtk
     vlc
     anki
     xkeysnail
     chromium
-    onlyoffice-bin
+    onlyoffice-desktopeditors
     openscad
     blender
     jq

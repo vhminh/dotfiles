@@ -5,7 +5,7 @@ let telegram-desktop-with-ibus =
     paths = [ pkgs.telegram-desktop ];
     buildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
-      wrapProgram $out/bin/telegram-desktop \
+      wrapProgram $out/bin/Telegram \
         --set QT_IM_MODULE ibus
     '';
   };

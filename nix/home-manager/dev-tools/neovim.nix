@@ -15,6 +15,7 @@
     xclip
     sqlite
     tree-sitter
+    nodejs # for treesitter :(
   ];
 
   programs.neovim = {
