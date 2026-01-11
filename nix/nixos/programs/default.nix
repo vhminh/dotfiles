@@ -3,7 +3,8 @@
   imports = [
     ./firefox.nix
     ./ibus.nix
-    ./xfce.nix
+    # ./xfce.nix
+    ./kde.nix
     ./other.nix
 
     ./zsh.nix
