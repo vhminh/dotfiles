@@ -1,13 +1,14 @@
 function Code() {
-  dir=$(ls -d ~/(Code|repos)/*/ | fzf)
-  if [ $? -eq 0 ]; then
-    cd $dir
-  fi
+  local dir
+  dir=$(printf '%s\n' ~/(Code|repos)/*(/N) | fzf) || return
+  cd "$dir"
 }
 
 if [[ $(uname -s) == "Darwin" ]]; then
   function intellij() {
-    ls -d ~/(Code|repos)/*/ | fzf | xargs /Applications/IntelliJ\ IDEA.app/Contents/MacOS/idea > /dev/null 2>&1
+    local dir
+    dir=$(printf '%s\n' ~/(Code|repos)/*(/N) | fzf) || return
+    /Applications/IntelliJ\ IDEA.app/Contents/MacOS/idea "$dir" > /dev/null 2>&1
   }
 fi
 

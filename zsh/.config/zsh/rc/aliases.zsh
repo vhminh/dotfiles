@@ -4,8 +4,8 @@ alias ls='ls --color=auto'
 alias sudo='sudo '
 alias k='kubectl'
 if command -v nvim >/dev/null 2>&1; then
-  export EDITOR=$(which nvim)
-  export VISUAL=$(which nvim)
+  export EDITOR=nvim
+  export VISUAL=nvim
 fi
 
 if [[ $(uname -s) == "Linux" ]]; then
