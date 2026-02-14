@@ -9,7 +9,12 @@ fi
 
 autoload -Uz compinit
 [ -d "$XDG_CACHE_HOME"/zsh ] || mkdir -p "$XDG_CACHE_HOME"/zsh
-compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-$ZSH_VERSION
+local zcompdump="$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
+if [[ -n $zcompdump(#qN.mh+24) ]]; then
+  compinit -d "$zcompdump"
+else
+  compinit -C -d "$zcompdump"
+fi
 
 export PATH="$HOME/.local/bin:$PATH"
 
