@@ -29,7 +29,8 @@ function _gpr_list() {
   # ✔ = approved, ✘ = changes requested, ● = pending
   gh pr list --state=open \
     --json number,title,author,reviewDecision \
-    --jq '.[] | (if .reviewDecision == "APPROVED" then "\u001b[32m✔" elif .reviewDecision == "CHANGES_REQUESTED" then "\u001b[31m✘" else "\u001b[33m●" end) + "\u001b[0m " + (.number|tostring) + "\t" + .title + "\t" + .author.login'
+    --jq '.[] | (if .reviewDecision == "APPROVED" then "\u001b[32m✔" elif .reviewDecision == "CHANGES_REQUESTED" then "\u001b[31m✘" else "\u001b[33m●" end) + "\u001b[0m " + (.number|tostring) + "\t" + .author.login + "\t" + .title' \
+    | column -ts $'\t'
 }
 
 function gpr() {
