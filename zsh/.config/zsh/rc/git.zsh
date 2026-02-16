@@ -35,10 +35,11 @@ function gpr() {
       local pr
       pr=$(fzf --ansi --disabled \
             --preview "$preview" \
-            --header "ctrl-a: approve | type to search" \
+            --multi \
+            --header "ctrl-a: approve selected | type to search" \
             --bind "start:reload:$list_cmd" \
             --bind "change:reload:sleep 0.3; $list_cmd" \
-            --bind "ctrl-a:execute-silent(gh pr review {2} --approve)+refresh-preview") || return
+            --bind "ctrl-a:execute-silent(echo {+2} | xargs -n1 gh pr review --approve)+reload($list_cmd)+refresh-preview") || return
       gh pr view "$(echo "$pr" | awk '{print $2}')" --web
       ;;
     checkout)
