@@ -25,28 +25,28 @@ function gs() {
         --bind "ctrl-u:execute-silent(echo {+2} | xargs git reset HEAD --)+$reload+clear-selection"
 }
 
-function _gpr_list() {
-  # ✔ = approved, ✘ = changes requested, ● = pending
-  gh pr list --state=open \
-    --json number,title,author,reviewDecision \
-    --jq '.[] | (if .reviewDecision == "APPROVED" then "\u001b[32m✔" elif .reviewDecision == "CHANGES_REQUESTED" then "\u001b[31m✘" else "\u001b[33m●" end) + "\u001b[0m " + (.number|tostring) + "\t" + .author.login + "\t" + .title' \
-    | column -ts $'\t'
-}
-
 function gpr() {
+  # ✔ = approved, ✘ = changes requested, ● = pending
+  local jq_expr='.[] | (if .reviewDecision == "APPROVED" then "\u001b[32m✔" elif .reviewDecision == "CHANGES_REQUESTED" then "\u001b[31m✘" else "\u001b[33m●" end) + "\u001b[0m " + (.number|tostring) + "\t" + .author.login + "\t" + .title'
+  local list_cmd="gh pr list --state=open --search {q} --json number,title,author,reviewDecision --jq '$jq_expr' | column -ts \$'\\t'"
+  local preview='v=$(mktemp) d=$(mktemp); gh pr view {2} >$v & gh pr diff {2} --color=always >$d & wait; cat $v; echo; cat $d; rm $v $d'
   case "${1:-view}" in
     view)
       local pr
-      pr=$(_gpr_list |
-        fzf --ansi --preview 'v=$(mktemp) d=$(mktemp); gh pr view {2} >$v & gh pr diff {2} --color=always >$d & wait; cat $v; echo; cat $d; rm $v $d' \
-            --header "ctrl-a: approve" \
+      pr=$(fzf --ansi --disabled \
+            --preview "$preview" \
+            --header "ctrl-a: approve | type to search" \
+            --bind "start:reload:$list_cmd" \
+            --bind "change:reload:sleep 0.3; $list_cmd" \
             --bind "ctrl-a:execute-silent(gh pr review {2} --approve)+refresh-preview") || return
       gh pr view "$(echo "$pr" | awk '{print $2}')" --web
       ;;
     checkout)
       local pr
-      pr=$(_gpr_list |
-        fzf --ansi --preview 'v=$(mktemp) d=$(mktemp); gh pr view {2} >$v & gh pr diff {2} --color=always >$d & wait; cat $v; echo; cat $d; rm $v $d') || return
+      pr=$(fzf --ansi --disabled \
+            --preview "$preview" \
+            --bind "start:reload:$list_cmd" \
+            --bind "change:reload:sleep 0.3; $list_cmd") || return
       gh pr checkout "$(echo "$pr" | awk '{print $2}')"
       ;;
     *)
