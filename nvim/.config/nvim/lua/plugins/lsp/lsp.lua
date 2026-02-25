@@ -26,7 +26,7 @@ local on_attach = function(client, bufnr)
 end
 
 local servers =
-  { 'lua_ls', 'rust_analyzer', 'gopls', 'clangd', 'pyright', 'nil_ls', 'jdtls', 'protols', 'zls', 'ts_ls' }
+  { 'lua_ls', 'rust_analyzer', 'gopls', 'clangd', 'pyright', 'nil_ls', 'jdtls', 'protols', 'zls', 'ts_ls', 'yamlls' }
 if not is_nixos then
   for k, v in ipairs(servers) do
     if v == 'nil_ls' then
