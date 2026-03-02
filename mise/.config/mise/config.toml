@@ -1,0 +1,21 @@
+[tools]
+java = "openjdk-17"
+neovim = "latest"
+rg = "latest"
+fd = "latest"
+# tmux = "latest" # used in scripts, install globally
+# fzf = "latest"  # used in scripts, install globally
+tree-sitter = "latest"
+coursier = "latest"
+
+go = "latest"
+gomplate = "latest"
+
+jq = "latest"
+yq = "latest"
+
+git-lfs = "latest"
+
+[settings]
+experimental = true
+lockfile = true

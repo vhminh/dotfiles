@@ -44,7 +44,7 @@ if [[ -o interactive ]]; then
   __zshrc_report() {
     add-zsh-hook -d precmd __zshrc_report
     local -F dt=$(( EPOCHREALTIME - __zshrc_t0 ))
-    if (( dt > 0.4 )); then
+    if (( dt > 0.3 )); then
       print -r -- "⚠  zsh startup took ${dt}s (>0.4s). Breakdown:"
       print -l -- ${(On)__zshrc_timings}
     fi
