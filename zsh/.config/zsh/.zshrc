@@ -27,8 +27,8 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # --- Source config files ---
 local -a __zshrc_files=(
-  $ZDOTDIR/rc/*.zsh(N)
-  $ZDOTDIR/host_specific/*.zsh(N)
+  $ZDOTDIR/.zshrc.d/*.zsh(N)
+  $ZDOTDIR/local.d/*.zsh(N)
 )
 
 for file in $__zshrc_files; do
