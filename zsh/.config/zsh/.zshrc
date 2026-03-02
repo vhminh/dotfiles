@@ -1,4 +1,5 @@
 # --- Startup profiling setup (wall-clock, per-file) ---
+zmodload zsh/zprof
 if [[ -o interactive ]]; then
   zmodload zsh/datetime 2>/dev/null
   typeset -gF __zshrc_t0=$EPOCHREALTIME
@@ -45,8 +46,9 @@ if [[ -o interactive ]]; then
     add-zsh-hook -d precmd __zshrc_report
     local -F dt=$(( EPOCHREALTIME - __zshrc_t0 ))
     if (( dt > 0.3 )); then
-      print -r -- "⚠  zsh startup took ${dt}s (>0.4s). Breakdown:"
+      print -r -- "⚠  zsh startup took ${dt}s (>0.3s). Breakdown:"
       print -l -- ${(On)__zshrc_timings}
+      zprof
     fi
     unset __zshrc_t0 __zshrc_timings
     unfunction __zshrc_record __zshrc_report 2>/dev/null
