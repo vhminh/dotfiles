@@ -6,6 +6,7 @@ fd = "latest"
 # tmux = "latest" # used in scripts, install globally
 # fzf = "latest"  # used in scripts, install globally
 tree-sitter = "latest"
+sbt = "latest"
 coursier = "latest"
 
 go = "latest"
