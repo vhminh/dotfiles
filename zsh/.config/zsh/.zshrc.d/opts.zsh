@@ -6,4 +6,4 @@ setopt extendedglob nomatch notify
 bindkey -v
 unsetopt autocd beep
 setopt extended_history hist_ignore_all_dups hist_ignore_space
-setopt share_history hist_expire_dups_first hist_verify hist_reduce_blanks
+setopt share_history hist_expire_dups_first hist_verify hist_reduce_blanks hist_find_no_dups
