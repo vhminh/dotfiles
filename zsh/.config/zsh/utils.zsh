@@ -1,15 +1,17 @@
 # Utility functions for .zshrc
+zmodload zsh/datetime 2>/dev/null
+zmodload -F zsh/stat b:zstat 2>/dev/null
 
 # --- Eval cache ---
 # Cache slow command output, regenerate per-file after 1 day.
 # Usage: eval_cache <name> <command...>
 eval_cache() {
-  zmodload -F zsh/stat b:zstat 2>/dev/null
   local name=$1; shift
   local cache="$ZDOTDIR/cache/$name.zsh"
   [[ -d ${cache:h} ]] || mkdir -p ${cache:h}
   if [[ ! -f $cache ]] || { local -A st; zstat -H st "$cache" && (( EPOCHSECONDS - st[mtime] > 86400 )); }; then
     "$@" > "$cache"
+    zcompile "$cache"
   fi
   source "$cache"
 }
@@ -17,7 +19,6 @@ eval_cache() {
 # --- Startup timing ---
 __zshrc_record_init() {
   if [[ -o interactive ]]; then
-    zmodload zsh/datetime 2>/dev/null
     typeset -gF __zshrc_t0=$EPOCHREALTIME
     typeset -gF __zshrc_t=$EPOCHREALTIME
     typeset -ga __zshrc_timings=()
