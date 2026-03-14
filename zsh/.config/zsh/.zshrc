@@ -15,7 +15,8 @@ fi
 __zshrc_record_end "compinit"
 
 # --- PATH ---
-export PATH="$HOME/.local/bin:$PATH"
+typeset -U path
+path=("$HOME/.local/bin" $path)
 
 # --- Source config files ---
 for file in $ZDOTDIR/.zshrc.d/*.zsh(N); do

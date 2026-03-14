@@ -5,3 +5,4 @@ export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export SHELL_SESSIONS_DISABLE=1
+skip_global_compinit=1
