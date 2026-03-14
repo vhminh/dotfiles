@@ -15,7 +15,7 @@ fi
 __zshrc_record_end "compinit"
 
 # --- PATH ---
-typeset -U path
+typeset -U path fpath
 path=("$HOME/.local/bin" $path)
 
 # --- Source config files ---
