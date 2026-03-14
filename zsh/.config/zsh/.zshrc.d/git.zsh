@@ -1,3 +1,5 @@
+[[ $commands[gh] ]] && eval_cache gh-completion gh completion -s zsh
+
 function gco() {
   local ref
   # list local branches, remote branches (without remote prefix), and tags
