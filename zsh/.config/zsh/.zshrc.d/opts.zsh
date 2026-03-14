@@ -4,6 +4,11 @@ HISTFILE="$XDG_STATE_HOME/zsh/history"
 [[ -d ${HISTFILE:h} ]] || mkdir -p ${HISTFILE:h}
 setopt extendedglob nomatch notify
 bindkey -v
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
+bindkey -M vicmd '^e' edit-command-line
+bindkey -M viins '^e' edit-command-line
 unsetopt autocd beep
 setopt extended_history hist_ignore_all_dups hist_ignore_space
 setopt share_history hist_expire_dups_first hist_verify hist_reduce_blanks hist_find_no_dups
