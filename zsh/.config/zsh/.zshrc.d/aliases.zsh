@@ -3,12 +3,12 @@ alias vim='nvim'
 alias ls='ls --color=auto'
 alias sudo='sudo '
 alias k='kubectl'
-if command -v nvim >/dev/null 2>&1; then
+if (( $+commands[nvim] )); then
   export EDITOR=nvim
   export VISUAL=nvim
 fi
 
-if [[ $(uname -s) == "Linux" ]]; then
+if [[ "$OSTYPE" == linux* ]]; then
   alias open='xdg-open'
 fi
 

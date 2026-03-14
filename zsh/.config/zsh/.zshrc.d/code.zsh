@@ -4,7 +4,7 @@ function Code() {
   cd "$dir"
 }
 
-if [[ $(uname -s) == "Darwin" ]]; then
+if [[ "$OSTYPE" == darwin* ]]; then
   function intellij() {
     local dir
     dir=$(printf '%s\n' ~/(Code|repos)/*(/N) | fzf) || return

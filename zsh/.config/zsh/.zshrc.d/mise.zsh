@@ -1,6 +1,5 @@
-if command -v mise >/dev/null 2>&1; then
+if (( $+commands[mise] )); then
   source <(mise activate zsh)
-  # source <(mise hook-env -s zsh)
-  source <(mise completion zsh)
+  eval_cache mise-completion mise completion zsh
 fi
 

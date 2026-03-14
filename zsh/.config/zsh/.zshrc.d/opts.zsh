@@ -1,7 +1,7 @@
 HISTSIZE=50000
 SAVEHIST=50000
 HISTFILE="$XDG_STATE_HOME/zsh/history"
-mkdir -p "$(dirname $HISTFILE)"
+[[ -d ${HISTFILE:h} ]] || mkdir -p ${HISTFILE:h}
 setopt extendedglob nomatch notify
 bindkey -v
 unsetopt autocd beep

@@ -1,1 +1,1 @@
-[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
+[[ $commands[kubectl] ]] && eval_cache kubectl-completion kubectl completion zsh

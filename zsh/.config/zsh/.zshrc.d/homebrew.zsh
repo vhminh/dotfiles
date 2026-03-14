@@ -1,5 +1,5 @@
-if [[ -x /opt/homebrew/bin/brew ]]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
+if (( $+commands[brew] )); then
+  eval_cache brew-shellenv brew shellenv
 
   # rustup
   if [[ -d "$HOMEBREW_PREFIX/opt/rustup" ]]; then
