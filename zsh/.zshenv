@@ -4,5 +4,6 @@ export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export HOMEBREW_PREFIX="${HOMEBREW_PREFIX:-/opt/homebrew}"
 export SHELL_SESSIONS_DISABLE=1
 skip_global_compinit=1
