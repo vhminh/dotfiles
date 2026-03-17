@@ -4,6 +4,7 @@ __zshrc_record_init
 
 # --- Completion ---
 __zshrc_record_start
+[[ -d $HOMEBREW_PREFIX/share/zsh-completions ]] && fpath+=$HOMEBREW_PREFIX/share/zsh-completions
 autoload -Uz compinit
 [ -d "$XDG_CACHE_HOME"/zsh ] || mkdir -p "$XDG_CACHE_HOME"/zsh
 local zcompdump="$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
