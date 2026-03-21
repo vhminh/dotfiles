@@ -1,6 +1,12 @@
 -- <C-c> as <ESC>
 vim.keymap.set('', '<C-c>', '<ESC>', { remap = true })
 vim.keymap.set('i', '<C-c>', '<ESC>', { remap = true })
+vim.api.nvim_create_autocmd('CmdwinEnter', {
+  group = vim.api.nvim_create_augroup('cmdwin_close', { clear = true }),
+  callback = function(args)
+    vim.keymap.set('n', '<C-c>', '<Cmd>quit<CR>', { buffer = args.buf })
+  end,
+})
 vim.g.omni_sql_no_default_maps = true -- tell builtin sql plugin to not add <C-c>... mappings
 
 -- indent
