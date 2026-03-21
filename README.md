@@ -5,6 +5,8 @@ My config repo for `nixos`, `neovim`, `alacritty`, `tmux`, ...
 ```sh
 $ defaults write -g ApplePressAndHoldEnabled -bool false
 $ brew install --cask unnaturalscrollwheels font-noto-nerd-font
-$ brew instasll tmux alacritty fd fzf go neovim node rg rustup tmux zig
+$ brew install stow mise alacritty node rustup zig
+$ stow mise zsh nvim tmux alacritty
+$ mise install
 ```
 

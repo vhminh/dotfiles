@@ -11,7 +11,7 @@ alias ll='ls -lh --color=auto'
 alias lla='ls -lah'
 alias llah='ls -lah'
 alias rm='rm -i'
-alias vi='nvim'
+alias vi='\vim'
 alias vim='nvim'
 alias open='xdg-open'
 

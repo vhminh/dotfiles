@@ -5,5 +5,6 @@
     ./scala.nix
     ./rust.nix
     ./lua.nix
+    ./other.nix
   ];
 }
