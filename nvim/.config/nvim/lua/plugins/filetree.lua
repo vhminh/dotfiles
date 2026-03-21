@@ -3,6 +3,7 @@ return {
     'nvim-tree/nvim-tree.lua',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {
+      sync_root_with_cwd = true,
       diagnostics = {
         enable = true,
       },
@@ -10,6 +11,9 @@ return {
         group_empty = true,
       },
       actions = {
+        change_dir = {
+          enable = false,
+        },
         open_file = {
           resize_window = false,
         },
@@ -28,6 +32,32 @@ return {
       local api = require('nvim-tree.api')
       vim.keymap.set('n', '<leader>e', function()
         api.tree.find_file({ open = true, focus = true })
+      end)
+
+      -- replacing built-in `gf` to focus the directory in nvim-tree
+      --
+      -- nvim-tree hijacks directory editing and opens the tree view using the directory as root
+      -- this one focuses the directory in nvim-tree but keeps the tree root at cwd
+      ---@return boolean
+      local function focus_dir_under_cursor()
+        local path_under_cursor = vim.fn.expand('<cfile>')
+        if path_under_cursor == '' then
+          return false
+        end
+        local buf_dir = vim.fn.expand('%:p:h')
+        local path = vim.fn.simplify(buf_dir .. '/' .. path_under_cursor)
+        if vim.fn.isdirectory(path) ~= 1 then
+          return false
+        end
+        api.tree.find_file({ buf = path, open = true, focus = true })
+        api.tree.expand_all()
+        return true
+      end
+      vim.keymap.set('n', 'gf', function()
+        if focus_dir_under_cursor() then
+          return
+        end
+        vim.cmd('normal! gf')
       end)
 
       local augroup = vim.api.nvim_create_augroup
