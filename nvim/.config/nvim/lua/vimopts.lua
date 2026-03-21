@@ -80,6 +80,8 @@ vim.opt.autoread = true
 vim.opt.autowriteall = true
 vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
   group = vim.api.nvim_create_augroup('auto_checktime', { clear = true }),
-  command = 'checktime',
+  callback = function()
+    pcall(vim.cmd.checktime)
+  end,
 })
 vim.keymap.set('n', '<C-q>', '<Cmd>quit<CR>')
