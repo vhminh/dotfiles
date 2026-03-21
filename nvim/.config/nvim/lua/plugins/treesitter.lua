@@ -96,10 +96,11 @@ local ts_opts = {
 return {
   {
     'nvim-treesitter/nvim-treesitter',
+    branch = 'main', -- this defaults to `master` somehow
     build = ':TSUpdate',
     opts = ts_opts,
     config = function(_, opts)
-      require('nvim-treesitter.configs').setup(opts)
+      require('nvim-treesitter').setup(opts)
     end,
   },
   { 'nvim-treesitter/nvim-treesitter-context', opts = {} },
