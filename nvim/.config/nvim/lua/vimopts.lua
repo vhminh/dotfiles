@@ -75,6 +75,7 @@ vim.keymap.set('n', ']q', vim.cmd.cnext)
 -- others
 vim.opt.hidden = true
 vim.opt.encoding = 'utf-8'
+vim.opt.undofile = true
 vim.opt.autoread = true
 vim.opt.autowriteall = true
 vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {

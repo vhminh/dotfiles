@@ -1,23 +1,14 @@
 local is_nixos = vim.fn.filereadable('/etc/NIXOS') ~= 0
 
--- define lsp signs
-vim.fn.sign_define('LspDiagnosticsSignError', {
-  text = '',
-  texthl = 'LspDiagnosticsSignError',
-})
-vim.fn.sign_define('LspDiagnosticsSignWarning', {
-  text = '',
-  texthl = 'LspDiagnosticsSignWarning',
-})
-
-vim.fn.sign_define('LspDiagnosticsSignInformation', {
-  text = '',
-  texthl = 'LspDiagnosticsSignInformation',
-})
-
-vim.fn.sign_define('LspDiagnosticsSignHint', {
-  text = '',
-  texthl = 'LspDiagnosticsSignHint',
+vim.diagnostic.config({
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '',
+      [vim.diagnostic.severity.WARN] = '',
+      [vim.diagnostic.severity.INFO] = '',
+      [vim.diagnostic.severity.HINT] = '',
+    },
+  },
 })
 
 local on_attach = function(client, bufnr)
@@ -55,12 +46,7 @@ return {
       vim.lsp.inlay_hint.enable()
     end,
     config = function()
-      vim.lsp.config('*', {
-        on_attach = on_attach,
-        flags = {
-          debounce_text_changes = 150,
-        },
-      })
+      vim.lsp.config('*', { on_attach = on_attach })
     end,
   },
   { 'j-hui/fidget.nvim', opts = {} },
