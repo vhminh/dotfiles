@@ -62,27 +62,25 @@ local ensure_installed = {
   'zig',
 }
 
-local ts_opts = {
-  ensure_installed = ensure_installed,
-  highlight = {
-    enable = true,
-    custom_captures = {
-      ['package.name'] = 'TSPackageName',
-    },
-  },
-  indent = {
-    enable = true,
-  },
-}
-
 return {
   {
     'nvim-treesitter/nvim-treesitter',
-    branch = 'main', -- this defaults to `master` somehow
+    branch = 'main',
     build = ':TSUpdate',
-    opts = ts_opts,
-    config = function(_, opts)
-      require('nvim-treesitter').setup(opts)
+    config = function()
+      require('nvim-treesitter').setup()
+      require('nvim-treesitter').install(ensure_installed)
+
+      vim.api.nvim_create_autocmd('FileType', {
+        group = vim.api.nvim_create_augroup('treesitter_setup', { clear = true }),
+        callback = function()
+          local parser_available = vim.treesitter.get_parser(0, nil, { error = false }) ~= nil
+          if parser_available then
+            vim.treesitter.start() -- enable TS highlighting
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+        end,
+      })
     end,
   },
   { 'nvim-treesitter/nvim-treesitter-context', opts = {} },
