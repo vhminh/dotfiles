@@ -101,6 +101,31 @@ components.buf_flags = function()
   return table.concat(icons, '')
 end
 
+--- @param maxcount integer
+--- @return string
+components.searchcount = function(maxcount)
+  if not vim.v.hlsearch or vim.v.hlsearch == 0 then
+    return ''
+  end
+  local result = vim.fn.searchcount({ recompute = true, maxcount = maxcount, timeout = 40 })
+  if vim.tbl_isempty(result) then
+    return ''
+  end
+
+  if result.incomplete == 1 then
+    -- timed out
+    return string.format('[?/??]')
+  elseif result.incomplete == 2 then
+    -- max count exceeded
+    if result.total > result.maxcount and result.current > result.maxcount then
+      return string.format('[>%d/>%d]', result.maxcount, result.maxcount)
+    elseif result.total > result.maxcount then
+      return string.format('[%d/>%d]', result.current, result.maxcount)
+    end
+  end
+  return string.format('[%d/%d]', result.current, result.total)
+end
+
 components.fileencoding = function()
   return vim.bo.fileencoding ~= '' and vim.bo.fileencoding or vim.o.encoding
 end
@@ -223,11 +248,12 @@ _G.statusline = {}
 
 statusline.active = function()
   return string.format(
-    '%s %s %%#StatusLinePurple#%%t %s%%*  %s %%= %%= %%l / %%L %%#StatusLineGreen#%s %s%%*%s%s %%#StatusLineBlue#▊%%*',
+    '%s %s %%#StatusLinePurple#%%t %s%%*  %s %%= %%= %s %%l / %%L %%#StatusLineGreen#%s %s%%*%s%s %%#StatusLineBlue#▊%%*',
     components.mode(),
     components.file_icon(),
     components.buf_flags(),
     components.lsp_diagnostics(),
+    components.searchcount(1000),
     components.fileencoding(),
     components.fileformat(),
     -- optional components, they already have padding spaces
