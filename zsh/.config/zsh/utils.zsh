@@ -1,4 +1,7 @@
 # Utility functions for .zshrc
+[[ -n $__UTILS_ZSH_LOADED ]] && return
+__UTILS_ZSH_LOADED=1
+
 zmodload zsh/datetime 2>/dev/null
 zmodload -F zsh/stat b:zstat 2>/dev/null
 
