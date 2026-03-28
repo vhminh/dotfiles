@@ -23,6 +23,7 @@ vim.opt.fillchars = { vert = '|' }
 vim.opt.number = true
 vim.opt.relativenumber = false
 vim.opt.cursorline = true
+vim.opt.scroll = 8
 vim.opt.scrolloff = 5
 vim.opt.wrap = false
 vim.opt.showmatch = true

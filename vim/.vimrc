@@ -212,6 +212,7 @@ set showmatch
 set mouse=a
 set splitbelow
 set splitright
+set scroll=8
 set scrolloff=5
 set shortmess-=S " show number of matches
 
