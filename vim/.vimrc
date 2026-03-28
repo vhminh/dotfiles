@@ -212,7 +212,10 @@ set showmatch
 set mouse=a
 set splitbelow
 set splitright
-set scroll=8
+augroup set_scroll
+  autocmd!
+  autocmd WinEnter,VimResized * if winheight(0) <= 16 | set scroll=0 | else | set scroll=8 | endif
+augroup end
 set scrolloff=5
 set shortmess-=S " show number of matches
 

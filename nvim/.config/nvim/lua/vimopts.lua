@@ -23,7 +23,16 @@ vim.opt.fillchars = { vert = '|' }
 vim.opt.number = true
 vim.opt.relativenumber = false
 vim.opt.cursorline = true
-vim.opt.scroll = 8
+vim.api.nvim_create_autocmd({ 'WinEnter', 'VimResized' }, {
+  group = vim.api.nvim_create_augroup('set_scroll', { clear = true }),
+  callback = function()
+    if vim.api.nvim_win_get_height(0) <= 16 then
+      vim.opt.scroll = 0 -- default
+    else
+      vim.opt.scroll = 8
+    end
+  end,
+})
 vim.opt.scrolloff = 5
 vim.opt.wrap = false
 vim.opt.showmatch = true
