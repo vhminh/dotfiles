@@ -8,6 +8,7 @@ set NERDTree
 set incsearch
 set ignorecase
 set smartcase
+set scroll=8
 set scrolloff=5
 set showmode
 set idearefactormode=keep
