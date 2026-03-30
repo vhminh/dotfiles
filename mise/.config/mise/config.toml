@@ -1,6 +1,6 @@
 [tools]
 java = "openjdk-17"
-neovim = "latest"
+"aqua:neovim" = "latest"
 rg = "latest"
 fd = "latest"
 tmux = "latest"
