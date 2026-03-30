@@ -51,7 +51,7 @@ vim.keymap.set('v', '>', '>gv')
 vim.keymap.set('n', 'j', 'v:count == 0 ? "gj" : "j"', { expr = true })
 vim.keymap.set('n', 'k', 'v:count == 0 ? "gk" : "k"', { expr = true })
 
-vim.opt.shortmess:append('S') -- statusline now displays number of matches with higher maxcount
+vim.opt.shortmess:remove({ 'S' }) -- show number of matches
 
 -- fold
 vim.opt.foldmethod = 'indent'
