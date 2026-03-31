@@ -1,10 +1,11 @@
 return {
   {
-    'lukas-reineke/indent-blankline.nvim',
-    main = 'ibl',
-    opts = {
-      indent = { char = '│' },
-    },
+    src = 'https://github.com/lukas-reineke/indent-blankline.nvim',
+    config = function()
+      require('ibl').setup({
+        indent = { char = '│' },
+      })
+    end,
   },
-  { 'tpope/vim-sleuth' },
+  { src = 'https://github.com/tpope/vim-sleuth' },
 }

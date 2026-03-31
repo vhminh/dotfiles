@@ -1,7 +1,7 @@
 return {
   {
-    'scalameta/nvim-metals',
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    src = 'https://github.com/scalameta/nvim-metals',
+    deps = { { src = 'https://github.com/nvim-lua/plenary.nvim' } },
     config = function()
       local metals_config = require('metals').bare_config()
       metals_config.settings = {

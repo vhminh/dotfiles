@@ -1,23 +1,31 @@
+---@type PluginSpec[]
 return {
   {
-    'folke/lazydev.nvim',
-    ft = 'lua',
-    opts = {
-      library = {
-        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-      },
-    },
+    src = 'https://github.com/folke/lazydev.nvim',
+    config = function()
+      vim.api.nvim_create_autocmd('FileType', {
+        group = vim.api.nvim_create_augroup('lazydev_init', { clear = true }),
+        pattern = 'lua',
+        callback = function()
+          require('lazydev').setup({
+            library = {
+              { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+            },
+          })
+        end,
+      })
+    end,
   },
   {
-    'hrsh7th/nvim-cmp',
-    dependencies = {
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-path',
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-vsnip',
-      'hrsh7th/vim-vsnip',
-      'rafamadriz/friendly-snippets',
-      'onsails/lspkind-nvim',
+    src = 'https://github.com/hrsh7th/nvim-cmp',
+    deps = {
+      { src = 'https://github.com/hrsh7th/cmp-nvim-lsp' },
+      { src = 'https://github.com/hrsh7th/cmp-path' },
+      { src = 'https://github.com/hrsh7th/cmp-buffer' },
+      { src = 'https://github.com/hrsh7th/cmp-vsnip' },
+      { src = 'https://github.com/hrsh7th/vim-vsnip' },
+      { src = 'https://github.com/rafamadriz/friendly-snippets' },
+      { src = 'https://github.com/onsails/lspkind-nvim' },
     },
     init = function()
       vim.opt.completeopt = { 'menuone', 'noinsert', 'noselect' }

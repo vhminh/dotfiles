@@ -1,3 +1,6 @@
+---@type PluginSpec[]
 return {
-  { 'tpope/vim-commentary' },
+  {
+    src = 'https://github.com/tpope/vim-commentary',
+  },
 }

@@ -1,39 +1,40 @@
 local grep_rg_opts = '--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e'
+local opts = {
+  winopts = {
+    preview = {
+      layout = 'vertical',
+    },
+  },
+  files = {
+    previewer = false,
+    formatter = 'path.filename_first',
+    git_icons = true,
+    rg_opts = [[--color=never --hidden --files -g '!.git']],
+    fd_opts = [[--color=never --hidden --type f --type l --exclude .git]],
+  },
+  buffers = {
+    formatter = 'path.filename_first',
+  },
+  grep = {
+    grep_opts = '--binary-files=without-match --line-number --recursive --color=auto --perl-regexp -e',
+    rg_opts = grep_rg_opts,
+    path_shorten = 1,
+  },
+  lsp = {
+    path_shorten = 1,
+    includeDeclaration = false,
+    symbols = {
+      path_shorten = 1,
+    },
+  },
+}
 
+---@type PluginSpec[]
 return {
   {
-    'ibhagwan/fzf-lua',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    opts = {
-      winopts = {
-        preview = {
-          layout = 'vertical',
-        },
-      },
-      files = {
-        previewer = false,
-        formatter = 'path.filename_first',
-        git_icons = true,
-        rg_opts = [[--color=never --hidden --files -g '!.git']],
-        fd_opts = [[--color=never --hidden --type f --type l --exclude .git]],
-      },
-      buffers = {
-        formatter = 'path.filename_first',
-      },
-      grep = {
-        grep_opts = '--binary-files=without-match --line-number --recursive --color=auto --perl-regexp -e',
-        rg_opts = grep_rg_opts,
-        path_shorten = 1,
-      },
-      lsp = {
-        path_shorten = 1,
-        includeDeclaration = false,
-        symbols = {
-          path_shorten = 1,
-        },
-      },
-    },
-    config = function(_, opts)
+    src = 'https://github.com/ibhagwan/fzf-lua',
+    deps = { { src = 'https://github.com/nvim-tree/nvim-web-devicons' } },
+    config = function()
       local fzf = require('fzf-lua')
       fzf.setup(opts)
       fzf.register_ui_select()

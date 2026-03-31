@@ -62,13 +62,27 @@ local ensure_installed = {
   'zig',
 }
 
+---@type PluginSpec[]
 return {
   {
-    'nvim-treesitter/nvim-treesitter',
-    branch = 'main',
-    build = ':TSUpdate',
+    src = 'https://github.com/nvim-treesitter/nvim-treesitter',
+    version = 'main',
+    init = function()
+      vim.api.nvim_create_autocmd('PackChanged', {
+        group = vim.api.nvim_create_augroup('treesitter_update_hook', { clear = true }),
+        callback = function(ev)
+          local name, kind = ev.data.spec.name, ev.data.kind
+          if name == 'nvim-treesitter' and (kind == 'install' or kind == 'update') then
+            if not ev.data.active then
+              vim.cmd.packadd('nvim-treesitter')
+            end
+            vim.cmd('TSUpdate')
+          end
+        end,
+      })
+    end,
     config = function()
-      require('nvim-treesitter').setup()
+      require('nvim-treesitter').setup({})
       require('nvim-treesitter').install(ensure_installed)
 
       vim.api.nvim_create_autocmd('FileType', {
@@ -83,5 +97,10 @@ return {
       })
     end,
   },
-  { 'nvim-treesitter/nvim-treesitter-context', opts = {} },
+  {
+    src = 'https://github.com/nvim-treesitter/nvim-treesitter-context',
+    config = function()
+      require('treesitter-context').setup({})
+    end,
+  },
 }

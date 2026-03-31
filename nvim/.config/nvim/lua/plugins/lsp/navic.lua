@@ -1,15 +1,14 @@
 return {
   {
-    'SmiteshP/nvim-navic',
-    opts = {
-      lsp = {
-        auto_attach = true,
-      },
-      highlight = true,
-      safe_output = true,
-    },
-    config = function(_, opts)
-      require('nvim-navic').setup(opts)
+    src = 'https://github.com/SmiteshP/nvim-navic',
+    config = function()
+      require('nvim-navic').setup({
+        lsp = {
+          auto_attach = true,
+        },
+        highlight = true,
+        safe_output = true,
+      })
       vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
     end,
   },

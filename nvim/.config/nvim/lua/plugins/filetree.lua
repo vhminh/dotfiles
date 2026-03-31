@@ -1,33 +1,33 @@
+---@type PluginSpec[]
 return {
   {
-    'nvim-tree/nvim-tree.lua',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    opts = {
-      sync_root_with_cwd = true,
-      diagnostics = {
-        enable = true,
-      },
-      renderer = {
-        group_empty = true,
-      },
-      actions = {
-        change_dir = {
-          enable = false,
+    src = 'https://github.com/nvim-tree/nvim-tree.lua',
+    deps = { { src = 'https://github.com/nvim-tree/nvim-web-devicons' } },
+    config = function()
+      require('nvim-tree').setup({
+        sync_root_with_cwd = true,
+        diagnostics = {
+          enable = true,
         },
-        open_file = {
-          resize_window = false,
+        renderer = {
+          group_empty = true,
         },
-      },
-      git = {
-        ignore = false,
-      },
-      filters = {
-        dotfiles = false,
-        custom = { '.DS_Store' },
-      },
-    },
-    config = function(_, opts)
-      require('nvim-tree').setup(opts)
+        actions = {
+          change_dir = {
+            enable = false,
+          },
+          open_file = {
+            resize_window = false,
+          },
+        },
+        git = {
+          ignore = false,
+        },
+        filters = {
+          dotfiles = false,
+          custom = { '.DS_Store' },
+        },
+      })
       local view = require('nvim-tree.view')
       local api = require('nvim-tree.api')
       vim.keymap.set('n', '<leader>e', function()

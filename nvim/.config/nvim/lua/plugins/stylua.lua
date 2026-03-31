@@ -1,6 +1,6 @@
 return {
   {
-    'ckipp01/stylua-nvim',
+    src = 'https://github.com/ckipp01/stylua-nvim',
     config = function()
       if vim.fn.executable('stylua') == 0 then
         local registry = require('mason-registry')
