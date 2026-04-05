@@ -1,11 +1,12 @@
+---@type PluginModule
 return {
-  {
-    src = 'https://github.com/lukas-reineke/indent-blankline.nvim',
-    config = function()
-      require('ibl').setup({
-        indent = { char = '│' },
-      })
-    end,
+  plugins = {
+    'https://github.com/lukas-reineke/indent-blankline.nvim',
+    'https://github.com/tpope/vim-sleuth',
   },
-  { src = 'https://github.com/tpope/vim-sleuth' },
+  config = function()
+    require('ibl').setup({
+      indent = { char = '│' },
+    })
+  end,
 }

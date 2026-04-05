@@ -1,6 +1,4 @@
----@type PluginSpec[]
+---@type PluginModule
 return {
-  {
-    src = 'https://github.com/tpope/vim-commentary',
-  },
+  plugins = { 'https://github.com/tpope/vim-commentary' },
 }

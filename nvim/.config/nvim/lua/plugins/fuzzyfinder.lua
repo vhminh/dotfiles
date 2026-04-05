@@ -29,50 +29,50 @@ local opts = {
   },
 }
 
----@type PluginSpec[]
+---@type PluginModule
 return {
-  {
-    src = 'https://github.com/ibhagwan/fzf-lua',
-    deps = { { src = 'https://github.com/nvim-tree/nvim-web-devicons' } },
-    config = function()
-      local fzf = require('fzf-lua')
-      fzf.setup(opts)
-      fzf.register_ui_select()
-
-      vim.keymap.set('n', '<C-f>', fzf.files)
-      vim.keymap.set('n', '<leader>f', fzf.files)
-      vim.keymap.set('n', '<leader>g', fzf.grep)
-      vim.keymap.set('v', '<leader>g', function()
-        local s = vim.fn.getpos('v')
-        local e = vim.fn.getpos('.')
-        local selected_lines = vim.fn.getregion(s, e, { type = vim.fn.mode() })
-        if #selected_lines == 1 then
-          fzf.grep({ search = selected_lines[1] })
-        else
-          local selected = table.concat(selected_lines, '\n')
-          fzf.grep({
-            search = selected,
-            rg_opts = '--multiline ',
-            multiline = 1,
-          })
-        end
-      end)
-
-      vim.keymap.set('n', '<leader>b', fzf.buffers)
-
-      vim.keymap.set('n', '<leader>rs', fzf.resume)
-
-      vim.keymap.set('n', '<leader>;', function()
-        fzf.commands({
-          actions = {
-            ['enter'] = fzf.actions.ex_run_cr,
-          },
-        })
-      end)
-
-      vim.keymap.set('n', '<leader>m', fzf.marks)
-
-      vim.keymap.set('n', '<leader>a', fzf.builtin)
-    end,
+  plugins = {
+    'https://github.com/ibhagwan/fzf-lua',
+    'https://github.com/nvim-tree/nvim-web-devicons',
   },
+  config = function()
+    local fzf = require('fzf-lua')
+    fzf.setup(opts)
+    fzf.register_ui_select()
+
+    vim.keymap.set('n', '<C-f>', fzf.files)
+    vim.keymap.set('n', '<leader>f', fzf.files)
+    vim.keymap.set('n', '<leader>g', fzf.grep)
+    vim.keymap.set('v', '<leader>g', function()
+      local s = vim.fn.getpos('v')
+      local e = vim.fn.getpos('.')
+      local selected_lines = vim.fn.getregion(s, e, { type = vim.fn.mode() })
+      if #selected_lines == 1 then
+        fzf.grep({ search = selected_lines[1] })
+      else
+        local selected = table.concat(selected_lines, '\n')
+        fzf.grep({
+          search = selected,
+          rg_opts = '--multiline ',
+          multiline = 1,
+        })
+      end
+    end)
+
+    vim.keymap.set('n', '<leader>b', fzf.buffers)
+
+    vim.keymap.set('n', '<leader>rs', fzf.resume)
+
+    vim.keymap.set('n', '<leader>;', function()
+      fzf.commands({
+        actions = {
+          ['enter'] = fzf.actions.ex_run_cr,
+        },
+      })
+    end)
+
+    vim.keymap.set('n', '<leader>m', fzf.marks)
+
+    vim.keymap.set('n', '<leader>a', fzf.builtin)
+  end,
 }

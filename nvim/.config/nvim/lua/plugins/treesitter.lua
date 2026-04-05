@@ -62,45 +62,40 @@ local ensure_installed = {
   'zig',
 }
 
----@type PluginSpec[]
+---@type PluginModule
 return {
-  {
-    src = 'https://github.com/nvim-treesitter/nvim-treesitter',
-    version = 'main',
-    init = function()
-      vim.api.nvim_create_autocmd('PackChanged', {
-        group = vim.api.nvim_create_augroup('treesitter_update_hook', { clear = true }),
-        callback = function(ev)
-          local name, kind = ev.data.spec.name, ev.data.kind
-          if name == 'nvim-treesitter' and (kind == 'install' or kind == 'update') then
-            if not ev.data.active then
-              vim.cmd.packadd('nvim-treesitter')
-            end
-            vim.cmd('TSUpdate')
+  plugins = {
+    { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
+    'https://github.com/nvim-treesitter/nvim-treesitter-context',
+  },
+  init = function()
+    vim.api.nvim_create_autocmd('PackChanged', {
+      group = vim.api.nvim_create_augroup('treesitter_update_hook', { clear = true }),
+      callback = function(ev)
+        local name, kind = ev.data.spec.name, ev.data.kind
+        if name == 'nvim-treesitter' and (kind == 'install' or kind == 'update') then
+          if not ev.data.active then
+            vim.cmd.packadd('nvim-treesitter')
           end
-        end,
-      })
-    end,
-    config = function()
-      require('nvim-treesitter').setup({})
-      require('nvim-treesitter').install(ensure_installed)
+          vim.cmd('TSUpdate')
+        end
+      end,
+    })
+  end,
+  config = function()
+    require('nvim-treesitter').setup({})
+    require('nvim-treesitter').install(ensure_installed)
+    require('treesitter-context').setup({})
 
-      vim.api.nvim_create_autocmd('FileType', {
-        group = vim.api.nvim_create_augroup('treesitter_setup', { clear = true }),
-        callback = function()
-          local parser_available = vim.treesitter.get_parser(0, nil, { error = false }) ~= nil
-          if parser_available then
-            vim.treesitter.start() -- enable TS highlighting
-            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-          end
-        end,
-      })
-    end,
-  },
-  {
-    src = 'https://github.com/nvim-treesitter/nvim-treesitter-context',
-    config = function()
-      require('treesitter-context').setup({})
-    end,
-  },
+    vim.api.nvim_create_autocmd('FileType', {
+      group = vim.api.nvim_create_augroup('treesitter_setup', { clear = true }),
+      callback = function()
+        local parser_available = vim.treesitter.get_parser(0, nil, { error = false }) ~= nil
+        if parser_available then
+          vim.treesitter.start() -- enable TS highlighting
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
+      end,
+    })
+  end,
 }

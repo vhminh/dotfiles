@@ -1,9 +1,7 @@
----@type PluginSpec[]
+---@type PluginModule
 return {
-  {
-    src = 'https://github.com/windwp/nvim-autopairs',
-    config = function()
-      require('nvim-autopairs').setup({})
-    end,
-  },
+  plugins = { 'https://github.com/windwp/nvim-autopairs' },
+  config = function()
+    require('nvim-autopairs').setup({})
+  end,
 }

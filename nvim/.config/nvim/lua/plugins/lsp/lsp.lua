@@ -34,36 +34,31 @@ if not is_nixos then
   end
 end
 
+---@type PluginModule
 return {
-  {
-    src = 'https://github.com/neovim/nvim-lspconfig',
-    deps = {
-      { src = 'https://github.com/mason-org/mason.nvim', enabled = not is_nixos },
-      { src = 'https://github.com/mason-org/mason-lspconfig.nvim', enabled = not is_nixos },
-    },
-    config = function()
-      require('plugins.lsp.keymaps').set_global_keymaps()
-
-      vim.lsp.inlay_hint.enable()
-      vim.api.nvim_create_autocmd('LspAttach', {
-        callback = function(args)
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-          require('plugins.lsp.keymaps').set_buf_keymaps(client, args.buf)
-          require('plugins.lsp.highlights').set_lsp_highlights(client, args.buf)
-        end,
-      })
-
-      require('mason').setup({})
-      require('mason-lspconfig').setup({
-        ensure_installed = servers,
-        automatic_enable = true,
-      })
-    end,
+  plugins = {
+    'https://github.com/neovim/nvim-lspconfig',
+    { src = 'https://github.com/mason-org/mason.nvim', enabled = not is_nixos },
+    { src = 'https://github.com/mason-org/mason-lspconfig.nvim', enabled = not is_nixos },
+    'https://github.com/j-hui/fidget.nvim',
   },
-  {
-    src = 'https://github.com/j-hui/fidget.nvim',
-    config = function()
-      require('fidget').setup({})
-    end,
-  },
+  config = function()
+    require('plugins.lsp.keymaps').set_global_keymaps()
+
+    vim.lsp.inlay_hint.enable()
+    vim.api.nvim_create_autocmd('LspAttach', {
+      callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        require('plugins.lsp.keymaps').set_buf_keymaps(client, args.buf)
+        require('plugins.lsp.highlights').set_lsp_highlights(client, args.buf)
+      end,
+    })
+
+    require('mason').setup({})
+    require('mason-lspconfig').setup({
+      ensure_installed = servers,
+      automatic_enable = true,
+    })
+    require('fidget').setup({})
+  end,
 }
