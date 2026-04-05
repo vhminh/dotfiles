@@ -1,6 +1,6 @@
 ---@type PluginModule
 return {
-  plugins = { 'https://github.com/ckipp01/stylua-nvim', },
+  plugins = { 'https://github.com/ckipp01/stylua-nvim' },
   config = function()
     if vim.fn.executable('stylua') == 0 then
       local registry = require('mason-registry')
