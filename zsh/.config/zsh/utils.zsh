@@ -10,7 +10,7 @@ zmodload -F zsh/stat b:zstat 2>/dev/null
 # Usage: eval_cache <name> <command...>
 eval_cache() {
   local name=$1; shift
-  local cache="$ZDOTDIR/cache/$name.zsh"
+  local cache="$XDG_CACHE_HOME/zsh/$name.zsh"
   [[ -d ${cache:h} ]] || mkdir -p ${cache:h}
   if [[ ! -f $cache ]] || { local -A st; zstat -H st "$cache" && (( EPOCHSECONDS - st[mtime] > 604800 )); }; then
     "$@" > "$cache"
