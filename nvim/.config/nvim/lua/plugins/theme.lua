@@ -48,6 +48,13 @@ return {
         ['@variable.builtin'] = { fg = '$fg' },
         ['@lsp.typemod.variable.defaultLibrary'] = { fg = '$fg' },
 
+        ['@lsp.typemod.selfKeyword.declaration.rust'] = { fg = '$purple' },
+        ['@lsp.typemod.selfKeyword.reference.rust'] = { fg = '$purple' },
+        ['@lsp.type.selfTypeKeyword.rust'] = { fg = '$purple' },
+        ['@variable.builtin.cpp'] = { fg = '$purple' },
+        ['@lsp.typemod.variable.globalScope.cpp'] = { fg = '$orange' },
+        ['@lsp.typemod.class.deduced.cpp'] = { fg = '$purple' },
+
         ['@constructor'] = { fg = '$fg', fmt = 'none' },
       },
     }
