@@ -1,4 +1,4 @@
-vim.o.guifont = 'NotoSansM NF SemCond Med:h18:w-1'
+vim.o.guifont = 'NotoSansM NF Cond Med:h18'
 vim.g.neovide_remember_window_size = false
 vim.g.neovide_refresh_rate_idle = 5
 vim.g.neovide_scroll_animation_length = 0.12
