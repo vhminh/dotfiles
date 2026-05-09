@@ -4,6 +4,7 @@ __zshrc_record_init
 
 # --- Completion ---
 __zshrc_record_start
+zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh
 [[ -d $HOMEBREW_PREFIX/share/zsh-completions ]] && fpath+=$HOMEBREW_PREFIX/share/zsh-completions
 autoload -Uz compinit
 [ -d "$XDG_CACHE_HOME"/zsh ] || mkdir -p "$XDG_CACHE_HOME"/zsh
