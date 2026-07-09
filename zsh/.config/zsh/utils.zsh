@@ -19,6 +19,17 @@ eval_cache() {
   source "$cache"
 }
 
+# --- String hash ---
+# djb2 hash of the joined args; result in $REPLY. Fork-free (no subshell) so it
+# is cheap enough to run on every startup.
+# Usage: str_hash foo bar; print $REPLY
+str_hash() {
+  local s=$* c
+  local -i h=5381
+  for c in ${(s::)s}; do (( h = (h * 33 + #c) % 2147483647 )); done
+  REPLY=$h
+}
+
 # --- Startup timing ---
 __zshrc_record_init() {
   if [[ -o interactive ]]; then

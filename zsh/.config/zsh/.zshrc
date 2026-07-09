@@ -8,7 +8,11 @@ zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh
 [[ -d $HOMEBREW_PREFIX/share/zsh-completions ]] && fpath+=$HOMEBREW_PREFIX/share/zsh-completions
 autoload -Uz compinit
 [ -d "$XDG_CACHE_HOME"/zsh ] || mkdir -p "$XDG_CACHE_HOME"/zsh
-local zcompdump="$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
+# Key the dump on the fpath so different launchers (Alacritty, JetBrains) each
+# get their own cache instead of invalidating one another on every switch.
+typeset -U fpath
+str_hash $fpath
+local zcompdump="$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION-$REPLY"
 if [[ -n $zcompdump(#qN.mh+24) ]]; then
   compinit -d "$zcompdump"
 else
