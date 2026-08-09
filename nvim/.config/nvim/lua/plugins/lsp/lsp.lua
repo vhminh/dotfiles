@@ -45,7 +45,7 @@ return {
   config = function()
     require('plugins.lsp.keymaps').set_global_keymaps()
 
-    vim.lsp.inlay_hint.enable()
+    -- vim.lsp.inlay_hint.enable()
     vim.api.nvim_create_autocmd('LspAttach', {
       callback = function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
