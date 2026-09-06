@@ -42,7 +42,7 @@ return {
 
     vim.keymap.set('n', '<C-f>', fzf.files)
     vim.keymap.set('n', '<leader>f', fzf.files)
-    vim.keymap.set('n', '<leader>g', fzf.grep)
+    vim.keymap.set('n', '<leader>g', fzf.live_grep)
     vim.keymap.set('v', '<leader>g', function()
       local s = vim.fn.getpos('v')
       local e = vim.fn.getpos('.')
