@@ -57,7 +57,7 @@ return {
     require('mason').setup({})
     require('mason-lspconfig').setup({
       ensure_installed = servers,
-      automatic_enable = true,
+      automatic_enable = { exclude = { 'stylua' } },
     })
     require('fidget').setup({})
   end,
