@@ -170,7 +170,7 @@ vim.api.nvim_create_autocmd({ 'LspAttach', 'LspDetach' }, {
   group = 'statusline.lsp_clients',
   callback = function(args)
     local bufnr = args.buf
-    local active_clients = vim.b[bufnr].lsp_clients or {}
+    local active_clients = vim.b[bufnr].stl_lsp_clients or {}
     local client_id = args.data.client_id
     if args.event == 'LspAttach' then
       local client = vim.lsp.get_client_by_id(args.data.client_id)
