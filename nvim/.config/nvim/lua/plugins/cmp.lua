@@ -10,6 +10,7 @@ return {
     'https://github.com/rafamadriz/friendly-snippets',
     'https://github.com/onsails/lspkind-nvim',
     'https://github.com/folke/lazydev.nvim',
+    'https://github.com/ray-x/lsp_signature.nvim',
   },
   init = function()
     vim.opt.completeopt = { 'menuone', 'noinsert', 'noselect' }
@@ -42,6 +43,13 @@ return {
         format = lspkind.cmp_format({
           mode = 'symbol_text',
         }),
+      },
+    })
+    require('lsp_signature').setup({
+      hint_prefix = {
+        above = '↙ ',
+        current = '← ',
+        below = '↖ ',
       },
     })
     vim.api.nvim_create_autocmd('FileType', {
